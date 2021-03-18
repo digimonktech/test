@@ -4,6 +4,7 @@ import Footer from "../Footer"
 import InnerBanner from './InnerBanner'
 import { Container, Row, Col } from "react-bootstrap";
 import Abouts from "../../images/about.png";
+import { Helmet } from "react-helmet";
 export default class About extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -11,6 +12,17 @@ export default class About extends Component {
   render() {
     return (
       <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>about</title>
+          <keywords>ddd</keywords>
+          <meta charSet="utf-8" keywords="this is my title" />
+          <meta
+            charSet="utf-8"
+            name="description"
+            content="Web site created using create-react-app"
+          />
+        </Helmet>
         <Header />
         <InnerBanner Title="About us" item="About us" />
         <div className="about-content pt-5 pb-5">

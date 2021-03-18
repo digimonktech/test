@@ -804,7 +804,7 @@ nav.user-breadcrumb .breadcrumb .breadcrumb-item:before {
 
 .timebox ul li {
   display: block;
-  font-weight: 600;
+  
   margin-top: 5px;
   color: #e100ff;
 }
@@ -1500,4 +1500,517 @@ table thead.mdb-dataTable-head .sorting_desc_disabled:after {
 
 .contact-bg textarea {
     height: 150px;
+}
+
+.booking-header {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 13px #00000029;
+    padding: 15px 0px;
+}
+
+.booking-header h1 {
+    margin: 0px;
+    text-align: center;
+    position: relative;
+    color: #E100FF;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.booking-header span {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+.active .bs-stepper-label {
+    color: #E100FF;
+}
+.active .bs-stepper-circle {
+  background-color: #E100FF !important;
+}
+
+.bs-stepper-label small {
+    display: block;
+    color: #6c757d;
+}
+.findbooking {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 30px #29263026;
+    border-radius: 24px;
+    padding: 25px;
+}
+.booking-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2C2738;
+    border-bottom: 5px solid #E100FF;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.booking-title span {
+    color: #707070;
+    cursor: pointer;
+}
+.region li {
+    display: block;
+    padding: 5px 0px;
+    border-bottom: 1px solid #707070;
+    margin: 15px 0px;
+    color: #707070;
+    cursor: pointer;
+}
+
+.region li a {
+    text-decoration: none;
+    display: block;
+    color: #707070;
+}
+
+.region li a:hover {
+    color: #e100ff;
+}
+
+.gendertabs .nav-item .nav-link.active {
+    background: #E100FF;
+    text-align: center;
+    border-color: #E100FF;
+    color: #fff;
+}
+
+.gendertabs .nav-item .nav-link {
+    color: #B4B4B4;
+    border: 1px solid #B4B4B4;
+    text-align: center;
+    padding: 25px;
+}
+
+.gendertabs .nav-item .nav-link:hover {
+    background: #E100FF;
+    border-color: #E100FF;
+    color: #fff;
+}
+.gendertabs .nav-item .nav-link p {
+    margin-bottom: 5px;
+    font-size: 32px;
+}
+.outbox button {
+    border: 2px solid #B4B4B4;
+    color: #B4B4B4;
+    font-size: 18px;
+    height: 120px;
+}
+
+.outbox .btn-outline-primary:hover {
+    background: #E100FF;
+    border-color: #E100FF;
+  
+}
+.outbox .out-active{background: #E100FF;
+    border-color: #E100FF; color: #fff;}
+    .rangeslider-horizontal .rangeslider__handle:after {
+    display: none;
+}
+
+.rangeslider__handle-label {
+    text-align: center;
+}
+
+.rangeslider-horizontal .rangeslider__handle {
+    line-height: 25px;
+}
+.rangeslider-horizontal .rangeslider__fill {
+   
+    background-color: #E100FF !important;
+    
+}
+.rangeslider__handle-label {
+    outline: none;
+}
+
+.rangeslider .rangeslider__handle {
+    outline: none;
+    background: #E100FF !important;
+    color: #fff;
+    box-shadow: none;
+    border: 3px solid #fff !important;
+}
+
+.buttondiv button {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.buttondiv button:hover{background: #E100FF; color: #fff;}
+.value-text {
+    text-align: center;
+    color: #E100FF;
+    font-weight: bold;
+}
+
+.onlineuser ul {
+    border-bottom: 1px solid #707070;
+}
+
+.onlineuser ul li {
+    display: inline-block;
+    padding-right: 15px;
+    margin-bottom: -1px;
+}
+
+.onlineuser ul li a {
+    padding: 10px 0px;
+    display: block;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    color: #B4B4B4;
+    font-weight: 600;
+}
+.onlineuser ul li a img {
+    margin-right: 5px;
+    width: 20px;
+}
+.onlineuser ul li a.active img{filter: brightness(0.5) sepia(1) hue-rotate(-70deg) saturate(5);}
+.onlineuser ul li a:hover img{filter: brightness(0.5) sepia(1) hue-rotate(-70deg) saturate(5);}
+
+.onlineuser ul li.t-fillter {
+    float: right;
+    padding-right: 0px;
+}
+
+.user-filter {
+    display: flex;
+    align-items: center;
+}
+
+.e-fillter {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    color: #707070;
+}
+
+.e-fillter span {display: block;width: 110px;}
+
+.fillter-e i {
+    margin-right: 6px;
+}
+
+.fillter-e {
+    color: #E100FF;
+    font-weight: 600;
+}
+
+.usertabs-t a.active {
+    color: #dc49f0;
+    border-bottom: 2px solid #dc49f0;
+}
+.usertabs-t a:hover {
+    color: #dc49f0;
+    border-bottom: 2px solid #dc49f0;
+}
+.online-user-text {
+    padding: 15px;
+    background: #171719;
+    color:#B4B4B4;
+}
+
+.online-user-text h3 {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.online-user-text span a {
+    margin: 0px 5px;
+    display: inline-block;
+    color: #FFFFFF;
+}
+.online-user-text span a:hover {
+    color: #dc49f0;
+}
+.online-user-text span a.heart-user {
+    color: #D50505;
+}
+.newb {
+    color: #fff;
+    text-align: right;
+}
+/* .ratinguser .dv-star-rating {
+    float: right;
+} */
+
+.ratinguser  span { cursor: pointer; display: block;}
+.pricebox {
+    font-weight: bold;
+    color: #fff;
+}
+.user-booknow {
+    background: #3E3E3E;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-booknow a {
+    color: #FFFFFF;
+    border-radius: 5px;
+    border: 1px solid #FFFFFF;
+    display: block;
+    padding: 7px 10px;
+    text-decoration: none;
+}
+.user-booknow a:hover {
+    background: #e100ff;
+    color: #fff;
+    border-color: #e100ff;
+}
+.s-online {
+    position: relative;
+    overflow: hidden;
+}
+
+.online-live {
+    position: absolute;
+    top: 15px;
+    background: #171719;
+    color: #ccc;
+    padding: 5px 15px 5px 10px;
+    left: 0px;
+    border-radius: 0px 25px 25px 0px;
+    cursor: pointer;
+}
+
+.online-live i {
+    color: #08E400;
+    font-size: 14px;
+}
+.verified {
+    position: absolute;
+    top: 28px;
+    right: -46px;
+    background: #E100FF;
+    color: #fff;
+    transform: rotate(56deg);
+    padding: 0px 44px;
+    cursor: pointer;
+}
+
+.verified:hover {
+    background: #e261f4;
+}
+.send-report.modal-header {
+    justify-content: center;
+    color: #E100FF;
+    text-transform: uppercase;
+}
+.modal-center .modal-dialog {
+    justify-content: center;
+    height: 90%;
+    display: flex;
+    align-items: center;
+}
+.modal-center textarea.form-control {
+    height: 180px;
+    resize: none;
+}
+.s-online img{width: 100%;}
+.view-title h2 {
+    margin: 0px;
+    padding: 15px 0px;
+    border-bottom: 3px solid #E100FF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #E100FF;
+}
+
+.view-title h2 span {
+    font-weight: 500;
+    color: #7d7d7d;
+}
+
+.view-gallery-left {
+    position: relative;
+}
+
+.view-gallery-left img {
+    width: 100%;
+}
+
+.seeAll {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 31%);
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.shart-alt {
+    text-align: center;
+}
+
+.shart-alt a {background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 4px 8px #2C27380A;border: 3px solid #B4B4B4;border-radius: 6px;color: #dc49f0;font-weight: 600;}
+
+.shart-alt a i {
+    margin-right: 5px;
+}
+
+.shart-alt a:hover, .shart-alt a.active {
+    color: #dc49f0;
+    border-color: #dc49f0;
+}
+.citybox-view ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #E100FF;
+    font-weight: 500;
+    padding: 15px 0px 5px 0px;
+    border-bottom: 1px solid #707070;
+}
+
+.citybox-view ul li span {
+    color: #707070;
+}
+
+.citybox-view ul li span small {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E100FF;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 0px 5px;
+    display: inline-block;
+}
+.price-title {
+    border-bottom: 3px solid #E100FF;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.price-title {
+    border-bottom: 3px solid #E100FF;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+
+ul.tabsnow li {
+    text-align: center;
+}
+
+ul.tabsnow li a.nav-link {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 4px 8px #2C27380A;
+    border: 3px solid #B4B4B4;
+    border-radius: 6px;
+    color: #E100FF;
+    font-size: 18px;
+}
+
+ul.tabsnow li a.nav-link.active, ul.tabsnow li a.nav-link:hover {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 4px 8px #2C27380A;
+    border: 3px solid #B4B4B4;
+    border-radius: 6px;
+    color: #fff;
+    background: #E100FF;
+    border-color: #E100FF;
+}
+table.information.table thead th {
+    border-bottom: 3px solid #E100FF;
+    color: #171719;
+}
+table.information.table td {
+    color: #E100FF;
+    font-weight: 600;
+}
+
+table.information.table td span {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E100FF;
+    border-radius: 3px;
+    display: inline-block;
+    font-weight: 400;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+table.information.table td span.active {
+    background: #E100FF;
+    color: #fff;
+}
+table.information.table td span.selected:hover{background: #E100FF;
+    color: #fff;}
+    table.information.table {
+    border-bottom: 1px solid #dee2e6;
+}
+table.information.table th {
+    border-top: 0px;
+}
+.timebox ul li i {
+    color: #b4b4b4;
+}
+.timebox.bookingslot ul li {
+    margin-top: 15px;
+
+}
+.booking-detailsbox {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 9px 21px #2C27383D;
+    border-radius: 24px;
+}
+
+.booking-detailsbox img {
+    border-radius: 24px;
+}
+p.confirm {
+    color: #707070;
+}
+.today {
+    color: #E100FF;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.screen__value {
+    display: inline-block;
+    position: relative;
+}
+
+.tpicker__apm {
+    text-align: left;
+    padding-top: 27px;
+   float: right;
+    font-size: 18px;
+}
+
+.tpicker__hhmm {
+    margin-right: 25px;
+    font-size: 5.25rem;
+    line-height: 1.14286;
+    font-weight: bold;
+    color: #707070;
+    display: inline-block;
+}
+
+.tpicker__apm small {
+    display: block;
+    font-weight: 600;
+    color: #B4B4B4;
+}
+
+.tpicker__apm small.active {
+    color: #E100FF;
 }

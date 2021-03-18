@@ -17,6 +17,7 @@ import About from "./component/Home/About";
 import ContactUS from "./component/Home/ContactUS";
 import TermUse from "./component/Home/TermUse"
 import Faq from "./component/Home/Faq";
+
 function App() {
   return (
     <div className="App">
@@ -35,6 +36,7 @@ function App() {
           <Route path="/contact-us" exact component={ContactUS} />
           <Route path="/faq" exact component={Faq}/>
           <Route path="/term-of-use" exact component={TermUse } />
+         
         </Switch>
       </BrowserRouter>
     </div>

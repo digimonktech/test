@@ -14,12 +14,14 @@ import Featured from "../../images/feature-1.jpg";
 import Featured2 from "../../images/feature-2.jpg";
 import Featured3 from "../../images/feature-3.jpg";
 import Footer from "../Footer";
+import { Helmet } from "react-helmet";
 
 export default class Home extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
   render() {
+    
     var settings = {
       dots: false,
       infinite: false,
@@ -76,6 +78,11 @@ export default class Home extends Component {
 
     return (
       <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Home page</title>
+        
+        </Helmet>
         <Header />
         <div className="banner d-flex align-items-center ">
           <div className="banner-center">

@@ -15,7 +15,7 @@ export default class Header extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto header-menu aligin-items-center">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="#link">Find an Escort</Nav.Link>
+                <Nav.Link href="/booking">Find an Escort</Nav.Link>
                 <Nav.Link href="/login" className="login">
                   Login
                 </Nav.Link>
