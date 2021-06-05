@@ -1,0 +1,11 @@
+.PhoneInputInput {
+  border: none;
+  background: transparent;
+  color: #e100ff;
+}
+
+.phoneNumber > .PhoneInputInput {
+  border: none;
+  background: transparent;
+  color: #495057;
+}

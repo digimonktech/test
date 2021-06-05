@@ -2,27 +2,57 @@ import React, { Component } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Form, Button } from "react-bootstrap";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import OtpInput from "react-otp-input";
+import {
+  ServerURL,
+  getData,
+  postData,
+  postDataAndImage,
+} from "../FetchNodeServices";
 export default class SubmitOtp extends Component {
-constructor(){
+  constructor() {
     super();
     this.state = {
       otp: "",
       numInputs: 4,
-   
+      button: "Submit OTP",
+      lstyle: { display: "none" },
       isDisabled: false,
-   
-     
-    
-     
+      wrongOtp:"",
     };
-}
+  }
+  componentDidMount = () => {
+    console.log("this.props new", this.props.match.params.email);
+
+  };
 
   handleChange = (otp) => this.setState({ otp });
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    alert(this.state.otp);
+    this.setState({ button: "",
+    lstyle: { display: "block" ,marginLeft:130}});
+    // var body = { otp: this.state.otp, email: this.props.location.email };
+    // console.log({ body });
+    var result = await getData(`auth/verify-password-pin/${this.state.otp}`);
+    console.log(result);
+    setTimeout(() => {
+
+    if (!result.response) {
+      console.log(result);
+     console.log( result.data.resetPasswordToken)
+     this.setState({ button: "Submit OTP",
+    lstyle: { display: "none" },});
+      this.props.history.push(`/reset-password/${result.data.resetPasswordToken}`);
+    } else {
+      console.log(result.response);
+      this.setState({ button: "Submit OTP",
+      lstyle: { display: "none" },
+    wrongOtp:"Enter wrong OTP"
+    });
+    }
+  },2000);
   };
 
   render() {
@@ -34,6 +64,8 @@ constructor(){
           <div className="col-md-3 mx-auto">
             <div className="login-color">
               <h1 className="mb-4">Welcome</h1>
+              <p>This OTP is send on { this.props.match.params.email } </p>
+              <p>Enter the OTP here</p>
               <form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   <div className="opt-box">
@@ -46,13 +78,26 @@ constructor(){
                     />
                   </div>
                 </Form.Group>
+                <div style={{textAlign: 'center'}}>
+                <label
+                style={{
+                  display: this.state.wrongOtp ? "block" : "none",
+                  color: "red",
+                }}
+              >
+                {" "}
+                {this.state.wrongOtp}
+              </label>
+              </div>
                 <Form.Group className="mt-4 text-center">
                   <Button
                     type="submit"
-                    className="btn btn-submit mt-4" variant="false"
+                    className="btn btn-submit mt-4"
+                    variant="false"
                     disabled={otp.length < numInputs}
                   >
-                    Get OTP
+                     {this.state.button}{" "}
+                <CircularProgress style={this.state.lstyle} color="white" />
                   </Button>
                 </Form.Group>
               </form>

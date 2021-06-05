@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Header from "../Header";
-import { Container, Row, Col, Dropdown } from "react-bootstrap";
+import { Container, Row, Col, Dropdown, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import noFeatureEscortImage from "../../images/Group 4111@2x.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Avatar from "../../images/avatar.jpg";
@@ -14,14 +15,76 @@ import Featured from "../../images/feature-1.jpg";
 import Featured2 from "../../images/feature-2.jpg";
 import Featured3 from "../../images/feature-3.jpg";
 import Footer from "../Footer";
-import { Helmet } from "react-helmet";
+import Avatar1 from "../../images/avatar1.png";
+import noResultImage from "../../images/Group 4078.png";
+import { getData } from "../FetchNodeServices";
 
 export default class Home extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCity: "Bangkok",
+      escortByCity: [],
+      getFrashEscort: [],
+      escortReview: [],
+      allCities: [],
+      escortReviewImg: {},
+    };
   }
+  componentDidMount = async () => {
+    window.scrollTo(0, 0);
+    const escortReview = await getData(`review/get-all-review`);
+    if (!escortReview.response) {
+      for (const i in escortReview.data.data) {
+        const id = escortReview.data.data[i].escortId;
+        const img = await this.getEscortProfileImg(id);
+        escortReview.data.data[i].escortProfileImg = img;
+      }
+      this.setState({
+        escortReview: escortReview.data.data,
+      });
+    }
+    const escortByCity = await getData(
+      `escort/get-featured-escort-from-city/${this.state.selectedCity}`
+    );
+    if (!escortByCity.response) {
+      // console.log("escortByCity: ", escortByCity);
+      this.setState({ escortByCity: escortByCity.data.data });
+    }
+    const getFrashEscort = await getData("escort/get-all-frash-escort");
+    if (!getFrashEscort.response) {
+      // console.log("getFrashEscort: ", getFrashEscort);
+      this.setState({ getFrashEscort: getFrashEscort.data.data });
+    }
+
+    const cities = await getData(`admin/get-all-city-by-country/${"THA"}`);
+    if (!cities.response) {
+      // console.log(cities.data.data);
+      this.setState({ allCities: cities.data.data });
+    }
+  };
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevState.selectedCity !== this.state.selectedCity) {
+      const escortByCity = await getData(
+        `escort/get-featured-escort-from-city/${this.state.selectedCity}`
+      );
+      if (!escortByCity.response) {
+        console.log("escortByCity updae -> SetState: ", escortByCity.data.data);
+        this.setState({ escortByCity: escortByCity.data.data }, () => {
+          console.log("escortByCity", this.state.escortByCity);
+        });
+        // this.setState({ escortByCity: escortByCity.data.data });
+      }
+    }
+  };
+  getEscortProfileImg = async (id) => {
+    const escortDetails = await getData(`escort/get-escort-details/${id}`);
+    if (!escortDetails.response) {
+      // console.log(escortDetails.data.data.profileImg);
+      return escortDetails.data.data.profileImg;
+    }
+  };
   render() {
-    
     var settings = {
       dots: false,
       infinite: false,
@@ -48,7 +111,6 @@ export default class Home extends Component {
         },
       ],
     };
-
     var featured = {
       dots: false,
       infinite: false,
@@ -74,15 +136,12 @@ export default class Home extends Component {
           },
         },
       ],
+      // adaptiveHeight: true,
     };
+    console.log("imgdes: ", this.state.escortReviewImg);
 
     return (
       <>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Home page</title>
-        
-        </Helmet>
         <Header />
         <div className="banner d-flex align-items-center ">
           <div className="banner-center">
@@ -115,57 +174,47 @@ export default class Home extends Component {
             <h2 className="reviews mb-5">Latest reviews, photos and escorts</h2>
 
             <Slider {...settings}>
-              <div className="pr-5 ">
-                <div className="avtar d-flex align-items-center mb-4">
-                  <img src={Avatar} alt="" />
-                  <div className="avatar-text">
-                    <h3>
-                      Diane has just been given a <br />5 rating.
-                    </h3>
-                  </div>
+              {this.state.escortReview.length ? (
+                this.state.escortReview.map((escort, idx) => {
+                  return (
+                    <div className="pr-5 ">
+                      <div className="avtar d-flex align-items-center mb-4">
+                        <Link to={`/viewEscort/${escort.escortId}`}>
+                          <img
+                            src={escort.escortProfileImg}
+                            alt="img"
+                            height="120vh"
+                            width="120vw"
+                          />
+                        </Link>
+                        <div className="avatar-text">
+                          <h3
+                            style={{
+                              textAlign: "left",
+                              marginTop: 30,
+                              marginLeft: "2vw",
+                            }}
+                          >
+                            {escort.customerName} has just been given a <br />
+                            {escort.rating} rating to {escort.escortName}.
+                          </h3>
+                        </div>
+                      </div>
+                      <p>{escort.review}</p>
+                    </div>
+                  );
+                })
+              ) : (
+                <div style={{ textAlign: "center" }}>
+                  <img
+                    src={noResultImage}
+                    alt="No favorite Escort available"
+                    height="250vh"
+                    width="250vw"
+                    marginLeft="30%"
+                  />
                 </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea.
-                </p>
-              </div>
-              <div className="pr-5 ">
-                <div className="avtar d-flex align-items-center mb-4">
-                  <img src={Avatar} alt="" />
-                  <div className="avatar-text">
-                    <h3>
-                      Diane has just been given a <br />5 rating.
-                    </h3>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea.
-                </p>
-              </div>
-              <div className="pr-5 ">
-                <div className="avtar d-flex align-items-center mb-4">
-                  <img src={Avatar} alt="" />
-                  <div className="avatar-text">
-                    <h3>
-                      Diane has just been given a <br />5 rating.
-                    </h3>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                  justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                  sea.
-                </p>
-              </div>
+              )}
             </Slider>
           </Container>
         </div>
@@ -223,25 +272,66 @@ export default class Home extends Component {
             </Row>
           </Container>
         </div>
-        <div className="latest-review pt-5 pb-5 featured-slider">
+        <div className="latest-review pt-5 pb-5 ">
+          {/* class commented: "featured-slider" */}
           <Container>
             <h2 className="reviews mb-5 aligin-items-center d-flex justify-content-between">
               Featured Escorts{" "}
-              <Dropdown>
-                <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-                  Bangkok
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#">Action</Dropdown.Item>
-                  <Dropdown.Item href="#">Another action</Dropdown.Item>
-                  <Dropdown.Item href="#">Something else</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <Form.Group className="login-icon">
+                <Form.Control
+                  as="select"
+                  onChange={(e) =>
+                    this.setState({ selectedCity: e.target.value })
+                  }
+                  id="dropdown-basic"
+                  variant="outline-primary"
+                >
+                  {this.state.allCities.map((city, idx) => (
+                    <option
+                      value={city.city}
+                      selected={city.city === this.state.selectedCity}
+                    >
+                      {city.city}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
             </h2>
 
             <Slider {...featured}>
-              <div className="featured-box">
+              {this.state.escortByCity.length ? (
+                this.state.escortByCity.map((escort, idx) => {
+                  console.log("login: ", escort);
+                  return (
+                    <Link to={`/viewEscort/${escort._id}`}>
+                      <div className="featured-box">
+                        <img
+                          src={escort.profileImg || Avatar1}
+                          alt=""
+                          height="400"
+                        />{" "}
+                        {/* adding height to image */}
+                        <div className="featured-overlay">
+                          <h5>
+                            {escort.name}, {escort.age || "N/A"}
+                          </h5>
+                          <p>
+                            Model{" "}
+                            {escort.city
+                              .replace("_", " ")
+                              .replace(/\b\w/g, (l) => l.toUpperCase())}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })
+              ) : (
+            <img src={noFeatureEscortImage} alt="no memeber Yet"  style={{marginLeft:"35%", marginTop:40,marginBottom:40}}/>
+
+              
+              )}
+              {/* <div className="featured-box">
                 <img src={Featured} alt="" />
                 <div className="featured-overlay">
                   <h5>Jessica, 25</h5>
@@ -268,45 +358,45 @@ export default class Home extends Component {
                   <h5>Rebeka, 25</h5>
                   <p>Model Bankkok</p>
                 </div>
-              </div>
+              </div> */}
             </Slider>
           </Container>
         </div>
 
-        <div className="fresh pt-5 pb-5 featured-slider">
+        <div className="fresh pt-5 pb-5 ">
+          {" "}
+          {/* class commented: "featured-slider" */}
           <Container>
             <h2 className="reviews mb-5">Fresh Escorts</h2>
 
             <Slider {...featured}>
-              <div className="featured-box">
-                <img src={Featured} alt="" />
-
-                <div className="featured-overlay">
-                  <h5>Jessica, 25</h5>
-                  <p>Model Bankkok</p>
-                </div>
-              </div>
-              <div className="featured-box">
-                <img src={Featured2} alt="" />
-                <div className="featured-overlay">
-                  <h5>Rebeka, 25</h5>
-                  <p>Model Bankkok</p>
-                </div>
-              </div>
-              <div className="featured-box">
-                <img src={Featured3} alt="" />
-                <div className="featured-overlay">
-                  <h5>Julla, 25</h5>
-                  <p>Model Bankkok</p>
-                </div>
-              </div>
-              <div className="featured-box">
-                <img src={Featured2} alt="" />
-                <div className="featured-overlay">
-                  <h5>Rebeka, 25</h5>
-                  <p>Model Bankkok</p>
-                </div>
-              </div>
+              {this.state.getFrashEscort.map((escort, idx) => {
+                return (
+                  <Link to={`/viewEscort/${escort._id}`}>
+                    <div className="featured-box">
+                      <img
+                        src={escort.profileImg || Avatar1}
+                        alt=""
+                        height="400"
+                      />{" "}
+                      {/* adding height to image */}
+                      <div className="featured-overlay">
+                        <h5>
+                          {escort.name}, {escort.age || "N/A"}
+                        </h5>
+                        <p>
+                          Model{" "}
+                          {escort.city
+                            ? escort.city
+                                .replace("_", " ")
+                                .replace(/\b\w/g, (l) => l.toUpperCase())
+                            : ""}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
             </Slider>
           </Container>
         </div>

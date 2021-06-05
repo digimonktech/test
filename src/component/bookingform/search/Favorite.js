@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Modal, Button, Form } from "react-bootstrap";
 import Escort from "../../../images/favorite.png";
 import { NavLink } from "react-router-dom";
-import BookNow from "./BookNow";
+import BookNow from "./filter";
 import StarRatingComponent from "react-star-rating-component";
 import View from "./View";
 import ViewDetails from "./ViewDetails";

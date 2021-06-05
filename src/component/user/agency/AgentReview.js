@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MyReview from '../editprofile/MyReview'
+import MyReview from "./myReview";
 import { NavLink } from "react-router-dom";
 export default class AgentReview extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class AgentReview extends Component {
   render() {
     return (
       <>
-        <div className="user-tabs-main">
+        {/* <div className="user-tabs-main">
           <div className="user-tabs">
             <ul>
               <li>
@@ -32,8 +32,12 @@ export default class AgentReview extends Component {
               </li>
             </ul>
           </div>
-        </div>
-        {this.state.type === "review" ? <MyReview /> : ""}
+        </div> */}
+        {this.state.type === "review" ? (
+          <MyReview agencyId={this.props.agencyId} />
+        ) : (
+          ""
+        )}
       </>
     );
   }

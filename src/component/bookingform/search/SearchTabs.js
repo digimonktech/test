@@ -11,6 +11,7 @@ export default class SearchTabs extends Component {
       type: "searchuser",
       rating: 4,
       hideStatus: false,
+      showFilter: false,
     };
   }
   ChangeTab = (type) => (e) => {
@@ -20,9 +21,14 @@ export default class SearchTabs extends Component {
   };
 
   manageChildComponent = (value) => {
+    console.log("value", value);
     this.setState({
-      hideStatus: true,
+      hideStatus: false,
     });
+  };
+
+  hideFilter = () => {
+    this.setState({ showFilter: false });
   };
 
   render() {
@@ -65,7 +71,11 @@ export default class SearchTabs extends Component {
                         <option>High</option>
                       </Form.Control>
                     </div>
-                    <div className="fillter-e">
+                    <div
+                      className="fillter-e"
+                      onClick={() => this.setState({ showFilter: true })}
+                      style={{ cursor: "pointer" }}
+                    >
                       <i className="flaticon-settings"></i> Filters
                     </div>
                   </div>
@@ -75,7 +85,14 @@ export default class SearchTabs extends Component {
           </div>
         ) : null}
         {this.state.type === "searchuser" ? (
-          <SearchUser ChildCompoment={() => this.manageChildComponent()} />
+          <SearchUser
+            ChildCompoment={() => this.manageChildComponent()}
+            showFilter={this.state.showFilter}
+            hideFilter={this.hideFilter}
+            details={this.props.details}
+            history={this.props.history}
+            stepper={this.props.stepper}
+          />
         ) : (
           ""
         )}

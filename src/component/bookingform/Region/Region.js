@@ -1,51 +1,41 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Stepper from "bs-stepper";
+import { getData } from "../../FetchNodeServices";
 export default class Region extends Component {
-  
-  ChangeTab = (type) => (e) => {
-    this.setState({
-      type: type,
-    });
+  constructor(props) {
+    super(props);
+    this.state = {
+      allCountries: [],
+    };
+  }
+
+  componentDidMount = async () => {
+    const countries = await getData("admin/get-all-country");
+    if (!countries.response) {
+      const data = countries.data.data;
+      this.setState({ allCountries: data });
+    } else {
+      console.log(countries.response);
+    }
   };
   render() {
-      
     return (
       <>
         <ul className="region">
-          <li>
-            <Link to="#">Asia (Coming soon)</Link>
-          </li>
-          <li>
-            <Link to="#" onClick={this.ChangeTab("city")}>
-              Australia (Coming soon)
-            </Link>
-          </li>
-          <li>
-            <Link to="#" onClick={this.ChangeTab("city")}>
-              Germany
-            </Link>
-          </li>
-          <li>
-            <Link to="#" onClick={this.ChangeTab("city")}>
-              Switzerland
-            </Link>
-          </li>
-          <li>
-            <Link to="#" onClick={this.ChangeTab("city")}>
-              Poland (Coming soon)
-            </Link>
-          </li>
-          <li>
-            <Link to="#" onClick={this.ChangeTab("city")}>
-              Spain (Coming soon)
-            </Link>
-          </li>
-          <li>
-            <Link to="#" onClick={this.ChangeTab("city")}>
-              United Kingdom (Coming soon)
-            </Link>
-          </li>
+          {this.state.allCountries.map((country, idx) => (
+            <li
+              key={idx}
+              disabled={country.isAvaliable}
+              onClick={() => {
+                if (country.isAvaliable) {
+                  this.props.changeTab("city");
+                  this.props.handleFilter("country", country.code3);
+                }
+              }}
+              style={{ color: country.isAvaliable ? "black" : "#a9a9a9" }}
+            >
+              {country.name} {country.isAvaliable ? "" : "(Coming Soon)"}
+            </li>
+          ))}
         </ul>
       </>
     );

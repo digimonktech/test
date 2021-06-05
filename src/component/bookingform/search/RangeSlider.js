@@ -12,6 +12,7 @@ export default class RangeSlider extends Component {
     };
   }
   handleChangeHorizontal = (value) => {
+    this.props.duration(value)
     this.setState({
       horizontal: value,
     });

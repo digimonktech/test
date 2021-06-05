@@ -1,16 +1,63 @@
 import React, { Component } from "react";
-import { Container, Row, Col, NavLink } from "react-bootstrap";
+import { Container, Row, Col, NavLink,Button } from "react-bootstrap";
 import FooterLogo from "../images/footer-logo.png";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Link } from "react-router-dom";
+import kookyLogo from "../images/logo.png";
+
 export default class Footer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    }}
+     handleOpen = () => {
+      this.setState({ isOpen: true });
+    };
+    handleClose = () => {
+      this.setState({ isOpen: false });
+    };
   render() {
+     
+
     return (
       <>
         <footer className="footer-bg pt-5 pb-3">
           <Container>
+          <Dialog
+          open={this.state.isOpen}
+          keepMounted
+          maxWidth="md"
+          onClose={() => this.handleClose()}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title" style={{textAlign: "center"}}>
+          <img src={kookyLogo} alt="" />
+            
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description" style={{position:"relative", textAlign: "center",minWidth:620,minHeight:50,marginTop:50,marginBottom:50}}>
+        <h2>Coming Soon  ...........</h2>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.handleClose()} color="primary">
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
             <Row xs={1} md={4} lg={4}>
               <Col>
                 <div className="footer-text">
-                  <img src={FooterLogo} />
+                  <Link to="/">
+                    <img src={FooterLogo} alt="" />
+                  </Link>
                   <p>
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                     diam nonumy eirmod tempor invidunt
@@ -23,19 +70,16 @@ export default class Footer extends Component {
                   <h5>Quick Links</h5>
                   <ul>
                     <li>
-                      <NavLink href="/">home</NavLink>
+                      <NavLink href="/">Home</NavLink>
                     </li>
                     <li>
-                      <NavLink href="/booking">FInd a Escort </NavLink>
+                      <NavLink href="/booking">Find a Escort </NavLink>
                     </li>
                     <li>
-                      <NavLink href="/our-blog">Our Blog</NavLink>
+                      <Link onClick={()=>this.handleOpen()}>Our Blog</Link>
                     </li>
                     <li>
                       <NavLink href="/contact-us"> Contact Us</NavLink>
-                    </li>
-                    <li>
-                      <NavLink href="/report-profiles">Report Profiles</NavLink>
                     </li>
                   </ul>
                 </div>

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
-export default class BookNow extends Component {
+export default class Filter extends Component {
   render() {
     return (
       <>
-        <div className="booknow">
+        <div className="filter">
           <Form.Group>
             <Form.Label>Agency</Form.Label>
             <Form.Control as="select">

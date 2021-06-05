@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import AgencyProfile from './AgencyProfile';
-import ChangePassword from "../escort/ChangePassword"
+import AgencyProfile from "./AgencyProfile";
+import ChangePassword from "./changePassword";
 export default class AgentTabs extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,9 @@ export default class AgentTabs extends Component {
       type: type,
     });
   };
+
   render() {
+    console.log("agentTabs:  ", this.props.agencyDetails);
     return (
       <>
         <div className="user-tabs-main">
@@ -46,8 +48,19 @@ export default class AgentTabs extends Component {
             </ul>
           </div>
         </div>
-        {this.state.type === "agencyprofile" ? <AgencyProfile /> : ""}
-        {this.state.type === "changepassword" ? <ChangePassword /> : ""}
+        {this.state.type === "agencyprofile" ? (
+          <AgencyProfile
+            agencyDetails={this.props.agencyDetails}
+            handleUpdate={this.props.handleUpdate}
+          />
+        ) : (
+          ""
+        )}
+        {this.state.type === "changepassword" ? (
+          <ChangePassword agencyId={this.props.agencyDetails._id} />
+        ) : (
+          ""
+        )}
       </>
     );
   }

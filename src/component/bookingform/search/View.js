@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Container,
   Row,
@@ -9,22 +9,31 @@ import {
   Table,
   Button,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-import Viewmg from "../../../images/searchuser.png";
 export default class View extends Component {
- 
+  componentDidMount() {
+    console.log("view: ", this.props.escort);
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedPlan: ["outCall", 0],
+      plan: "outCall",
+    };
+  }
+
   render() {
-   
+    const { escort } = this.props;
     return (
       <>
-       
-
         <div className="viewbox pb-4">
           <Row>
             <Col md="12">
               <div className="view-title mb-4">
                 <h2>
-                  Jesika <span>Review</span>
+                  {escort.name} <span>Review</span>
                 </h2>
               </div>
             </Col>
@@ -33,12 +42,23 @@ export default class View extends Component {
           <Row>
             <Col md="9">
               <div className="view-gallery-left mb-4">
-                <img src={Viewmg} alt="" />
+                <img src={escort.profileImg} alt="" />
               </div>
             </Col>
             <Col md="3">
               <Row xs={3} md={1} lg={1}>
-                <Col>
+                {escort.images.map((img, idx) => {
+                  return (
+                    <Fragment key={idx}>
+                      <Col>
+                        <div className="view-gallery-left mb-4">
+                          <img src={img} alt="" />
+                        </div>
+                      </Col>
+                    </Fragment>
+                  );
+                })}
+                {/* <Col>
                   <div className="view-gallery-left mb-4">
                     <img src={Viewmg} alt="" />
                   </div>
@@ -53,7 +73,7 @@ export default class View extends Component {
                     <img src={Viewmg} alt="" />
                     <div className="seeAll">See All</div>
                   </div>
-                </Col>
+                </Col> */}
               </Row>
             </Col>
           </Row>
@@ -78,39 +98,52 @@ export default class View extends Component {
               <div className="citybox-view mt-4">
                 <ul>
                   <li>
-                    City <span>Bangkok</span>
+                    City <span>{escort.city}</span>
                   </li>
                   <li>
-                    Agency <span>Independent</span>
+                    Agency{" "}
+                    {escort.agencyId ? (
+                      <Link to={`/user/agency/dashboard/${escort.agencyId}`}>
+                        {escort.agencyName}
+                      </Link>
+                    ) : (
+                      <span>Independent</span>
+                    )}
                   </li>
                   <li>
-                    Gender <span>Female</span>
+                    Gender <span>{escort.gender || "N/A"}</span>
                   </li>
                   <li>
-                    Measurements <span>36 B 28 34</span>
+                    Measurements{" "}
+                    <span>
+                      {escort.measurement
+                        ? `${escort.measurement.bust} ${escort.measurement.hips} ${escort.measurement.waist}`
+                        : "N/A"}
+                    </span>
                   </li>
                   <li>
-                    Age <span>25 Yr</span>
+                    Age <span>{escort.age || "N/A"}</span>
                   </li>
                   <li>
-                    Height <span>156 cm</span>
+                    Height <span>{escort.height || "N/A"} cm</span>
                   </li>
                   <li>
-                    Body Type <span>Slim</span>
+                    Body Type <span>{escort.bodyShape || "N/A"}</span>
                   </li>
                   <li>
-                    Nationality <span>Bangkok</span>
+                    Nationality <span>{escort.country || "N/A"}</span>
                   </li>
                   <li>
-                    Languages <span>English</span>
+                    Languages <span>{escort.languge || "N/A"}</span>
                   </li>
                   <li>
                     Services
                     <span>
-                      <small>A-Level</small>
-                      <small>Couples</small>
-                      <small>Massages</small>
-                      <small>COB</small>
+                      {escort.services.length
+                        ? escort.services.map((serv, idx) => {
+                            return <small key={idx}>{serv}</small>;
+                          })
+                        : "N/A"}
                     </span>
                   </li>
                   <li>
@@ -126,11 +159,31 @@ export default class View extends Component {
 
               <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Nav variant="pills" className="tabsnow row mb-3" as="ul">
-                  <Nav.Item as="li" className="col-md-6">
-                    <Nav.Link eventKey="first">Tab 1</Nav.Link>
+                  <Nav.Item
+                    as="li"
+                    className="col-md-6"
+                    onClick={() => this.setState({ plan: "outCall" })}
+                  >
+                    <Nav.Link eventKey="first">Out Call</Nav.Link>
                   </Nav.Item>
-                  <Nav.Item as="li" className="col-md-6">
-                    <Nav.Link eventKey="second">Tab 2</Nav.Link>
+                  <Nav.Item
+                    as="li"
+                    className="col-md-6"
+                    onClick={() => this.setState({ plan: "inCall" })}
+                  >
+                    <Nav.Link
+                      eventKey="second"
+                      disabled={escort.agencyId ? false : true}
+                      onClick={() =>
+                        this.setState({
+                          selectedPlan: ["inCall", 0],
+                        })
+                      }
+                    >
+                      {escort.agencyId
+                        ? "In Call"
+                        : "In Call is not avaliable for this escort as she didn't belong to any agency"}
+                    </Nav.Link>
                   </Nav.Item>
                 </Nav>
 
@@ -141,57 +194,38 @@ export default class View extends Component {
                         <tr>
                           <th>DURATION</th>
                           <th>PRICE</th>
-                          <th>PREMIUM PRICE</th>
                           <th>SHOTS</th>
                           <th aligin="right">&nbsp;</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>1</td>
-                          <td className="text-right">
-                            <span className="selected active">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>2</td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>3 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>3</td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>4 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>4</td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>5 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td></td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
+                        {escort.outCallRate.map((rate, idx) => {
+                          return (
+                            <tr key={idx}>
+                              <td>{rate.hours} Hour</td>
+                              <td>{`$ ${rate.rate}`}</td>
+                              <td>{rate.shots}</td>
+                              <td className="text-right">
+                                <span
+                                  className={`selected ${
+                                    idx === this.state.selectedPlan
+                                      ? "active"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    this.setState({
+                                      selectedPlan: ["outCall", idx],
+                                    })
+                                  }
+                                >
+                                  {idx === this.state.selectedPlan[1]
+                                    ? "Selected"
+                                    : "Select"}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </Table>
                   </Tab.Pane>
@@ -201,57 +235,38 @@ export default class View extends Component {
                         <tr>
                           <th>DURATION</th>
                           <th>PRICE</th>
-                          <th>PREMIUM PRICE</th>
                           <th>SHOTS</th>
                           <th aligin="right">&nbsp;</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>1</td>
-                          <td className="text-right">
-                            <span className="selected active">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>2</td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>3 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>3</td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>4 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td>4</td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>5 Hour</td>
-                          <td>$3500</td>
-                          <td>$2500</td>
-                          <td></td>
-                          <td className="text-right">
-                            <span className="selected">Selected</span>
-                          </td>
-                        </tr>
+                        {escort.inCallRate.map((rate, idx) => {
+                          return (
+                            <tr key={idx}>
+                              <td>{rate.hours} Hour</td>
+                              <td>{`$ ${rate.rate}`}</td>
+                              <td>{rate.shots}</td>
+                              <td className="text-right">
+                                <span
+                                  className={`selected ${
+                                    idx === this.state.selectedPlan
+                                      ? "active"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    this.setState({
+                                      selectedPlan: ["inCall", idx],
+                                    })
+                                  }
+                                >
+                                  {idx === this.state.selectedPlan[1]
+                                    ? "Selected"
+                                    : "Select"}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </Table>
                   </Tab.Pane>
@@ -259,12 +274,26 @@ export default class View extends Component {
               </Tab.Container>
             </Col>
             <Col md="12" className="text-right">
-              <Button variant="false" className="btn-outline-dark mr-2">
+              <Button
+                variant="false"
+                className="btn-outline-dark mr-2"
+                onClick={() => {
+                  console.log("history: ", this.props.stepper);
+                  this.props.stepper.previous();
+                }}
+              >
                 BACK
               </Button>
               <Button
                 className="btn-outline-dark"
-                onClick={() => this.props.Next()}
+                onClick={() =>
+                  this.props.Next(
+                    this.state.selectedPlan[0] === "outCall"
+                      ? escort.outCallRate[this.state.selectedPlan[1]]
+                      : escort.inCallRate[this.state.selectedPlan[1]],
+                    this.state.selectedPlan[0]
+                  )
+                }
               >
                 BOOK
               </Button>

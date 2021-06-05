@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import AgencyMember from "./AgencyMember";
 
-import UpdatePrice from "../escort/UpdatePrice";
+import UpdatePrice from "./updatePrice";
 import NewRequest from "./NewRequest";
-import Edit from "./Edit"
+import Edit from "./Edit";
 export default class MemberTabs extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,10 @@ export default class MemberTabs extends Component {
     this.setState({
       type: type,
     });
+  };
+
+  cancleEdit = () => {
+    this.setState({ type: "agencymember" });
   };
   render() {
     return (
@@ -57,14 +62,51 @@ export default class MemberTabs extends Component {
                   New Request
                 </NavLink>
               </li>
-              
+              <li>
+                <Button
+                  variant="false"
+                  className="btn btn-light btn-postion"
+                  onClick={() => this.setState({ type: "edit" })}
+                >
+                  <i className="far fa-plus-square"></i> ADD
+                </Button>
+              </li>
             </ul>
           </div>
         </div>
-        {this.state.type === "agencymember" ? <AgencyMember /> : ""}
-        {this.state.type === "updateprice" ? <UpdatePrice /> : ""}
-        {this.state.type === "newrequest" ? <NewRequest/> : ""}
-        {this.state.type === "edit" ? <Edit/> : ""}
+        {this.state.type === "agencymember" ? (
+          <AgencyMember
+            escortList={this.props.escortList}
+            agencyId={this.props.agencyId}
+            handleUpdate={this.props.handleUpdate}
+          />
+        ) : (
+          ""
+        )}
+        {this.state.type === "updateprice" ? (
+          <UpdatePrice
+            agencyId={this.props.agencyId}
+            outCallRate={this.props.outCallRate}
+            inCallRate={this.props.inCallRate}
+            handleUpdate={this.props.handleUpdate}
+          />
+        ) : (
+          ""
+        )}
+        {this.state.type === "newrequest" ? (
+          <NewRequest agencyId={this.props.agencyId} />
+        ) : (
+          ""
+        )}
+        {this.state.type === "edit" ? (
+          <Edit
+            agencyId={this.props.agencyId}
+            escort={{}}
+            cancleEdit={this.cancleEdit}
+          />
+        ) : (
+          ""
+        )}
       </>
     );
   }

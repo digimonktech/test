@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 import Dashboard from "./agency/Dashboard";
 
-import UploadProfile from "./editprofile/UploadProfile";
+import UploadProfile from "./agency/UploadProfile";
 
 import Header from "../Header";
 import Footer from "../Footer";
@@ -13,17 +13,89 @@ import AgentTabs from "./agency/AgentTabs";
 import MemberTabs from "./agency/MemberTabs";
 import AgentReview from "./agency/AgentReview";
 
+import jwt_decode from "jwt-decode";
+import { getData } from "../FetchNodeServices";
+
 export default class AgencyDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       type: "dashboard",
+      agencyDetails: {},
+      updateChange: false,
+      escortList: [],
     };
   }
   ChangeTab = (type) => (e) => {
     this.setState({
       type: type,
     });
+  };
+
+  componentDidMount = async () => {
+    let token = localStorage.getItem("TOKEN");
+    if (!token) {
+      this.props.history.push("/");
+    } else {
+      const decode = jwt_decode(localStorage.getItem("TOKEN"));
+      switch (decode.role) {
+        case "user":
+          this.props.history.push(`/user/dashboard/${decode._id}`);
+          break;
+        case "escort":
+          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+          break;
+        default:
+          break;
+      }
+      const agencyDetails = await getData(
+        `agency/get-agency-details/${this.props.match.params.id}`
+      );
+      if (!agencyDetails.response) {
+        console.log("agentDetails: ", agencyDetails.data.data);
+        this.setState({ agencyDetails: agencyDetails.data.data });
+      } else {
+        console.log("err: ", agencyDetails.response);
+        this.props.history.push(`/page-not-found`);
+      }
+
+      const escortList = await getData(
+        `agency/get-escorts-by-agency/${this.props.match.params.id}`
+      );
+      if (!escortList.response) {
+        this.setState({ escortList: escortList.data.data });
+      } else {
+        console.log(escortList.response);
+      }
+    }
+  };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (prevState.updateChange !== this.state.updateChange) {
+      const agencyDetails = await getData(
+        `agency/get-agency-details/${this.props.match.params.id}`
+      );
+      if (!agencyDetails.response) {
+        console.log("agentDetails: ", agencyDetails.data.data);
+        this.setState({ agencyDetails: agencyDetails.data.data });
+      } else {
+        console.log("err: ", agencyDetails.response);
+        this.props.history.push(`/page-not-found`);
+      }
+
+      const escortList = await getData(
+        `agency/get-escorts-by-agency/${this.props.match.params.id}`
+      );
+      if (!escortList.response) {
+        this.setState({ escortList: escortList.data.data });
+      } else {
+        console.log(escortList.response);
+      }
+    }
+  };
+
+  handleUpdate = () => {
+    this.setState({ updateChange: !this.state.updateChange });
   };
 
   render() {
@@ -40,7 +112,11 @@ export default class AgencyDashboard extends Component {
 
             <Row>
               <Col md="3">
-                <UploadProfile />
+                <UploadProfile
+                  agencyId={this.props.match.params.id}
+                  profileImage={this.state.agencyDetails.profileImg}
+                  username={this.state.agencyDetails.username}
+                />
                 <div className="edit-personal">
                   <ul>
                     <li>
@@ -103,18 +179,22 @@ export default class AgencyDashboard extends Component {
               </Col>
               <Col md="9">
                 <div className="profile-box">
-                  <h2>Agency Name</h2>
+                  <h2>{this.state.agencyDetails.name}</h2>
                   <div className="main-user">
-                    <Row xs={1} md={2} lg={2}>
-                      <Col>
+                    <Row>
+                      <Col md="4">
                         <span>
-                          <i className="flaticon-calendar"></i> Joined 3-10-2021
+                          <i className="flaticon-calendar"></i> Joined{" "}
+                          {this.state.agencyDetails.createAt
+                            ? this.state.agencyDetails.createAt.split("T")[0]
+                            : ""}
                         </span>
                       </Col>
 
-                      <Col>
+                      <Col md="8">
                         <span>
-                          <i className="flaticon-m"></i> maria@bahes.com
+                          <i className="flaticon-envelope"></i>{" "}
+                          {this.state.agencyDetails.email}
                         </span>
                       </Col>
                     </Row>
@@ -122,10 +202,38 @@ export default class AgencyDashboard extends Component {
                 </div>
 
                 <div className="newdivag">
-                  {this.state.type === "dashboard" ? <Dashboard /> : ""}
-                  {this.state.type === "agenttabs" ? <AgentTabs /> : ""}
-                  {this.state.type === "membertabs" ? <MemberTabs /> : ""}
-                 {this.state.type === "review" ? <AgentReview/> : ""}
+                  {this.state.type === "dashboard" ? (
+                    <Dashboard
+                      escortList={this.state.escortList}
+                      agencyId={this.props.match.params.id}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.type === "agenttabs" ? (
+                    <AgentTabs
+                      agencyDetails={this.state.agencyDetails}
+                      handleUpdate={this.handleUpdate}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.type === "membertabs" ? (
+                    <MemberTabs
+                      agencyId={this.props.match.params.id}
+                      outCallRate={this.state.agencyDetails.outCallRate}
+                      inCallRate={this.state.agencyDetails.inCallRate}
+                      handleUpdate={this.handleUpdate}
+                      escortList={this.state.escortList}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.type === "review" ? (
+                    <AgentReview agencyId={this.props.match.params.id} />
+                  ) : (
+                    ""
+                  )}
                 </div>
               </Col>
             </Row>

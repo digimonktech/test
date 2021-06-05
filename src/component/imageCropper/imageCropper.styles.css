@@ -1,0 +1,8 @@
+.ReactCropperImage {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ReactCrop__image {
+  height: 30rem;
+}
