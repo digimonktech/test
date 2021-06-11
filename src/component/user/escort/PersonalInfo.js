@@ -45,7 +45,7 @@ export default class PersonalInfo extends Component {
       open: false,
       result: "Profile Update Successfully",
       allLanguage: ["English", "Hindi", "Japanese", "French"],
-      allServices: ["Service 1", "Service 2", "Service 3", "Service 4"],
+      allServices: [],
 
       allCountries: [],
       allCities: [],
@@ -55,9 +55,10 @@ export default class PersonalInfo extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate = async (prevProps, prevState)=> {
     if (prevProps.escortDetail !== this.props.escortDetail) {
       const { escortDetail } = this.props;
+
       this.setState({
         getName: escortDetail.name,
         getEmail: escortDetail.email,
@@ -88,6 +89,18 @@ export default class PersonalInfo extends Component {
 
   componentDidMount = async () => {
     const { escortDetail } = this.props;
+    const services = await getData(
+      "admin/get-all-services"
+    );
+    if (!services.response) {
+      console.log("services data",services.data.data);
+      const service = services.data.data
+  this.setState({
+    allServices:service,
+  })
+    } else {
+      console.log("services Data",services.response);
+    }
     this.setState({
       getName: escortDetail.name,
       getEmail: escortDetail.email,

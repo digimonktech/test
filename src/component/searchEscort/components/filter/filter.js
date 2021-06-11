@@ -10,14 +10,28 @@ export default class Filter extends Component {
     super(props);
     this.state = {
       selectedAgency: null,
+      services:[],
     };
   }
-  componentDidMount() {
+  componentDidMount= async () => {
     console.log("comp", this.props.escorts);
     if (this.props.filter.filtredAgency.length !== 1) {
       this.setState({ selectedAgency: null });
     } else {
       this.setState({ selectedAgency: this.props.filter.filtredAgency[0] });
+    }
+
+    const services = await getData(
+      "admin/get-all-services"
+    );
+    if (!services.response) {
+      console.log("services data",services.data.data);
+      const service = services.data.data
+  this.setState({
+    services:service,
+  })
+    } else {
+      console.log("services Data",services.response);
     }
   }
 
@@ -69,15 +83,19 @@ export default class Filter extends Component {
           <Form.Group>
             <Form.Label>Service</Form.Label>
             <Form.Control as="select">
-              <option>Any Service</option>
-              <option>Service 1</option>
-              <option>Service 2</option>
-              <option>Service 3</option>
-              <option>Service 4</option>
+            
+              <option>Choose Any Service</option>
+              { this.state.services.length ? (
+                  this.state.services.map((services, idx) => (  <option value={services.id}>{services.shortName}</option>))):""
+              }
+             
+            
             </Form.Control>
           </Form.Group>
           <Form.Group>
-            <Button onClick={this.props.applyFilter}>Apply</Button>
+          <Button onClick={this.props.cancelFilter}  className="btn btn-outline-dark mr-2" >Cancel</Button>
+          &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;
+            <Button onClick={this.props.applyFilter} style={{textAlign: 'right'}}>Apply</Button>
           </Form.Group>
         </div>
       </>

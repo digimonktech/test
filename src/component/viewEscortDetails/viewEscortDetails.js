@@ -33,7 +33,10 @@ import {
   MDBCarouselItem,
   MDBCarouselElement,
 } from "mdb-react-ui-kit";
-
+import Popup from "../popup/popup";
+import noReviewImage from "../../images/Group 4113@2x.png";
+import man from "../../images/man.png";
+import StarRatingComponent from "react-star-rating-component";
 import { Facebook, Twitter } from "react-sharingbuttons";
 import "react-sharingbuttons/dist/main.css";
 
@@ -43,6 +46,8 @@ export default class ViewEscortDetails extends Component {
     this.state = {
       selectedPlan: ["outCall", 0],
       plan: "outCall",
+      showPopup: false,
+      reviews:[],
       escort: {
         images: [],
         services: [],
@@ -77,21 +82,22 @@ export default class ViewEscortDetails extends Component {
 
     console.log("location", window.location.href);
     console.log("view: ", this.props.match.params.id);
+    const review = await getData(`review/get-review-by-escort/${this.props.match.params.id}`);
     const result = await getData(
       `escort/get-escort-details/${this.props.match.params.id}`
     );
     if (!result.response) {
-      console.log("view: ", result.data.data.images);
+      console.log("for responce ", result.data.data);
       const imageList = result.data.data.images.slice(0, 2);
       console.log(imageList);
-      this.setState({ escort: result.data.data, imageList });
+      this.setState({ escort: result.data.data, imageList , reviews:review.data.data});
     } else {
       this.props.history.push(`/page-not-found`);
     }
   };
   onShareProfile = () => {
-    console.log("hi");
     let Url = window.location.href;
+    console.log("hi",Url);
     this.setState({ isOpen: true, copyUrl: Url });
   };
 
@@ -109,6 +115,26 @@ export default class ViewEscortDetails extends Component {
     this.setState({ isOpen: false, openSeeAll: false });
   };
 
+
+  
+  handlePopupClose = () => {
+    this.setState({ showPopup: false, reviews: [] });
+  };
+
+  openPopUp = () => {
+    this.setState({ showPopup: true });
+  }
+  // handlePopupOpen = async (id) => {
+  //   console.log("id: ", id);
+  //   const review = await getData(`review/get-review-by-escort/${id}`);
+  //   if (!review.response) {
+  //     console.log("review",review.data.data);
+  //     this.setState({ showPopup: false , reviews:review.data.data});
+  //   } else {
+  //     console.log(review.response);
+  //   }
+  // };
+
   render() {
     const { escort } = this.state;
     const url = window.location.href;
@@ -118,6 +144,80 @@ export default class ViewEscortDetails extends Component {
         <Header />
 
         <Container style={{ marginTop: "10vh" }}>
+        {this.state.showPopup ? (
+          <Popup
+//open={this.state.showPopup}
+            handleClose={this.handlePopupClose}
+            content={
+              this.state.reviews.length ? (
+                this.state.reviews.map((u, index) => (
+                  <div className="cardbox mb-4" key={index}>
+                    <Row>
+                      <Col md="3">
+                        <div className="user-box-img boxshow">
+                          <img src={u.customerProfileImg || man} alt="" />
+                        </div>
+                      </Col>
+                      <Col md="9">
+                        <div className="timebox">
+                          <h3>{u.customerName}</h3>
+                          <Row>
+                            <Col md="9">
+                              <div className="lorem">
+                                <p>{u.review}</p>
+                              </div>
+                            </Col>
+                            <Col md="3">
+                              <div className="text-right">
+                                <span>
+                                  <i className="flaticon-calendar"></i>{" "}
+                                  {u.createdAt.split("T")[0]}
+                                </span>
+                                <div className="starbox mt-2">
+                                  <div className="ratingdiv">
+                                    <StarRatingComponent
+                                      name="rate1"
+                                      starCount={u.rating}
+                                      value={u.rating}
+                                      editing={false}
+                                      starColor={"#DFD800"}
+                                      renderStarIcon={() => (
+                                        <span className="flaticon-star"></span>
+                                      )}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                ))
+              ) : (
+                <>
+          
+                  <img
+                    style={{
+                      position: "relative",
+                      textAlign: "center",
+                      marginLeft: "37%",
+                      marginTop: 35,
+                      marginBottom: 35,
+                    }}
+                    width="250"
+                    height="220"
+                    src={noReviewImage}
+                    alt=""
+                  />
+                </>
+              )
+            }
+          />
+         ) : (
+          ""
+        )}
           <div hidden className="openDialog">
             <Dialog
               maxWidth={"md"}
@@ -169,10 +269,15 @@ export default class ViewEscortDetails extends Component {
             <Row>
               <Col md="12">
                 <div className="view-title mb-4">
-                  <h2>
-                    {escort.name} <span>Review</span>
+                
+                  <h2>   <a href="../"><i style={{color: "#E100FF"}}
+                            className="fa fa-arrow-circle-left"
+                           
+                          ></i></a>
+                    {escort.name} <span><button className="btn btn-primary" onClick={()=>this.openPopUp()}>Review</button></span>
                   </h2>
-                </div>
+                
+</div>
               </Col>
             </Row>
             {this.state.imageList.length === 1 ? (
@@ -346,9 +451,9 @@ export default class ViewEscortDetails extends Component {
                           : "N/A"}
                       </span>
                     </li>
-                    <li>
+                    {/* <li>
                       Response Time <span>Responds within 10 mins</span>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </Col>
@@ -404,7 +509,7 @@ export default class ViewEscortDetails extends Component {
                               return (
                                 <tr key={idx}>
                                   <td>{rate.hours} Hour</td>
-                                  <td>{`$ ${rate.rate}`}</td>
+                                  <td>{`$${rate.rate}`}</td>
                                   <td>{rate.shots}</td>
                                   <td className="text-right">
                                     <span
@@ -445,7 +550,7 @@ export default class ViewEscortDetails extends Component {
                               return (
                                 <tr key={idx}>
                                   <td>{rate.hours} Hour</td>
-                                  <td>{`$ ${rate.rate}`}</td>
+                                  <td>{`$${rate.rate}`}</td>
                                   <td>{rate.shots}</td>
                                   <td className="text-right">
                                     <span

@@ -56,11 +56,11 @@ export default class BookingEscort extends Component {
         console.log(this.addDays(new Date(), 1).toISOString().split("T")[0]);
       }
       let time = this.props.location.state.details.time;
-      console.log(
-        time.split(":")[0],
-        time.split(":")[1].split(" ")[0],
-        time.split(":")[1].split(" ")[1]
-      );
+      // console.log(
+      //   time.split(":")[0],
+      //   time.split(":")[1].split(" ")[0],
+      //   time.split(":")[1].split(" ")[1]
+      // );
       let amOrPm = time.split(":")[1].split(" ")[1];
       let hours =
         amOrPm === "pm"

@@ -44,6 +44,7 @@ export default class SearchEscort extends Component {
       `booking/get-all-escort/${filter.country}-${filter.city.city}-${filter.gender}`
     );
     if (!result.response) {
+      console.log('take length',result.data.data.length )
       this.setState({ escorts: result.data.data });
     }
     const agency = await getData("agency/get-all-agencies");
@@ -69,8 +70,8 @@ export default class SearchEscort extends Component {
     console.log("id: ", id, name);
     const review = await getData(`review/get-review-by-escort/${id}`);
     if (!review.response) {
-      console.log(review);
-      this.setState({ showPopup: true });
+      console.log(review.data.data);
+      this.setState({ showPopup: true , reviews:review.data.data});
     } else {
       console.log(review.response);
     }
@@ -97,6 +98,7 @@ export default class SearchEscort extends Component {
 
   applyFilter = async () => {
     const body = { ...this.state.filter };
+  console.log("after applay ",body)
     const newEscorts = await postData(
       "booking/filter-escort-for-booking",
       body
@@ -109,11 +111,20 @@ export default class SearchEscort extends Component {
     this.setState({ tab: "online" });
   };
 
+  cancelFilter = async () => {
+  
+    this.setState({ tab: "online" });
+  }
   render() {
     return (
       <>
         <Header />
         <Container style={{ minHeight: "100vh" }}>
+          <div style={{textAlign: "center",marginTop:100,color:"#E100FF"}}>
+<b><p style={{fontSize:25}}>{   this.state.escorts.length } Escorts Are wating For You</p></b>
+
+          </div>
+          <hr style={{marginBottom:"-80px",height:0.5,backgroundColor:"#E100FF"}} />
           <div
             className="onlineuser"
             style={{ marginTop: "12vh", marginBottom: "5vh" }}
@@ -182,7 +193,10 @@ export default class SearchEscort extends Component {
                     />
                   ))
                 ) : (
+              <div style={{ textAlign: "center", marginTop: 150,marginLeft: "25%" }}>
+
                   <img src={noResultImage} alt="No favorite Escort available" />
+                  </div>
                 )
 
                 // :`No ${filter.gender
@@ -206,7 +220,7 @@ export default class SearchEscort extends Component {
                 />
               ))
             ) : (
-              <div style={{ textAlign: "center", marginTop: 150 }}>
+              <div style={{ textAlign: "center", marginTop:150 }}>
                 <img src={noFavImage} alt="No favorite Escort available" />
               </div>
             )
@@ -218,6 +232,7 @@ export default class SearchEscort extends Component {
               handleHeightChange={this.handleHeightChange}
               filter={this.state.filter}
               escorts={this.state.escorts}
+              cancelFilter={this.cancelFilter}
             />
           ) : (
             ""
@@ -277,7 +292,7 @@ export default class SearchEscort extends Component {
                 ))
               ) : (
                 <>
-                  {this.state.reviews.length}
+          
                   <img
                     style={{
                       position: "relative",

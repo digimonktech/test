@@ -8,7 +8,7 @@ import City from "./Region/City";
 import OutCall from "./search/OutCall";
 import RangeSlider from "./search/RangeSlider";
 import SearchTabs from "./search/SearchTabs";
-
+import kookyLogo from "../../images/logo.png"
 import { Link } from "react-router-dom";
 
 export default class Booking extends Component {
@@ -80,10 +80,10 @@ export default class Booking extends Component {
     var hour24 = 0;
     if (currentHour === 23) {
       hour24 = 1;
-      this.setState({ Bookingdate: date.getDate() + 1 });
+      this.setState({ Bookingdate: date.getDate() + 1 , theDay:"tommorow"});
     } else if (currentHour === 0) {
       hour24 = 2;
-      this.setState({ Bookingdate: date.getDate() });
+      this.setState({ Bookingdate: date.getDate() ,theDay:"tommorow"});
     } else if (currentHour === 22) {
       hour24 = 0;
       this.setState({ Bookingdate: date.getDate() + 1 });
@@ -91,13 +91,14 @@ export default class Booking extends Component {
       hour24 = currentHour + 2;
       this.setState({ Bookingdate: date.getDate() });
     }
-    console.log(hour24);
     var hour = 0;
     if (currentHour != 23) {
       hour = currentHour <= 10 ? currentHour + 2 : currentHour - 10;
     } else {
       hour = 1;
     }
+    console.log(hour24,hour);
+
     //  console.log("currenthours, hours , hour24 ", currentHour,hour,hour24);
     this.setState({
       //for delay of 2 hours we add 2
@@ -202,6 +203,8 @@ export default class Booking extends Component {
 
   //// for adition
   addition = () => {
+
+
     const date = new Date();
     if (this.state.hours < 12) {
       this.setState({
@@ -221,20 +224,9 @@ export default class Booking extends Component {
         hours24: 0,
       });
     }
-    if (this.state.hours24 === 22 && this.state.minutes === 45) {
-      this.setState({
-        Bookingdate: this.state.Bookingdate + 1,
-        amOrPm: "am",
-        theDay: "Tommorow",
-      });
-    }
-    if (this.state.hours24 === 11 && this.state.minutes === 45) {
-      this.setState({
-        amOrPm: "pm",
-      });
-    }
+  
     if (
-      this.state.currentHour === this.state.hours24 - 1 &&
+      this.state.currentHour === this.state.hours24 -1 &&
       this.state.Bookingdate !== date.getDate()
     ) {
       // console.log("hi",this.state.Bookingdate,date.getDate());
@@ -242,13 +234,13 @@ export default class Booking extends Component {
         addition_false: true,
       });
     }
-    // console.log(
-    //   "updated hour,amorpm,hou24,currenthour",
-    //   this.state.hours,
-    //   this.state.amOrPm,
-    //   this.state.hours24,
-    //   this.state.currentHour
-    // );
+    console.log(
+      "updated hour,amorpm,hou24,currenthour",
+      this.state.hours,
+      this.state.amOrPm,
+      this.state.hours24,
+      this.state.currentHour
+    );
   };
   // Add Minutes
   // Add Minutes
@@ -262,7 +254,36 @@ export default class Booking extends Component {
     //   this.state.hours,
     //   this.state.hours24
     // );
-
+    console.log('cuurent hour',this.state.currentHour,this.state.hours24);
+    if(this.state.currentHour===11){
+      if (this.state.hours24 === 22 && this.state.minutes === 45) {
+        this.setState({
+          Bookingdate: this.state.Bookingdate + 1,
+          amOrPm: "am",
+          theDay: "Tommorow",
+        });
+      }
+      if (this.state.hours24 === 11 && this.state.minutes === 45) {
+        this.setState({
+          amOrPm: "pm",
+        });
+      }
+    }
+    else {
+    if (this.state.hours24 === 23 && this.state.minutes === 45) {
+      this.setState({
+        Bookingdate: this.state.Bookingdate + 1,
+        amOrPm: "am",
+        theDay: "Tommorow",
+      });
+    }
+  
+    if (this.state.hours24 === 11 && this.state.minutes === 45) {
+      this.setState({
+        amOrPm: "pm",
+      });
+    }
+  }
     if (this.state.minutes < 45) {
       this.setState({
         minutes: this.state.minutes + 15,
@@ -304,6 +325,14 @@ export default class Booking extends Component {
   // Subtract Minutes
   redMinutes = () => {
     const date = new Date();
+    if (this.state.hours24 === 11 && this.state.minutes === 45) {
+      this.setState({
+        amOrPm: "pm",
+      });
+    }
+    this.setState({
+      addition_false: false,
+    });
     // console.log("hi",this.state.currentHour,this.state.hours24,this.state.Bookingdate,date.getDate());
     if (
       this.state.currentHour === this.state.hours &&
@@ -349,12 +378,17 @@ export default class Booking extends Component {
         <div className="booking-header">
           <Container>
             <div className="booking-menu">
+           <Row>   <Col md="2"><a href="./"><img style={{}} src={kookyLogo} alt="Logo" /></a>
+             </Col>
+             <Col md="8">
               <h1>
                 BOOK AN ESCORT
                 {/* <span>
                   <i className="fas fa-bars"></i>
                 </span> */}
               </h1>
+              </Col>
+              </Row>
             </div>
           </Container>
         </div>
@@ -435,19 +469,70 @@ export default class Booking extends Component {
                           ></span>
                         </div>
                         {this.state.type === "Region" ? (
+                          <>
                           <Region
                             changeTab={this.changeNewTab}
                             handleFilter={this.handleFilter}
                           />
+                           <Row  style={{marginTop:70}}>
+                          <Col md="6">
+                        <div className="text-left">
+                          <a href="./">
+              <button
+                className="btn btn-outline-dark mr-2"
+                
+              >
+                Back
+              </button>
+              </a>
+              </div>
+              </Col>
+              <Col md="6">
+                         <div className="text-right">
+              <button
+                className="btn btn-primary"
+                onClick={() => this.stepper.next()}
+              >
+                Next
+              </button>
+              </div>
+              </Col></Row>
+                          </>
                         ) : (
                           ""
                         )}
                         {this.state.type === "city" ? (
+                        <>
                           <City
                             stepper={this.stepper}
                             handleFilter={this.handleFilter}
                             country={this.state.filter.country}
                           />
+                               <Row  style={{marginTop:70}}>
+                          <Col md="6">
+                        <div className="text-left">
+                          <a href="./booking">
+              <button
+                className="btn btn-outline-dark mr-2"
+                
+              >
+                Back
+              </button>
+             </a>
+              </div>
+              </Col>
+              <Col md="6">
+                         <div className="text-right">
+              <button
+                className="btn btn-primary"
+                onClick={() => this.stepper.next()}
+              >
+                Next
+              </button>
+              </div>
+              </Col></Row>
+                          </>
+                      
                         ) : (
                           ""
                         )}
@@ -461,6 +546,7 @@ export default class Booking extends Component {
                         >
                           Next
                         </button> */}
+                       
                       </div>
                     </div>
                     <div id="test-l-2" className="content">
@@ -615,21 +701,32 @@ export default class Booking extends Component {
                           </Tab.Content>
                         </Tab.Container>
 
-                        <div className="text-right">
+                        <div >
                           {this.state.filter.gender ? (
                             <>
+                              <Row  style={{marginTop:70}}>
+                          <Col md="6">
+                              <div className="text-left">
                               <button
                                 className="btn btn-outline-dark mr-2"
                                 onClick={() => this.stepper.previous()}
                               >
                                 Back
                               </button>
+                              </div>
+                              </Col>
+                              <Col md="6">
+                              <div className="text-right">
                               <button
                                 className="btn btn-primary"
                                 onClick={() => this.stepper.next()}
                               >
                                 Next
                               </button>
+                              </div>
+                              </Col>
+                              </Row>
+                             
                             </>
                           ) : (
                             ""
@@ -698,7 +795,7 @@ export default class Booking extends Component {
                             className="btn btn-outline-dark mr-2"
                             onClick={() => this.stepper.previous()}
                           >
-                            Back
+                                                        Back
                           </button>
                           <button
                             className="btn btn-primary"

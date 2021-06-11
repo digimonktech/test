@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getData } from "../../FetchNodeServices";
+
 export default class Region extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +38,7 @@ export default class Region extends Component {
             </li>
           ))}
         </ul>
+       
       </>
     );
   }

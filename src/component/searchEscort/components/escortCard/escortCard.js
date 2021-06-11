@@ -119,7 +119,7 @@ export default class EscortCard extends Component {
                   <span>
                     {escort.height || "N/A"} cm| {escort.bodyShape || "N/A"}
                   </span>
-                  <div className="pricebox">$ {this.state.lowOutCallPrice}</div>
+                  <div className="pricebox">${this.state.lowOutCallPrice || "N/A"}</div>
                 </Col>
                 <Col className="text-right">
                   <div

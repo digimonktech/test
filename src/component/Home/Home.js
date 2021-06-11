@@ -209,9 +209,9 @@ export default class Home extends Component {
                   <img
                     src={noResultImage}
                     alt="No favorite Escort available"
-                    height="250vh"
-                    width="250vw"
-                    marginLeft="30%"
+                    height="270vh"
+                    width="330vw"
+                    
                   />
                 </div>
               )}
