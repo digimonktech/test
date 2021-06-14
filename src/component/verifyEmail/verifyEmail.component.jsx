@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
-import jwt_decode from "jwt-decode";
+//import jwt_decode from "jwt-decode";
 import { getData } from "../FetchNodeServices";
 
 class VerifyEmail extends React.Component {
@@ -19,23 +19,23 @@ class VerifyEmail extends React.Component {
     const result = await getData(`auth/verify-email-via-token/${token}`);
     if (!result.response) {
       this.setState({ isVerified: true });
-      localStorage.setItem("TOKEN", result.token)
-      const decode = jwt_decode(result.token);
-      console.log("check role",decode.role);
+      // localStorage.setItem("TOKEN", result.token)
+      // const decode = jwt_decode(result.token);
+      // console.log("check role",decode.role);
 
-      switch (decode.role) {
-        case "escort":
-          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
-          break;
-        case "user":
-          this.props.history.push(`/user/dashboard/${decode._id}`);
-          break;
-        case "agency":
-          this.props.history.push(`/user/agency/dashboard/${decode._id}`);
-          break;
-        default:
-          break;
-      }
+      // switch (decode.role) {
+      //   case "escort":
+      //     this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+      //     break;
+      //   case "user":
+      //     this.props.history.push(`/user/dashboard/${decode._id}`);
+      //     break;
+      //   case "agency":
+      //     this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+      //     break;
+      //   default:
+      //     break;
+      // }
 
 
     } else {

@@ -61,25 +61,24 @@ export default class ResetPassword extends Component {
         if (!result.response) {
           console.log(result);
           this.setState({ open: true ,    lstyle: { display: "none" },
-        
           button: "Submit", newPassword:"",newcPassword:""});
-          localStorage.setItem("TOKEN", result.token)
+          // localStorage.setItem("TOKEN", result.token)
           const decode = jwt_decode(result.token);
           console.log("check role",decode.role);
 
-          switch (decode.role) {
-            case "escort":
-              this.props.history.push(`/user/escort/dashboard/${decode._id}`);
-              break;
-            case "user":
-              this.props.history.push(`/user/dashboard/${decode._id}`);
-              break;
-            case "agency":
-              this.props.history.push(`/user/agency/dashboard/${decode._id}`);
-              break;
-            default:
-              break;
-          }
+          // switch (decode.role) {
+          //   case "escort":
+          //     this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+          //     break;
+          //   case "user":
+          //     this.props.history.push(`/user/dashboard/${decode._id}`);
+          //     break;
+          //   case "agency":
+          //     this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+          //     break;
+          //   default:
+          //     break;
+          // }
 
         } else {
           this.setState({
