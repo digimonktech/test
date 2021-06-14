@@ -99,12 +99,13 @@ export default class Home extends Component {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: true,
           },
         },
         {
           breakpoint: 400,
           settings: {
-            arrows: false,
+            arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
           },
@@ -125,12 +126,13 @@ export default class Home extends Component {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
+            arrows: true,
           },
         },
         {
           breakpoint: 400,
           settings: {
-            arrows: false,
+            arrows: true,
             slidesToShow: 1,
             slidesToScroll: 1,
           },
@@ -138,6 +140,36 @@ export default class Home extends Component {
       ],
       // adaptiveHeight: true,
     };
+
+    var howitwork = {
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      autoplay: false,
+
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+          },
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            arrows: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+      // adaptiveHeight: true,
+    };
+
     console.log("imgdes: ", this.state.escortReviewImg);
 
     return (
@@ -147,7 +179,7 @@ export default class Home extends Component {
           <div className="banner-center">
             <Container>
               <Row>
-                <Col md="6">
+                <Col xs="6">
                   <div className="banner-text">
                     <h1 className="mb-5">
                       Come in stressed. Leave revitalized
@@ -219,20 +251,21 @@ export default class Home extends Component {
           </Container>
         </div>
 
-        <div className="how-it-work pt-5 pb-5">
+        <div className="latest-review pt-5 pb-5">
           <Container>
             <h2 className="reviews mb-5">How it works</h2>
-            <Row xs={2} md={4} lg={4}>
-              <Col>
+
+            <Slider {...howitwork}>
+              <div>
                 <div className="how-it-box d-flex align-items-center flex-wrap">
                   <div className="text-how">
                     <img src={Logo} alt="" />
                   </div>
                   <Link to="#">Sign in or Register with us</Link>
                 </div>
-              </Col>
+              </div>
 
-              <Col>
+              <div>
                 <div className="how-it-box d-flex align-items-center flex-wrap">
                   <div className="text-how">
                     <img src={Find} alt="" />
@@ -241,8 +274,8 @@ export default class Home extends Component {
                     Find Your <br /> Escort
                   </Link>
                 </div>
-              </Col>
-              <Col>
+              </div>
+              <div>
                 <div className="how-it-box d-flex align-items-center flex-wrap">
                   <div className="text-how">
                     <img
@@ -257,9 +290,9 @@ export default class Home extends Component {
                   </div>
                   <Link to="#">Fast confirmations</Link>
                 </div>
-              </Col>
+              </div>
 
-              <Col>
+              <div>
                 <div className="how-it-box d-flex align-items-center flex-wrap">
                   <div className="text-how">
                     <img src={Find2} className="upimg" alt="" />
@@ -268,8 +301,8 @@ export default class Home extends Component {
                     Leave an honest review of your escort experience
                   </Link>
                 </div>
-              </Col>
-            </Row>
+              </div>
+            </Slider>
           </Container>
         </div>
         <div className="latest-review pt-5 pb-5 ">
@@ -327,9 +360,11 @@ export default class Home extends Component {
                   );
                 })
               ) : (
-            <img src={noFeatureEscortImage} alt="no memeber Yet"  style={{marginLeft:"35%", marginTop:40,marginBottom:40}}/>
-
-              
+                <img
+                  src={noFeatureEscortImage}
+                  alt="no memeber Yet"
+                  style={{ marginLeft: "35%", marginTop: 40, marginBottom: 40 }}
+                />
               )}
               {/* <div className="featured-box">
                 <img src={Featured} alt="" />

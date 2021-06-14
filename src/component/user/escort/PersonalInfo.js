@@ -407,7 +407,7 @@ export default class PersonalInfo extends Component {
             </Row>
             <Form.Group>
               <Form.Label htmlFor="Gender">Gender</Form.Label>
-              <div className="form-control">
+              <div className="form-control gender-mobile">
                 <ul className="gender">
                   <li className="malediv">
                     <input

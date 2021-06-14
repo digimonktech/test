@@ -260,6 +260,7 @@ Dialog .HighlightOffIco {
   background: url("./images/mobile.png") no-repeat center top;
   min-height: 518px;
   background-size: contain;
+  position: relative;
 }
 .text-how {
   width: 100%;
@@ -296,6 +297,9 @@ img {
   color: #fff;
   width: 200px;
   font-size: 24px;
+}
+.slick-slide .text-how img {
+    display: inline-block;
 }
 .reviews .btn-outline-primary:hover {
   border-color: #007bff;
@@ -1153,12 +1157,15 @@ ul.gender li label i {
 }
 
 .uploadimg-arry {
-  width: 100px;
+  width: 98px;
   float: left;
   margin-right: 10px;
   border: 1px solid #ccc;
   margin-bottom: 15px;
   position: relative;
+}
+.uploadimg-arry:last-child {
+    margin-right: 0px;
 }
 
 .form-group.multi-preview {
@@ -2134,3 +2141,151 @@ a.login.dropdown-toggle {
   text-decoration: none;
   cursor: pointer;
 }
+.btn-primary.disabled, .btn-primary:disabled {
+    background: #bc05d5;
+    border-color: #bc05d5;
+}
+.footer-text h5 i{display:none;}
+@media (max-width: 992px){
+nav.navbar.navbar-expand-lg.navbar-light.bg-black.fixed-top {
+    padding: 5px 15px;
+}
+.banner{min-height:295px;}	
+.banner-text h1 {
+   
+    font-size: 16px;
+    margin-bottom: 15px !important;
+}
+.banner-text a {
+    padding: 5px 25px;
+    font-size: 18px;
+    line-height: 24px;
+}
+.banner-text a span {
+   
+    font-size: 16px;
+    
+}
+.restomer p {
+    font-size: 20px;
+}
+.reviews {
+    font-size: 18px;
+    
+}
+
+.avtar img {
+    width: 70px;
+    height: 70px;
+}
+
+.avatar-text h3 {
+    font-size: 12px;
+    margin-top: 0px !important;
+}
+
+
+
+
+.latest-review .slick-slider {
+    padding-left: 25px;
+    padding-right: 20px;
+}
+
+.latest-review .slick-prev, .fresh .slick-prev {
+    left: -8px;
+    bottom: auto;
+    top: 50%;
+    right: auto;
+}
+
+.latest-review .slick-next, .fresh .slick-next {
+    right: -8px;
+    bottom: auto;
+    top: 50%;
+    left: auto;
+}
+.latest-review .slick-slide .pr-5 {
+    padding-right: 0px !important;
+}
+.navbar-light .navbar-toggler {
+    border-color: rgb(255 255 255);
+    background-color: white;
+}
+.bg-black {
+    background: rgb(0 0 0 / 98%);
+}
+nav.navbar.navbar-light.bg-black .nav-link {
+    
+    margin: 0px 0px;
+  
+}
+.how-it-box {
+    padding: 20px 80px;
+}
+.how-it-box a {
+    
+    left: 10%;
+    width:auto;
+    padding: 0px 48px;
+    right: 10%;
+}
+.how-it-box{margin-bottom:30px;}
+.view-gallery-left img {
+    height: auto;
+}
+.seeAllImage img {
+    height: auto;
+}
+.view-title h2 {
+    font-size: 18px;
+}
+.edit-personal {
+    min-height: auto;
+}
+
+.profile-box h2 {
+    font-size: 16px;
+}
+.onlineiuser label {
+    font-size: 14px;
+   
+}
+.form-control.gender-mobile {
+    height: auto;
+}
+
+ul.gender li {
+    display: block;
+    padding: 5px 0px;
+}
+.nedbooking {
+    text-align: left;
+}
+
+
+
+.btn-fem button {
+    width: 100%;
+   
+}
+
+.footer-text h5 {
+    background: #000;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-text h5 i{display:block;}
+.footer-text {
+    margin-bottom: 15px;
+}
+.footer-text ul li .nav-link {
+    padding: 5px 15px;
+}
+p#alert-dialog-slide-description {
+    min-width: auto !important;
+}
+}
+
