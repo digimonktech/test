@@ -16,7 +16,7 @@ export default class UploadImage extends Component {
     this.state = {
       file: [],
       open: false,
-      result: "Image Upload Successfully",
+      result: "Photo Upload Successfully",
       lstyle: { display: "none" },
       button: "Save",
     };
@@ -101,7 +101,7 @@ export default class UploadImage extends Component {
       // this.props.handleEscortImageDelete(result.data);
       this.setState({
         open: true,
-        result: "Image revomed successfully",
+        result: "Photo revomed successfully",
         lstyle: { display: "none" },
         button: "Save",
       });
@@ -141,7 +141,7 @@ export default class UploadImage extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3> {this.state.result} </h3>
+                <h4> {this.state.result} </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -153,8 +153,8 @@ export default class UploadImage extends Component {
           <form>
             <div className="uploadimgae-title">
               <h3>
-                Upload upto 5 Images{" "}
-                <span>({this.state.file.length} images)</span>
+                Upload upto 5 Photos{" "}
+                <span>({this.state.file.length} Photos)</span>
               </h3>
             </div>
 
@@ -171,7 +171,7 @@ export default class UploadImage extends Component {
             </div>
             {this.state.file.length < 5 ? (
               <div className="form-group">
-                <Form.Label>Upload image</Form.Label>
+                <Form.Label>Upload Photos</Form.Label>
                 <div className="uploadimgrdiv">
                   <div className="dsd">
                     <div className="uploadboxnew">

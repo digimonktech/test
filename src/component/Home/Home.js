@@ -34,6 +34,7 @@ export default class Home extends Component {
   componentDidMount = async () => {
     window.scrollTo(0, 0);
     const escortReview = await getData(`review/get-all-review`);
+    // console.log(escortReview);
     if (!escortReview.response) {
       for (const i in escortReview.data.data) {
         const id = escortReview.data.data[i].escortId;
@@ -191,12 +192,11 @@ export default class Home extends Component {
                           <h3
                             style={{
                               textAlign: "left",
-                              marginTop: 30,
-                              marginLeft: "2vw",
+                              marginTop: 20,
+                              marginLeft: "1vw",
                             }}
                           >
-                            {escort.customerName} has just been given a <br />
-                            {escort.rating} rating to {escort.escortName}.
+                           {escort.escortName} has just recieved a {escort.rating} star rating .
                           </h3>
                         </div>
                       </div>

@@ -186,7 +186,7 @@ export default class EditProfile extends Component {
               {this.state.errors.contactNumber}
             </label>
           </Form.Group>
-          <Form.Group>
+          {/* <Form.Group>
             <Form.Label>Address</Form.Label>
             <Form.Control
               as="textarea"
@@ -205,7 +205,7 @@ export default class EditProfile extends Component {
               value={this.state.getAboutInfo}
               onChange={(e) => this.setState({ getAboutInfo: e.target.value })}
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Form.Group className="text-right">
             <Button
@@ -243,7 +243,7 @@ export default class EditProfile extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3> {this.state.result} </h3>
+                <h4> {this.state.result} </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>

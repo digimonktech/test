@@ -572,7 +572,7 @@ export default class PersonalInfo extends Component {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>About us</Form.Label>
+              <Form.Label>About me</Form.Label>
               <Form.Control
                 type="text"
                 as="textarea"

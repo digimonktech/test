@@ -17,7 +17,7 @@ export default class SubmitOtp extends Component {
     this.state = {
       otp: "",
       numInputs: 4,
-      button: "Submit OTP",
+      button: "Submit ",
       lstyle: { display: "none" },
       isDisabled: false,
       wrongOtp:"",
@@ -32,7 +32,7 @@ export default class SubmitOtp extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ button: "",
-    lstyle: { display: "block" ,marginLeft:130}});
+    lstyle: { display: "block" ,marginLeft:75}});
     // var body = { otp: this.state.otp, email: this.props.location.email };
     // console.log({ body });
     var result = await getData(`auth/verify-password-pin/${this.state.otp}`);
@@ -42,14 +42,14 @@ export default class SubmitOtp extends Component {
     if (!result.response) {
       console.log(result);
      console.log( result.data.resetPasswordToken)
-     this.setState({ button: "Submit OTP",
+     this.setState({ button: "Submit ",
     lstyle: { display: "none" },});
       this.props.history.push(`/reset-password/${result.data.resetPasswordToken}`);
     } else {
       console.log(result.response);
-      this.setState({ button: "Submit OTP",
+      this.setState({ button: "Submit ",
       lstyle: { display: "none" },
-    wrongOtp:"Enter wrong OTP"
+    wrongOtp:"Enter wrong verification code"
     });
     }
   },2000);
@@ -61,11 +61,11 @@ export default class SubmitOtp extends Component {
       <>
         <Header />
         <div className="login-bg">
-          <div className="col-md-3 mx-auto">
+          <div className="col-md-5 mx-auto">
             <div className="login-color">
-              <h1 className="mb-4">Welcome</h1>
-              <p>This OTP is send on { this.props.match.params.email } </p>
-              <p>Enter the OTP here</p>
+              <h1 className="mb-4">Forget Password</h1>
+              <p>This verification code is send on { this.props.match.params.email } </p>
+              <p>Enter the verification code here</p>
               <form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   <div className="opt-box">
@@ -89,7 +89,8 @@ export default class SubmitOtp extends Component {
                 {this.state.wrongOtp}
               </label>
               </div>
-                <Form.Group className="mt-4 text-center">
+              <div className="col-md-5 mx-auto">
+                <Form.Group className="mt-4 text-center ">
                   <Button
                     type="submit"
                     className="btn btn-submit mt-4"
@@ -100,6 +101,7 @@ export default class SubmitOtp extends Component {
                 <CircularProgress style={this.state.lstyle} color="white" />
                   </Button>
                 </Form.Group>
+                </div>
               </form>
             </div>
           </div>

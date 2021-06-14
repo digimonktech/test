@@ -204,12 +204,12 @@ export default class BookingEscort extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3> Your Booking Request is successfully sent to esscort</h3>
+                <h4> Your Booking Request is successfully sent to escort</h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={() => this.handleClose()} color="primary">
-                Done
+                Close
               </Button>
             </DialogActions>
           </Dialog>
@@ -239,12 +239,12 @@ export default class BookingEscort extends Component {
                             <i className="flaticon-alarm-clock"></i>{" "}
                             {details.selectedPlan.hours} hr
                           </li>
-                          <li>
+                          {/* <li>
                             <i className="flaticon-building"></i>{" "}
                             {details.typePlan === "outCall"
                               ? this.state.hotal
                               : this.state.address}
-                          </li>
+                          </li> */}
                           <li>
                             <i className="flaticon-credit-card"></i> $
                             {details.selectedPlan.rate}
@@ -259,7 +259,7 @@ export default class BookingEscort extends Component {
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="type here"
+                    placeholder="Enter your Name"
                     disabled={this.state.userDetails.name ? true : false}
                     value={
                       this.state.userDetails.name
@@ -447,6 +447,13 @@ export default class BookingEscort extends Component {
                   <Link to="/term-of-use">terms & conditions.</Link>
                 </p>
                 <Form.Group className="text-right">
+               
+                <Button
+                    className="btn btn-primary"
+                    // onClick={this.handleBooking}
+                  >
+                  Cancel{" "}
+                  </Button>
                   <Button
                     className="btn btn-primary"
                     onClick={this.handleBooking}

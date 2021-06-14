@@ -11,6 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
+import jwt_decode from "jwt-decode";
 
 import { patchData } from "../FetchNodeServices";
 export default class ResetPassword extends Component {
@@ -55,12 +56,31 @@ export default class ResetPassword extends Component {
         `auth/reset-password/${this.props.match.params.token}`,
         body
       );
-      console.log(result);
+      console.log('reset result',result);
 
         if (!result.response) {
           console.log(result);
           this.setState({ open: true ,    lstyle: { display: "none" },
+        
           button: "Submit", newPassword:"",newcPassword:""});
+          localStorage.setItem("TOKEN", result.token)
+          const decode = jwt_decode(result.token);
+          console.log("check role",decode.role);
+
+          switch (decode.role) {
+            case "escort":
+              this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+              break;
+            case "user":
+              this.props.history.push(`/user/dashboard/${decode._id}`);
+              break;
+            case "agency":
+              this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+              break;
+            default:
+              break;
+          }
+
         } else {
           this.setState({
             newcPassword:
@@ -115,9 +135,10 @@ export default class ResetPassword extends Component {
           </DialogActions>
         </Dialog>
         <div className="login-bg">
-          <div className="col-md-3 mx-auto">
+          <div className="col-md-4 mx-auto">
             <div className="login-color">
-              <h1 className="mb-3">Reset Your Password</h1>
+              <h1 className="mb-3">Reset Password</h1>
+              <div className="col-md-9 mx-auto">
               <Form.Group className="mb-4 login-icon">
                 <Form.Control
                   type="password"
@@ -155,7 +176,7 @@ export default class ResetPassword extends Component {
               </label>
               <Link
                 to={{
-                  pathname: "/login",
+                  // pathname: "/login",
                 }}
                 className="btn btn-submit mb-4"
                 onClick={(e) => this.handlePasswordUpdate(e)}
@@ -166,6 +187,7 @@ export default class ResetPassword extends Component {
               <Form.Group className="text-center account">
                 Don't have an account <Link to="/Sign-up">Create Now</Link>
               </Form.Group>
+              </div>
             </div>
           </div>
         </div>

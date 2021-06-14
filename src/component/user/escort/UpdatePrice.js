@@ -26,7 +26,7 @@ export default class UpdatePrice extends Component {
 
       toShow: "outCall",
       open: false,
-      result: "Hourly Price Update ",
+      result: "Hourly Rate Updated ",
       errors: {},
       button: "Add",
       lstyle: { display: "none" },
@@ -225,7 +225,7 @@ export default class UpdatePrice extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3> {this.state.result} </h3>
+                <h4> {this.state.result} </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>

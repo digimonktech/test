@@ -24,6 +24,7 @@ export default class Booking extends Component {
       addition_false: false,
       subtraction_false: true,
       Bookingdate: 0,
+      date: Date(),
       durationHour: 3,
       currentAmOrPm: "am",
       currentHour: -1,
@@ -109,6 +110,7 @@ export default class Booking extends Component {
       currentMinute: minit,
       amOrPm: currentHour + 2 > 11 && currentHour + 2 < 24 ? "pm" : "am",
       currentAmOrPm: currentHour + 2 > 11 && currentHour + 2 < 24 ? "pm" : "am",
+date: new Date().toISOString().split("T")[0],
     });
     // console.log(this.state.hours)
   }
@@ -133,19 +135,24 @@ export default class Booking extends Component {
               ></span>
             </div>
             <RangeSlider duration={this.duration} />
-            <div className="text-right">
+            <Row  style={{marginTop:70}}>
+                          <Col md="6">
+                              <div className="text-left">
               <button
                 className="btn btn-outline-dark mr-2"
                 onClick={() => this.stepper.previous()}
               >
                 Back
               </button>
+              </div></Col>
               {/* <button
                 className="btn btn-primary"
                 onClick={() => this.setState({ stepFourType: "search" })}
               >
                 Search
               </button> */}
+              <Col md="6">
+              <div className="text-right">
               <Link
                 to={{
                   pathname: "/search-escort",
@@ -159,8 +166,11 @@ export default class Booking extends Component {
                   Search
                 </button>
               </Link>
+              </div>
+              </Col>
+              </Row>
             </div>
-          </div>
+        
         );
       case "search":
         console.log("SEARCH : SearchTabs");
@@ -256,7 +266,7 @@ export default class Booking extends Component {
     // );
     console.log('cuurent hour',this.state.currentHour,this.state.hours24);
     if(this.state.currentHour===11){
-      if (this.state.hours24 === 22 && this.state.minutes === 45) {
+      if (this.state.hours24 === 21 && this.state.minutes === 45) {
         this.setState({
           Bookingdate: this.state.Bookingdate + 1,
           amOrPm: "am",
@@ -301,7 +311,12 @@ export default class Booking extends Component {
 
   // Subtract Time from
   subtraction = () => {
-    // const date = new Date();
+     const date = this.state.date.split("-")[2];
+     const month = this.state.date.split("-")[1];
+
+//  date.setDate(date.getDate() -1);
+
+console.log("new date",date);
 
     if (this.state.hours > 1 && this.state.hours <= 12) {
       this.setState({
@@ -790,13 +805,18 @@ export default class Booking extends Component {
                             </button>
                           </div>
                         </div>
-                        <div className="text-right">
+                        <Row  style={{marginTop:70}}>
+                          <Col md="6">
+                              <div className="text-left">
                           <button
                             className="btn btn-outline-dark mr-2"
                             onClick={() => this.stepper.previous()}
                           >
                                                         Back
                           </button>
+                          </div></Col>
+                        <Col md="6">
+                          <div className="text-right" >
                           <button
                             className="btn btn-primary"
                             onClick={() => {
@@ -818,7 +838,10 @@ export default class Booking extends Component {
                           >
                             Next
                           </button>
-                        </div>
+                          </div>
+                          </Col>
+                          </Row>
+                      
                       </div>
                     </div>
                     <div id="test-l-4" className="content">

@@ -16,7 +16,7 @@ export default class ForgotPassword extends Component {
     super(props);
     this.state = {
        getemailid: "" ,
-  button: "SEND OTP",
+  button: "Send Verification Code",
   lstyle: { display: "none"},
   };
 
@@ -25,7 +25,7 @@ export default class ForgotPassword extends Component {
   handleOtp = async () => {
     this.setState({
       button: "",
-  lstyle: { display: "block",marginLeft:130},
+  lstyle: { display: "block",marginLeft:160},
     })
     const { getemailid } = this.state;
     var body = { email: getemailid };
@@ -35,10 +35,10 @@ export default class ForgotPassword extends Component {
     setTimeout(() => {
     if (!result.response) {
       console.log("otp:", result);
-      this.setState({lstyle: { display: "none" },button:"SEND OTP"})
+      this.setState({lstyle: { display: "none" },button:"Send Verification Code"})
       this.props.history.push(`/submit-otp/${body.email}`);
     } else {
-      this.setState({ getMsg: "Invalid Email Address" });
+      this.setState({ getMsg: "Invalid Email Address",lstyle: { display: "none" },button:"Send Verification Code" });
     }
   },2000);
   };
@@ -48,9 +48,10 @@ export default class ForgotPassword extends Component {
       <>
         <Header />
         <div className="login-bg">
-          <div className="col-md-3 mx-auto">
+          <div className="col-md-6 mx-auto">
             <div className="login-color">
-              <h1 className="mb-4">Welcome</h1>
+              <h1 className="mb-4"> Forget Password</h1>
+              <div className="col-md-7 mx-auto">
               <Form.Group className="mb-4 login-icon">
                 <Form.Control
                   type="email"
@@ -83,6 +84,7 @@ export default class ForgotPassword extends Component {
               <Form.Group className="text-center account">
                 Don't have an account <Link to="/Sign-up">Create Now</Link>
               </Form.Group>
+              </div>
             </div>
           </div>
         </div>

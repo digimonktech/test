@@ -61,7 +61,18 @@ export default class Header extends Component {
                   {localStorage.getItem("getname")}
                 </Nav.Link> */}
                 <Dropdown>
+                {this.state.isSignedIn ? (
                   <Dropdown.Toggle
+                    as="a"
+                    variant="false"
+                    className="login"
+                    id="dropdown-basic"
+                  >
+                    Dashboard
+                    {localStorage.getItem("getname")}
+                  </Dropdown.Toggle>
+                ):
+                <Dropdown.Toggle
                     as="a"
                     variant="false"
                     className="login"
@@ -70,7 +81,7 @@ export default class Header extends Component {
                     Login
                     {localStorage.getItem("getname")}
                   </Dropdown.Toggle>
-
+                }
                   <Dropdown.Menu>
                     {this.state.isSignedIn ? (
                       <>

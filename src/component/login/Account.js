@@ -217,9 +217,13 @@ export default class Account extends Component {
               <p>How do you want to REGISTER?</p>
               <ul>
                 <li>
-                  <input type="radio" id="user" name="selector" />
+                  <input type="radio" id="user" name="selector"  />
                   <label htmlFor="user" onClick={this.onClickUser}>
                     User
+                    <br/>
+                   <p style={{fontSize:12}}>[ Service Seeker ]
+                  
+                              </p>
                   </label>
                   <div className="check"></div>
                 </li>
@@ -227,6 +231,9 @@ export default class Account extends Component {
                   <input type="radio" id="escort" name="selector" />
                   <label htmlFor="escort" onClick={this.onClickEscort}>
                     Escort
+                    <br/>
+                   <p style={{fontSize:12}}>[ Service provider  ]
+                              </p>
                   </label>
                   <div className="check"></div>
                 </li>
@@ -235,6 +242,9 @@ export default class Account extends Component {
                   <input type="radio" id="agency" name="selector" />
                   <label htmlFor="agency" onClick={this.onClickAgency}>
                     Agency
+                    <br/>
+                   <p style={{fontSize:12}}>[ Service provider  ]
+                              </p>
                   </label>
                   <div className="check"></div>
                 </li>

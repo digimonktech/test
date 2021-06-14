@@ -135,7 +135,7 @@ export default class Dashboard extends Component {
             <ul>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Profile
+            My Profile
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">

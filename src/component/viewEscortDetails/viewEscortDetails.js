@@ -615,12 +615,15 @@ export default class ViewEscortDetails extends Component {
                       },
                     }}
                   >
+                    <div style={{textAlign: "center"}}>
                     <Button
-                      className="btn-outline-dark"
+                      className="btn-outline-dark" 
                       hidden={this.state.chat ? true : false}
-                    >
+                   style={{width:"40%",height:"30%"}}
+                   >
                       BOOK
                     </Button>
+                    </div>
                     <Button
                       className="btn-outline-dark"
                       hidden={this.state.chat ? false : true}

@@ -53,9 +53,7 @@ export default class GetVerified extends Component {
           <div className="getverfied">
             <h2>Get Verified</h2>
             <p>
-              for getting verified need to upload your id proof once you will
-              verified it will displayed
-            </p>
+            Kindly upload a photo identity proof to get a verified tag on your profile.</p>
             <Alert variant="danger">ID Proof Updated</Alert>
             <Form.Group>
               <Form.Label>ID Proof</Form.Label>

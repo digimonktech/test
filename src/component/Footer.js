@@ -58,10 +58,27 @@ export default class Footer extends Component {
                   <Link to="/">
                     <img src={FooterLogo} alt="" />
                   </Link>
-                  <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt
-                  </p>
+                  <div className="footer-text">
+                  {/* <h5>Contact</h5> */}
+                  <ul className="contact-icon">
+                    <li>
+                      <NavLink>
+                        <i className="fab fa-facebook-f"></i>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink>
+                        <i className="fab fa-twitter"></i>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink>
+                        <i className="fab fa-instagram"></i>
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+
                 </div>
               </Col>
 
@@ -75,9 +92,9 @@ export default class Footer extends Component {
                     <li>
                       <NavLink href="/booking">Find a Escort </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link onClick={()=>this.handleOpen()}>Our Blog</Link>
-                    </li>
+                    </li> */}
                     <li>
                       <NavLink href="/contact-us"> Contact Us</NavLink>
                     </li>
@@ -104,32 +121,38 @@ export default class Footer extends Component {
                     <li>
                       <NavLink> Cebu</NavLink>
                     </li>
+                    <li>
+                      <NavLink  href="/booking"> View All</NavLink>
+                    </li>
                   </ul>
                 </div>
               </Col>
 
               <Col>
-                <div className="footer-text">
-                  <h5>Contact</h5>
-                  <ul className="contact-icon">
+              <div className="footer-text">
+                  <h5>Country</h5>
+                  <ul>
                     <li>
-                      <NavLink>
-                        <i className="fab fa-facebook-f"></i>
-                      </NavLink>
+                      <NavLink>Thailand</NavLink>
                     </li>
                     <li>
-                      <NavLink>
-                        <i className="fab fa-twitter"></i>
-                      </NavLink>
+                      <NavLink>Japan</NavLink>
                     </li>
                     <li>
-                      <NavLink>
-                        <i className="fab fa-instagram"></i>
-                      </NavLink>
+                      <NavLink>Malaysia</NavLink>
+                    </li>
+                    <li>
+                      <NavLink>China</NavLink>
+                    </li>
+                    <li>
+                      <NavLink>Australia</NavLink>
+                    </li>
+                    <li>
+                      <NavLink  href="/booking">View All</NavLink>
                     </li>
                   </ul>
                 </div>
-              </Col>
+                           </Col>
             </Row>
           </Container>
         </footer>

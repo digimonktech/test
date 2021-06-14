@@ -80,7 +80,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Images
+                      Upload Photos
                     </NavLink>
                   </li>
                   <li>
@@ -215,7 +215,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Images
+                        Upload Photos
                       </NavLink>
                     </li>
                     <li>
@@ -349,7 +349,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Images
+                        Upload Photos
                       </NavLink>
                     </li>
                     <li>
@@ -483,7 +483,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Images
+                        Upload Photos
                       </NavLink>
                     </li>
                     <li>
@@ -617,7 +617,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Images
+                        Upload Photos
                       </NavLink>
                     </li>
                     <li>
@@ -750,7 +750,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Images
+                      Upload Photos
                     </NavLink>
                   </li>
                   <li>
@@ -881,7 +881,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Images
+                      Upload Photos
                     </NavLink>
                   </li>
                   <li>
@@ -1012,7 +1012,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Images
+                      Upload Photos
                     </NavLink>
                   </li>
                   <li>
@@ -1143,7 +1143,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Images
+                      Upload Photos
                     </NavLink>
                   </li>
                   <li>
