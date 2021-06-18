@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
-//import jwt_decode from "jwt-decode";
+import jwt_decode from "jwt-decode";
 import { getData } from "../FetchNodeServices";
 
 class VerifyEmail extends React.Component {
@@ -17,26 +17,50 @@ class VerifyEmail extends React.Component {
     console.log("id: ", window.location.pathname.split("/")[2]);
     const token = window.location.pathname.split("/")[2];
     const result = await getData(`auth/verify-email-via-token/${token}`);
+    console.log(result.data);
     if (!result.response) {
       this.setState({ isVerified: true });
-      // localStorage.setItem("TOKEN", result.token)
-      // const decode = jwt_decode(result.token);
-      // console.log("check role",decode.role);
+      if(localStorage.getItem("TOKEN")){
+        const decode = jwt_decode(localStorage.getItem("TOKEN"));
+      console.log('result',result)
+      console.log("check role",decode.role,decode.id);
 
-      // switch (decode.role) {
-      //   case "escort":
-      //     this.props.history.push(`/user/escort/dashboard/${decode._id}`);
-      //     break;
-      //   case "user":
-      //     this.props.history.push(`/user/dashboard/${decode._id}`);
-      //     break;
-      //   case "agency":
-      //     this.props.history.push(`/user/agency/dashboard/${decode._id}`);
-      //     break;
-      //   default:
-      //     break;
-      // }
+      switch (decode.role) {
+        case "escort":
+          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+          break;
+        case "user":
+          this.props.history.push(`/user/dashboard/${decode._id}`);
+          break;
+        case "agency":
+          this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+          break;
+        default:
+          break;
+      }
 
+      }
+      else {
+         
+      localStorage.setItem("TOKEN", result.data.token)
+      const decode = jwt_decode(result.token);
+      console.log('result',result)
+      console.log("check role",decode.role,decode.id);
+
+      switch (decode.role) {
+        case "escort":
+          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+          break;
+        case "user":
+          this.props.history.push(`/user/dashboard/${decode._id}`);
+          break;
+        case "agency":
+          this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+          break;
+        default:
+          break;
+      }
+      }
 
     } else {
       this.setState({ isVerified: false });

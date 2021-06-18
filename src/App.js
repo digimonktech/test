@@ -54,7 +54,7 @@ function App() {
           <Route path="/about-us" exact component={About} />
           <Route path="/contact-us" exact component={ContactUS} />
           <Route path="/faq" exact component={Faq} />
-          <Route path="/term-of-use" exact component={TermUse} />
+          <Route path="/book-escort/term-of-use" exact component={TermUse} />
           <Route path="/page-not-found" exact component={PageNotFound} />
           <Route path="/our-blog" exact component={OurBlog} />
           <Route path="/test" exact component={TestHeader} />

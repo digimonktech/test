@@ -80,7 +80,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Photos
+                      Manage gallery
                     </NavLink>
                   </li>
                   <li>
@@ -120,7 +120,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.booking.length}</span>
+                  My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -151,13 +151,13 @@ export default class EscortDashboard extends Component {
 
               <li>
                 <a onClick={() => this.ChangeTab("review")}>
-                  My Reviews <span>{this.state.reviews.length}</span>
+                  My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chats <span>0</span>
+                  Chats <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -215,7 +215,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Photos
+                        Manage gallery
                       </NavLink>
                     </li>
                     <li>
@@ -255,7 +255,7 @@ export default class EscortDashboard extends Component {
                 </Dropdown>
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    My Booking <span>{this.state.booking.length}</span>
+                    My Booking <span>({this.state.booking.length})</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -286,13 +286,13 @@ export default class EscortDashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("review")}>
-                    My Reviews <span>{this.state.reviews.length}</span>
+                    My Reviews <span>({this.state.reviews.length})</span>
                   </a>
                 </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    Chats <span>0</span>
+                    Chats <span>(0)</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -349,7 +349,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Photos
+                        Manage gallery
                       </NavLink>
                     </li>
                     <li>
@@ -389,7 +389,7 @@ export default class EscortDashboard extends Component {
                 </Dropdown>
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    My Booking <span>{this.state.booking.length}</span>
+                    My Booking <span>({this.state.booking.length})</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -420,13 +420,13 @@ export default class EscortDashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("review")}>
-                    My Reviews <span>{this.state.reviews.length}</span>
+                    My Reviews <span>({this.state.reviews.length})</span>
                   </a>
                 </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    Chats <span>0</span>
+                    Chats <span>(0)</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -483,7 +483,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Photos
+                        Manage gallery
                       </NavLink>
                     </li>
                     <li>
@@ -523,7 +523,7 @@ export default class EscortDashboard extends Component {
                 </Dropdown>
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    My Booking <span>{this.state.booking.length}</span>
+                    My Booking <span>({this.state.booking.length})</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -554,13 +554,13 @@ export default class EscortDashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("review")}>
-                    My Reviews <span>{this.state.reviews.length}</span>
+                    My Reviews <span>({this.state.reviews.length})</span>
                   </a>
                 </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    Chats <span>0</span>
+                    Chats <span>(0)</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -617,7 +617,7 @@ export default class EscortDashboard extends Component {
                           this.state.type === "uploadimage" ? "active" : ""
                         }
                       >
-                        Upload Photos
+                        Manage gallery
                       </NavLink>
                     </li>
                     <li>
@@ -657,7 +657,7 @@ export default class EscortDashboard extends Component {
                 </Dropdown>
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    My Booking <span>{this.state.booking.length}</span>
+                    My Booking <span>({this.state.booking.length})</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -688,13 +688,13 @@ export default class EscortDashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("review")}>
-                    My Reviews <span>{this.state.reviews.length}</span>
+                    My Reviews <span>({this.state.reviews.length})</span>
                   </a>
                 </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    Chats <span>0</span>
+                    Chats <span>(0)</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -750,7 +750,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Photos
+                      Manage gallery
                     </NavLink>
                   </li>
                   <li>
@@ -790,7 +790,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.booking.length}</span>
+                  My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -821,13 +821,13 @@ export default class EscortDashboard extends Component {
 
               <li>
                 <a onClick={() =>  this.ChangeTab("review")}>
-                  My Reviews <span>{this.state.reviews.length}</span>
+                  My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chats <span>0</span>
+                  Chats <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -881,7 +881,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Photos
+                      Manage gallery
                     </NavLink>
                   </li>
                   <li>
@@ -921,7 +921,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.booking.length}</span>
+                  My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -952,13 +952,13 @@ export default class EscortDashboard extends Component {
 
               <li>
                 <a onClick={() =>  this.ChangeTab("review")}>
-                  My Reviews <span>{this.state.reviews.length}</span>
+                  My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chats <span>0</span>
+                  Chats <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -1012,7 +1012,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Photos
+                    Manage gallery
                     </NavLink>
                   </li>
                   <li>
@@ -1052,7 +1052,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.booking.length}</span>
+                  My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -1083,13 +1083,13 @@ export default class EscortDashboard extends Component {
 
               <li>
                 <a onClick={() =>  this.ChangeTab("review")}>
-                  My Reviews <span>{this.state.reviews.length}</span>
+                  My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chats <span>0</span>
+                  Chats <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -1143,7 +1143,7 @@ export default class EscortDashboard extends Component {
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                      Upload Photos
+                      Manage gallery
                     </NavLink>
                   </li>
                   <li>
@@ -1183,7 +1183,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.booking.length}</span>
+                  My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -1214,13 +1214,13 @@ export default class EscortDashboard extends Component {
 
               <li>
                 <a onClick={() =>  this.ChangeTab("review")}>
-                  My Reviews <span>{this.state.reviews.length}</span>
+                  My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chats <span>0</span>
+                  Chats <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -1330,6 +1330,15 @@ export default class EscortDashboard extends Component {
     }
   };
 
+  onCheckOnline = async (e) => {
+    // const result = await postData("escort/change-booking-status");
+    // if (!result.response) {
+    //   this.handleUpdateProfile();
+    // } else {
+    //   console.log("err: ", result.response);
+    // }
+    console.log("check Online");
+  };
   render() {
     return (
       <>

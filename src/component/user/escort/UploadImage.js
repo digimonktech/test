@@ -18,7 +18,7 @@ export default class UploadImage extends Component {
       open: false,
       result: "Photo Upload Successfully",
       lstyle: { display: "none" },
-      button: "Save",
+      button: "Upload",
     };
   }
 
@@ -38,7 +38,7 @@ export default class UploadImage extends Component {
         this.setState({
           file: newfiles,
           lstyle: { display: "none" },
-          button: "Save",
+          button: "Upload",
         });
       };
     } catch {
@@ -61,7 +61,7 @@ export default class UploadImage extends Component {
       this.setState({
         open: true,
         lstyle: { display: "none" },
-        button: "Save",
+        button:"Upload",
       });
       console.log("Uploaded: ", result);
     } else {
@@ -83,7 +83,7 @@ export default class UploadImage extends Component {
     this.setState({
       open: false,
       lstyle: { display: "none" },
-      button: "Save",
+      button: "Upload",
     });
   };
   removeClick = async (idx) => {
@@ -103,7 +103,7 @@ export default class UploadImage extends Component {
         open: true,
         result: "Photo revomed successfully",
         lstyle: { display: "none" },
-        button: "Save",
+        button: "Upload",
       });
     } else {
       console.log("err: ", result.response);

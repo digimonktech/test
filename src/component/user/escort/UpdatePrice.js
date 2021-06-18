@@ -26,7 +26,7 @@ export default class UpdatePrice extends Component {
 
       toShow: "outCall",
       open: false,
-      result: "Hourly Rate Updated ",
+      result: "Hourly rate has been updated ",
       errors: {},
       button: "Add",
       lstyle: { display: "none" },

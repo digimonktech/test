@@ -72,6 +72,35 @@ export default class Account extends Component {
     }
   };
 
+  handleLogin = async (props) => {
+    console.log("pahuch gaye")
+    var body = { email:this.state.getemail, password: this.state.getpassword };
+    let url = "auth/login";
+    var result = await postData(url, body);
+    console.log("Atuh chec: ", result, result.response)
+    if (result) {
+      localStorage.setItem("TOKEN", result.token)
+        const decode = jwt_decode(result.token);
+        switch (decode.role) {
+          case "escort":
+            this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+            break;
+          case "user":
+            this.props.history.push(`/user/dashboard/${decode._id}`);
+            break;
+          case "agency":
+            this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+            break;
+          default:
+            break;
+        }
+    
+    } else {
+      console.log("err: ", result.response);
+}
+  }
+  
+
   handleSignup = async (props) => {
     this.setState({
       lstyle: { display: "block", marginLeft: 190 },
@@ -156,11 +185,15 @@ export default class Account extends Component {
             lstyle: { display: "none" },
             button: "Continue",
           });
+          
           console.log("sent");
           // this.props.history.push("/login");
         }
         if (result) {
-          console.log("Signup:", result);
+          console.log("Signup:", result.data);
+         
+ 
+
           // this.props.history.push("/login");
           // if (body.role == "User") {
           //   this.props.history.push("/user/dashboard");
@@ -184,9 +217,10 @@ export default class Account extends Component {
     );
   };
 
+  
   handleClose = () => {
     this.setState({ isOpen: false });
-    this.props.history.push("/login");
+    this.handleLogin();
   };
 
   onClickUser = () => {

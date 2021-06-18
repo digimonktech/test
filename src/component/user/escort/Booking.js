@@ -14,6 +14,7 @@ export default class Booking extends Component {
   }
 
   componentDidMount() {
+    console.log("check booking",this.props.booking)
     const newBooking = this.props.booking
       ? this.props.booking.filter((booking) => !booking.isCompleted)
       : [];

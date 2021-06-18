@@ -18,7 +18,7 @@ export default class EscortCard extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.escort);
+    console.log("escort prop",this.props.escort);
     let rate = this.props.escort.outCallRate;
     const list = [];
 

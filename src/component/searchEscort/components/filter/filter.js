@@ -11,6 +11,7 @@ export default class Filter extends Component {
     this.state = {
       selectedAgency: null,
       services:[],
+      bodyType:[],
     };
   }
   componentDidMount= async () => {
@@ -32,6 +33,19 @@ export default class Filter extends Component {
   })
     } else {
       console.log("services Data",services.response);
+    }
+
+    const bodyType = await getData(
+      "admin/get-all-body-type"
+    );
+    if (!bodyType.response) {
+      console.log("bodyType  data",bodyType.data.data);
+      const body = bodyType.data.data
+  this.setState({
+    bodyType:body,
+  })
+    } else {
+      console.log("bodyType res Data",bodyType.response);
     }
   }
 
@@ -74,19 +88,20 @@ export default class Filter extends Component {
           </Form.Group>
           <Form.Group>
             <Form.Label>Body Type</Form.Label>
-            <Form.Control as="select">
-              <option>Any Body Type</option>
-              <option>Curvy</option>
-              <option>Slim</option>
+            <Form.Control as="select" onChange={this.props.handleBodyType}>
+              <option>Choose Any Body Type</option>
+              { this.state.bodyType.length ? (
+                  this.state.bodyType.map((bodyType, idx) => (  <option key={idx} value={bodyType._id}>{bodyType.name}</option>))):""
+              }
             </Form.Control>
           </Form.Group>
           <Form.Group>
             <Form.Label>Service</Form.Label>
-            <Form.Control as="select">
+            <Form.Control as="select" onChange={this.props.handleServices}> 
             
               <option>Choose Any Service</option>
               { this.state.services.length ? (
-                  this.state.services.map((services, idx) => (  <option value={services.id}>{services.shortName}</option>))):""
+                  this.state.services.map((services, idx) => (  <option key={idx} value={services._id}>{services.shortName}</option>))):""
               }
              
             

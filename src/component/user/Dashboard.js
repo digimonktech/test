@@ -166,7 +166,7 @@ export default class Dashboard extends Component {
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.userBooking.length}</span>
+                  My Booking <span>({this.state.userBooking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -209,13 +209,13 @@ export default class Dashboard extends Component {
 
               <li>
                 <a onClick={() => this.ChangeTab("review")}>
-                  Review <span>{this.state.reviews.length}</span>
+                  Review <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chat <span>0</span>
+                  Chat <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -278,7 +278,7 @@ export default class Dashboard extends Component {
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    My Booking <span>{this.state.userBooking.length}</span>
+                    My Booking <span>({this.state.userBooking.length})</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -321,13 +321,13 @@ export default class Dashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("review")}>
-                    Review <span>{this.state.reviews.length}</span>
+                    Review <span>({this.state.reviews.length})</span>
                   </a>
                 </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
-                    Chat <span>0</span>
+                    Chat <span>(0)</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu as="ul">
@@ -390,7 +390,7 @@ export default class Dashboard extends Component {
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.userBooking.length}</span>
+                  My Booking <span>({this.state.userBooking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -433,13 +433,13 @@ export default class Dashboard extends Component {
 
               <li>
                 <a onClick={() => this.ChangeTab("review")}>
-                  Review <span>{this.state.reviews.length}</span>
+                  Review <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chat <span>0</span>
+                  Chat <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -501,7 +501,7 @@ export default class Dashboard extends Component {
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.userBooking.length}</span>
+                  My Booking <span>({this.state.userBooking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -544,13 +544,13 @@ export default class Dashboard extends Component {
 
               <li>
                 <a onClick={() => this.ChangeTab("review")}>
-                  Review <span>{this.state.reviews.length}</span>
+                  Review <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chat <span>0</span>
+                  Chat <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -612,7 +612,7 @@ export default class Dashboard extends Component {
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  My Booking <span>{this.state.userBooking.length}</span>
+                  My Booking <span>({this.state.userBooking.length})</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -655,13 +655,13 @@ export default class Dashboard extends Component {
 
               <li>
                 <a onClick={() => this.ChangeTab("review")}>
-                  Review <span>{this.state.reviews.length}</span>
+                  Review <span>({this.state.reviews.length})</span>
                 </a>
               </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-                  Chat <span>0</span>
+                  Chat <span>(0)</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">

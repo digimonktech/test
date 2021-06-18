@@ -61,6 +61,7 @@ export default class BookingEscort extends Component {
       //   time.split(":")[1].split(" ")[0],
       //   time.split(":")[1].split(" ")[1]
       // );
+   if(time){
       let amOrPm = time.split(":")[1].split(" ")[1];
       let hours =
         amOrPm === "pm"
@@ -79,6 +80,7 @@ export default class BookingEscort extends Component {
       //   time: time,
       // });
     }
+    }
     if (!token) {
       // window.location.replace(`/sign-up`)
       // this.props.history.push(`/sign-up`);
@@ -89,6 +91,10 @@ export default class BookingEscort extends Component {
     }
   }
 
+  openTermOfUse = () =>{
+    console.log("londiya");
+    window.open("./term-of-use");
+  }
   handleBooking = async () => {
     this.setState({
       lstyle: { display: "block" },
@@ -116,12 +122,14 @@ export default class BookingEscort extends Component {
         hotal: { name: this.state.hotal, roomNumber: this.state.roomNumber },
         address: this.state.address,
       };
-      console.log("BOdy: ", body);
+      console.log("Body: ", body);
       const result = await postData("booking/book-escort-directly", body);
       if (result.response) {
         console.log(result.response.data);
         this.setState({
           errors: { ...this.state.errors, ...result.response.data.errors },
+          lstyle: { display: "none" },
+          button: "CONFIRM BOOKING",
         });
       } else {
         this.setState({
@@ -154,7 +162,9 @@ export default class BookingEscort extends Component {
       if (result.response) {
         console.log(result.response.data);
         this.setState({
-          errors: { ...result.response.data.errors, ...this.state.errors },
+          errors: { ...result.response.data.errors, ...this.state.errors, },
+          lstyle: { display: "none" },
+          button: "CONFIRM BOOKING",
         });
       } else {
         this.setState({
@@ -202,6 +212,7 @@ export default class BookingEscort extends Component {
                   minWidth: 620,
                   minHeight: 50,
                   marginTop: 20,
+                  textAlign:"center",
                 }}
               >
                 <h4> Your Booking Request is successfully sent to escort</h4>
@@ -444,7 +455,8 @@ export default class BookingEscort extends Component {
 
                 <p className="confirm">
                   By confirming this booking you are agreeing to our{" "}
-                  <Link to="/term-of-use">terms & conditions.</Link>
+                  <a onClick={()=>this.openTermOfUse()} style={{color: "#E100FF"}}><u>terms & conditions.</u></a>
+              
                 </p>
                 <Form.Group className="text-right">
                
