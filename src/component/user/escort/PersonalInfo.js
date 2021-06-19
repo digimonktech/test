@@ -218,7 +218,7 @@ export default class PersonalInfo extends Component {
 
   handleCountryChange = async () => {
     const cities = await getData(
-      `admin/get-all-city-by-country/${this.state.getCountry}`
+      `admin/get-all-city-by-country/${this.state.getCountry || "THA"}`
     );
     console.log('city',cities);
     if (!cities.response) {

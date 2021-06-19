@@ -36,7 +36,7 @@ export default class EscortDashboard extends Component {
       reviews: [],
       booking: [],
       isUpdated: false,
-      isOnline:false,
+      isOnline: false,
     };
   }
 
@@ -123,7 +123,6 @@ export default class EscortDashboard extends Component {
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
-                
 
                 <Dropdown.Menu as="ul">
                   <li>
@@ -603,7 +602,7 @@ export default class EscortDashboard extends Component {
                     <li>
                       <NavLink
                         to="#"
-                        onClick={() =>  this.ChangeTab("personalinfo")}
+                        onClick={() => this.ChangeTab("personalinfo")}
                         activeClassName={
                           this.state.type === "personalinfo" ? "active" : ""
                         }
@@ -703,7 +702,7 @@ export default class EscortDashboard extends Component {
                     <li>
                       <NavLink
                         to="#"
-                        onClick={() =>  this.ChangeTab("chat")}
+                        onClick={() => this.ChangeTab("chat")}
                         activeClassName={
                           this.state.type === "chat" ? "active" : ""
                         }
@@ -736,7 +735,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("personalinfo")}
+                      onClick={() => this.ChangeTab("personalinfo")}
                       activeClassName={
                         this.state.type === "personalinfo" ? "active" : ""
                       }
@@ -747,7 +746,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("uploadimage")}
+                      onClick={() => this.ChangeTab("uploadimage")}
                       activeClassName={
                         this.state.type === "uploadimage" ? "active" : ""
                       }
@@ -758,7 +757,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("changepassword")}
+                      onClick={() => this.ChangeTab("changepassword")}
                       activeClassName={
                         this.state.type === "changepassword" ? "active" : ""
                       }
@@ -769,7 +768,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("updateprice")}
+                      onClick={() => this.ChangeTab("updateprice")}
                       activeClassName={
                         this.state.type === "updateprice" ? "active" : ""
                       }
@@ -780,7 +779,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("getverified")}
+                      onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
                       }
@@ -799,7 +798,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("booking")}
+                      onClick={() => this.ChangeTab("booking")}
                       activeClassName={
                         this.state.type === "booking" ? "active" : ""
                       }
@@ -810,7 +809,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("allbooking")}
+                      onClick={() => this.ChangeTab("allbooking")}
                       activeClassName={
                         this.state.type === "allbooking" ? "active" : ""
                       }
@@ -822,7 +821,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
 
               <li>
-                <a onClick={() =>  this.ChangeTab("review")}>
+                <a onClick={() => this.ChangeTab("review")}>
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
@@ -836,7 +835,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("chat")}
+                      onClick={() => this.ChangeTab("chat")}
                       activeClassName={
                         this.state.type === "chat" ? "active" : ""
                       }
@@ -867,7 +866,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("personalinfo")}
+                      onClick={() => this.ChangeTab("personalinfo")}
                       activeClassName={
                         this.state.type === "personalinfo" ? "active" : ""
                       }
@@ -878,7 +877,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("uploadimage")}
+                      onClick={() => this.ChangeTab("uploadimage")}
                       activeClassName={
                         this.state.type === "uploadimage" ? "active" : ""
                       }
@@ -889,7 +888,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("changepassword")}
+                      onClick={() => this.ChangeTab("changepassword")}
                       activeClassName={
                         this.state.type === "changepassword" ? "active" : ""
                       }
@@ -900,7 +899,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("updateprice")}
+                      onClick={() => this.ChangeTab("updateprice")}
                       activeClassName={
                         this.state.type === "updateprice" ? "active" : ""
                       }
@@ -911,7 +910,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("getverified")}
+                      onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
                       }
@@ -930,7 +929,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("booking")}
+                      onClick={() => this.ChangeTab("booking")}
                       activeClassName={
                         this.state.type === "booking" ? "active" : ""
                       }
@@ -941,7 +940,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("allbooking")}
+                      onClick={() => this.ChangeTab("allbooking")}
                       activeClassName={
                         this.state.type === "allbooking" ? "active" : ""
                       }
@@ -953,7 +952,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
 
               <li>
-                <a onClick={() =>  this.ChangeTab("review")}>
+                <a onClick={() => this.ChangeTab("review")}>
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
@@ -967,7 +966,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("chat")}
+                      onClick={() => this.ChangeTab("chat")}
                       activeClassName={
                         this.state.type === "chat" ? "active" : ""
                       }
@@ -998,7 +997,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("personalinfo")}
+                      onClick={() => this.ChangeTab("personalinfo")}
                       activeClassName={
                         this.state.type === "personalinfo" ? "active" : ""
                       }
@@ -1009,18 +1008,18 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("uploadimage")}
+                      onClick={() => this.ChangeTab("uploadimage")}
                       activeClassName={
                         this.state.type === "uploadimage" ? "active" : ""
                       }
                     >
-                    Manage gallery
+                      Manage gallery
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("changepassword")}
+                      onClick={() => this.ChangeTab("changepassword")}
                       activeClassName={
                         this.state.type === "changepassword" ? "active" : ""
                       }
@@ -1031,7 +1030,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("updateprice")}
+                      onClick={() => this.ChangeTab("updateprice")}
                       activeClassName={
                         this.state.type === "updateprice" ? "active" : ""
                       }
@@ -1042,7 +1041,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("getverified")}
+                      onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
                       }
@@ -1061,7 +1060,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("booking")}
+                      onClick={() => this.ChangeTab("booking")}
                       activeClassName={
                         this.state.type === "booking" ? "active" : ""
                       }
@@ -1072,7 +1071,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("allbooking")}
+                      onClick={() => this.ChangeTab("allbooking")}
                       activeClassName={
                         this.state.type === "allbooking" ? "active" : ""
                       }
@@ -1084,7 +1083,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
 
               <li>
-                <a onClick={() =>  this.ChangeTab("review")}>
+                <a onClick={() => this.ChangeTab("review")}>
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
@@ -1098,7 +1097,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("chat")}
+                      onClick={() => this.ChangeTab("chat")}
                       activeClassName={
                         this.state.type === "chat" ? "active" : ""
                       }
@@ -1129,7 +1128,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("personalinfo")}
+                      onClick={() => this.ChangeTab("personalinfo")}
                       activeClassName={
                         this.state.type === "personalinfo" ? "active" : ""
                       }
@@ -1140,7 +1139,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("uploadimage")}
+                      onClick={() => this.ChangeTab("uploadimage")}
                       activeClassName={
                         this.state.type === "uploadimage" ? "active" : ""
                       }
@@ -1151,7 +1150,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("changepassword")}
+                      onClick={() => this.ChangeTab("changepassword")}
                       activeClassName={
                         this.state.type === "changepassword" ? "active" : ""
                       }
@@ -1162,7 +1161,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("updateprice")}
+                      onClick={() => this.ChangeTab("updateprice")}
                       activeClassName={
                         this.state.type === "updateprice" ? "active" : ""
                       }
@@ -1173,7 +1172,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("getverified")}
+                      onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
                       }
@@ -1192,7 +1191,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("booking")}
+                      onClick={() => this.ChangeTab("booking")}
                       activeClassName={
                         this.state.type === "booking" ? "active" : ""
                       }
@@ -1203,7 +1202,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("allbooking")}
+                      onClick={() => this.ChangeTab("allbooking")}
                       activeClassName={
                         this.state.type === "allbooking" ? "active" : ""
                       }
@@ -1215,7 +1214,7 @@ export default class EscortDashboard extends Component {
               </Dropdown>
 
               <li>
-                <a onClick={() =>  this.ChangeTab("review")}>
+                <a onClick={() => this.ChangeTab("review")}>
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
@@ -1229,7 +1228,7 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() =>  this.ChangeTab("chat")}
+                      onClick={() => this.ChangeTab("chat")}
                       activeClassName={
                         this.state.type === "chat" ? "active" : ""
                       }
@@ -1278,7 +1277,10 @@ export default class EscortDashboard extends Component {
         }
         console.log("result: ", result);
         if (result.data.data !== null) {
-          this.setState({ escortDetails: result.data.data , isOnline:result.data.data.isOnline});
+          this.setState({
+            escortDetails: result.data.data,
+            isOnline: result.data.data.isOnline,
+          });
         } else {
           this.props.history.push(`/page-not-found`);
         }
@@ -1334,18 +1336,17 @@ export default class EscortDashboard extends Component {
   };
 
   onOnlineModeChange = async (e) => {
-   const  body={
-      id:this.state.escortDetails._id,
-      prevStatus:this.state.isOnline
-    }
+    const body = {
+      id: this.state.escortDetails._id,
+      prevStatus: this.state.isOnline.toString(),
+    };
     console.log(body);
-    const result = await postData("escort/change-online-status",body);
-    console.log("online",result);
+    const result = await postData("escort/change-online-status", body);
+    console.log("online", result);
     if (!result.response) {
-    
       this.setState({
-        isOnline:result.data.data.isOnline
-      })
+        isOnline: result.data.isOnline,
+      });
     } else {
       console.log("err: ", result.response);
     }
@@ -1389,15 +1390,11 @@ export default class EscortDashboard extends Component {
                       <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label={
-                            this.state.isOnline ?
-                              "Online"
-                              : "Offline"
-                          }
-                          checked={this.state.isOnline}
-                          onChange={this.onOnlineModeChange}
+                        label={this.state.isOnline ? "Online" : "Offline"}
+                        checked={this.state.isOnline}
+                        onChange={this.onOnlineModeChange}
                       />
-                      
+
                       <Tooltip
                         title={
                           this.state.escortDetails.outCallRate.length

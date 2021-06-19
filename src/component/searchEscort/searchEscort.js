@@ -13,7 +13,7 @@ import Popup from "../popup/popup";
 import noReviewImage from "../../images/Group 4113@2x.png";
 import man from "../../images/man.png";
 import StarRatingComponent from "react-star-rating-component";
-import Link from "@material-ui/core/Link";
+// import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 // import SearchUser from "./SearchUser";
 // import Favorite from "./Favorite";
@@ -155,6 +155,7 @@ export default class SearchEscort extends Component {
       "booking/filter-old-escort-for-booking",
       body
     );
+    console.log("ESCORT: ", Escorts);
     if (!newEscorts.response) {
       this.setState({
         escorts: Escorts.data,

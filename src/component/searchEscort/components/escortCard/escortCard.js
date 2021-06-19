@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Avatar from "../../../../images/avatar1.png";
 
 import Report from "../report/report";
-import Popup from "../../../popup/popup";
+// import Popup from "../../../popup/popup";
 
 export default class EscortCard extends Component {
   constructor() {
@@ -18,7 +18,7 @@ export default class EscortCard extends Component {
   }
 
   componentDidMount() {
-    console.log("escort prop",this.props.escort);
+    console.log("escort prop", this.props.escort);
     let rate = this.props.escort.outCallRate;
     const list = [];
 
@@ -49,7 +49,16 @@ export default class EscortCard extends Component {
         <Col>
           <div className="s-online mb-4">
             <div className="online-live">
-              {escort.isOnline===true?<div><i className="fas fa-circle"></i> Online</div> :<div><i className="fas fa-circle" style={{color:"White"}}></i> Offline</div>}
+              {escort.isOnline === true ? (
+                <div>
+                  <i className="fas fa-circle"></i> Online
+                </div>
+              ) : (
+                <div>
+                  <i className="fas fa-circle" style={{ color: "White" }}></i>{" "}
+                  Offline
+                </div>
+              )}
             </div>
             <div className="verified">
               {escort.isVerified ? "Verified" : ""}
@@ -119,7 +128,9 @@ export default class EscortCard extends Component {
                   <span>
                     {escort.height || "N/A"} cm| {escort.bodyShape || "N/A"}
                   </span>
-                  <div className="pricebox">${this.state.lowOutCallPrice || "N/A"}</div>
+                  <div className="pricebox">
+                    ${this.state.lowOutCallPrice || "N/A"}
+                  </div>
                 </Col>
                 <Col className="text-right">
                   <div

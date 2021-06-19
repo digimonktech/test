@@ -20,6 +20,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import "react-phone-number-input/style.css";
 import "../../assets/styles/phoneNumberInput/phoneNumber.styles.css";
 
+import AllCountries from "../../utils/country.utils";
+
 export default class Account extends Component {
   constructor() {
     super();
@@ -31,13 +33,14 @@ export default class Account extends Component {
       getphonenumber: "",
       getMsg: "",
       getAgency: "",
-      text: "",
+      text: "user",
       getUsername: "",
       button: "Continue",
       lstyle: { display: "none" },
       isOpen: false,
 
       allAgency: [],
+      avaliableCountries: [],
 
       errors: {},
     };
@@ -60,9 +63,20 @@ export default class Account extends Component {
           break;
       }
     }
+    const country = await getData("admin/get-all-country");
+    let avaliableCountries = [];
+    for (const i in country.data.data) {
+      avaliableCountries.push(
+        AllCountries.filter((c) => country.data.data[i].code3 === c.code3)[0]
+          .code
+      );
+    }
+    console.log("count: ", avaliableCountries);
+    this.setState({ avaliableCountries });
+
     const agency = await getData("agency/get-all-agencies");
     if (!agency.response) {
-      console.log(agency);
+      // eslint-disable-next-line no-unused-vars
       let newArr = agency.data.data.map((agency) => agency._id);
       this.setState({
         allAgency: agency.data.data,
@@ -73,33 +87,29 @@ export default class Account extends Component {
   };
 
   handleLogin = async (props) => {
-    console.log("pahuch gaye")
-    var body = { email:this.state.getemail, password: this.state.getpassword };
+    var body = { email: this.state.getemail, password: this.state.getpassword };
     let url = "auth/login";
     var result = await postData(url, body);
-    console.log("Atuh chec: ", result, result.response)
     if (result) {
-      localStorage.setItem("TOKEN", result.token)
-        const decode = jwt_decode(result.token);
-        switch (decode.role) {
-          case "escort":
-            this.props.history.push(`/user/escort/dashboard/${decode._id}`);
-            break;
-          case "user":
-            this.props.history.push(`/user/dashboard/${decode._id}`);
-            break;
-          case "agency":
-            this.props.history.push(`/user/agency/dashboard/${decode._id}`);
-            break;
-          default:
-            break;
-        }
-    
+      localStorage.setItem("TOKEN", result.token);
+      const decode = jwt_decode(result.token);
+      switch (decode.role) {
+        case "escort":
+          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+          break;
+        case "user":
+          this.props.history.push(`/user/dashboard/${decode._id}`);
+          break;
+        case "agency":
+          this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+          break;
+        default:
+          break;
+      }
     } else {
       console.log("err: ", result.response);
-}
-  }
-  
+    }
+  };
 
   handleSignup = async (props) => {
     this.setState({
@@ -145,7 +155,6 @@ export default class Account extends Component {
       phoneNumber += international[i] + " ";
     }
     phoneNumber = phoneNumber.trim();
-    console.log(countryCode, phoneNumber);
     let body = {
       email: getemail,
       password: getpassword,
@@ -156,7 +165,6 @@ export default class Account extends Component {
       username: getUsername,
       agencyId: getAgency,
     };
-    console.log("body: ", body);
     let url = "";
     if (text === "user") {
       url = "user/sign-up";
@@ -169,7 +177,6 @@ export default class Account extends Component {
     setTimeout(
       function () {
         if (result.response ? result.response.data.status === "fail" : false) {
-          console.log("err: ", result.response)
           this.setState({
             errors: result.response.data.errors
               ? result.response.data.errors
@@ -185,14 +192,11 @@ export default class Account extends Component {
             lstyle: { display: "none" },
             button: "Continue",
           });
-          
-          console.log("sent");
+
           // this.props.history.push("/login");
         }
         if (result) {
           console.log("Signup:", result.data);
-         
- 
 
           // this.props.history.push("/login");
           // if (body.role == "User") {
@@ -217,7 +221,6 @@ export default class Account extends Component {
     );
   };
 
-  
   handleClose = () => {
     this.setState({ isOpen: false });
     this.handleLogin();
@@ -242,6 +245,7 @@ export default class Account extends Component {
 
   render() {
     const { getMsg } = this.state;
+    console.log("State: ", this.state.avaliableCountries);
     return (
       <>
         <Header />
@@ -251,13 +255,16 @@ export default class Account extends Component {
               <p>How do you want to REGISTER?</p>
               <ul>
                 <li>
-                  <input type="radio" id="user" name="selector"  />
+                  <input
+                    type="radio"
+                    id="user"
+                    name="selector"
+                    checked={this.state.text === "user" ? true : false}
+                  />
                   <label htmlFor="user" onClick={this.onClickUser}>
                     User
-                    <br/>
-                   <p style={{fontSize:12}}>[ Service Seeker ]
-                  
-                              </p>
+                    <br />
+                    <p style={{ fontSize: 12 }}>[ Service Seeker ]</p>
                   </label>
                   <div className="check"></div>
                 </li>
@@ -265,9 +272,8 @@ export default class Account extends Component {
                   <input type="radio" id="escort" name="selector" />
                   <label htmlFor="escort" onClick={this.onClickEscort}>
                     Escort
-                    <br/>
-                   <p style={{fontSize:12}}>[ Service provider  ]
-                              </p>
+                    <br />
+                    <p style={{ fontSize: 12 }}>[ Service provider ]</p>
                   </label>
                   <div className="check"></div>
                 </li>
@@ -276,9 +282,8 @@ export default class Account extends Component {
                   <input type="radio" id="agency" name="selector" />
                   <label htmlFor="agency" onClick={this.onClickAgency}>
                     Agency
-                    <br/>
-                   <p style={{fontSize:12}}>[ Service provider  ]
-                              </p>
+                    <br />
+                    <p style={{ fontSize: 12 }}>[ Service provider ]</p>
                   </label>
                   <div className="check"></div>
                 </li>
@@ -368,7 +373,6 @@ export default class Account extends Component {
                 </label>
               </Form.Group>
 
-             
               <Form.Group className="login-icon">
                 {/* <Form.Control
                   type="text"
@@ -387,9 +391,17 @@ export default class Account extends Component {
                   international
                   countryCallingCodeEditable={false}
                   defaultCountry="TH"
+                  onCountryChange={(country) => {
+                    let newCountry = AllCountries.filter(
+                      (c) => c.code === country
+                    );
+                    console.log("newCOunt", newCountry[0].code3);
+                  }}
+                  countries={this.state.avaliableCountries}
                   value={this.state.getphonenumber}
                   onChange={(e) => this.setState({ getphonenumber: e })}
                   className="form-control"
+                  limitMaxLength={true}
                   style={{
                     backgroundColor: this.state.getphonenumber
                       ? "white"
@@ -505,7 +517,7 @@ export default class Account extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-            We have sent a verification link on your given email:{" "}
+              We have sent a verification link on your given email:{" "}
               {this.state.getemail}
             </DialogContentText>
           </DialogContent>
