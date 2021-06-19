@@ -38,7 +38,7 @@ import noReviewImage from "../../images/Group 4113@2x.png";
 import man from "../../images/man.png";
 import { Facebook, Twitter } from "react-sharingbuttons";
 import "react-sharingbuttons/dist/main.css";
-
+// import {useHistory} from  "react-router-dom";
 export default class ViewEscortDetails extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +64,9 @@ export default class ViewEscortDetails extends Component {
     };
   }
   componentDidMount = async () => {
+    // const history = useHistory();
+    // console.log("history",history);
+
     if (localStorage.getItem("TOKEN")) {
       const decode = jwt_decode(localStorage.getItem("TOKEN"));
       switch (decode.role) {
@@ -142,6 +145,9 @@ export default class ViewEscortDetails extends Component {
   //   }
   // };
 
+  callIcon =()=>{
+    this.props.history.push("../");
+  }
   render() {
     const { escort } = this.state;
     const url = window.location.href;
@@ -294,12 +300,13 @@ export default class ViewEscortDetails extends Component {
                 <div className="view-title mb-4">
                   <h2>
                     {" "}
-                    <a href="../">
+                    {/* <a href="../"> */}
                       <i
+                      onClick={()=>this.callIcon()}
                         style={{ color: "#E100FF" }}
                         className="fa fa-arrow-circle-left"
                       ></i>
-                    </a>
+                    {/* </a> */}
                     {escort.name}{" "}
                     <span>
                       <button

@@ -1555,9 +1555,13 @@ export default class EscortDashboard extends Component {
                   ) : (
                     ""
                   )}
-                  {this.state.type === "getverified" ? <GetVerified /> : ""}
+                  {this.state.type === "getverified" ? <GetVerified
+                  userId={this.state.escortDetails._id}
+                  /> : ""}
                   {this.state.type === "booking" ? (
-                    <Booking booking={this.state.booking} />
+                    <Booking 
+                    booking={this.state.booking}
+                    />
                   ) : (
                     ""
                   )}

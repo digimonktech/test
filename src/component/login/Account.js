@@ -35,10 +35,11 @@ export default class Account extends Component {
       getAgency: "",
       text: "user",
       getUsername: "",
+      result:" We have sent a verification link on your given email",
       button: "Continue",
       lstyle: { display: "none" },
       isOpen: false,
-
+      sendEmailVerificationLink:"",
       allAgency: [],
       avaliableCountries: [],
 
@@ -46,6 +47,12 @@ export default class Account extends Component {
     };
   }
   componentDidMount = async () => {
+    var check = await getData("admin/get-all-options");
+    console.log("check",check);
+    this.setState({
+       sendEmailVerificationLink:check.data.data.sendEmailVerificationLink
+      // sendEmailVerificationLink:false
+    })
     window.scrollTo(0, 0);
     if (localStorage.getItem("TOKEN")) {
       const decode = jwt_decode(localStorage.getItem("TOKEN"));
@@ -87,6 +94,7 @@ export default class Account extends Component {
   };
 
   handleLogin = async (props) => {
+ 
     var body = { email: this.state.getemail, password: this.state.getpassword };
     let url = "auth/login";
     var result = await postData(url, body);
@@ -164,6 +172,7 @@ export default class Account extends Component {
       countryCode: countryCode,
       username: getUsername,
       agencyId: getAgency,
+      sendEmailVerificationLink:this.state.sendEmailVerificationLink,
     };
     let url = "";
     if (text === "user") {
@@ -186,13 +195,24 @@ export default class Account extends Component {
             button: "Continue",
           });
         } else if (result.status === "success") {
+          if(this.state.sendEmailVerificationLink===true){
           this.setState({
             getMsg: result.message,
             isOpen: true,
             lstyle: { display: "none" },
             button: "Continue",
           });
-
+        }
+        else
+        {
+          this.setState({
+            getMsg: result.message,
+            isOpen: true,
+            result:"Regisered Successfully",
+            lstyle: { display: "none" },
+            button: "Continue",
+          });
+        }
           // this.props.history.push("/login");
         }
         if (result) {
@@ -517,7 +537,7 @@ export default class Account extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              We have sent a verification link on your given email:{" "}
+             {this.state.result}:{" "}
               {this.state.getemail}
             </DialogContentText>
           </DialogContent>

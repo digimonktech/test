@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
+import {postData} from "../../FetchNodeServices";
 
 export default class GetVerified extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class GetVerified extends Component {
     this.state = {
       open: false,
       result: "Password Update Successfully",
+      file:""
     };
   }
   handleClose = async () => {
@@ -21,6 +23,27 @@ export default class GetVerified extends Component {
       open: false,
     });
   };
+
+  uploadFiles = async()=>{
+    let reader = new FileReader();
+   const files=this.state.file;
+   console.log(files);
+    // reader.readAsBinaryString(files);
+    // reader.onload = (e) => {
+    //   const newfiles = [this.state.file, e.target.result];
+          
+    //         console.log("file: ", newfiles);
+    // }
+  //   const body = {
+  //     image: this.state.file,
+  //     id: this.props.userId,
+  //   };
+  //   console.log("body",body);
+  //   const result = await postData("escort/send-verification-request",body)
+  //  console.log('result',result)
+  }
+
+
   render() {
     const Transition = React.forwardRef(function Transition(props, ref) {
       return <Slide direction="up" ref={ref} {...props} />;
@@ -56,11 +79,17 @@ export default class GetVerified extends Component {
             Kindly upload a photo identity proof to get a verified tag on your profile.</p>
             <Alert variant="danger">ID Proof Updated</Alert>
             <Form.Group>
+
               <Form.Label>ID Proof</Form.Label>
-              <Form.File className="form-control" />
+              <input type="file" className="form-control" 
+                                      onChange={(e)=>this.setState({
+                                        file:e.target.value
+                                      })}
+                        accept="image/*"
+              />
             </Form.Group>
             <Form.Group className="text-right text-uppercase">
-              <Button type="submit" className="uppercase">
+              <Button type="submit" className="uppercase" onClick={()=>this.uploadFiles()}> 
                 Add
               </Button>
             </Form.Group>

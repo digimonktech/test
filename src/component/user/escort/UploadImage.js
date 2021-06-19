@@ -168,6 +168,7 @@ export default class UploadImage extends Component {
                   <img src={url} alt="..." />
                 </div>
               ))}
+              
             </div>
             {this.state.file.length < 5 ? (
               <div className="form-group">

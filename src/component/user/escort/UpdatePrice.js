@@ -23,7 +23,7 @@ export default class UpdatePrice extends Component {
       getHours: 1,
       getShots: "",
       getRate: "",
-      hours:[],
+      duration:[],
       toShow: "outCall",
       open: false,
       result: "Hourly rate has been updated ",
@@ -42,10 +42,10 @@ export default class UpdatePrice extends Component {
 
   componentDidMount = async()=> {
     const adminSetting = await getData("admin/get-all-options")
-    const delayTime=adminSetting.data.data.bookingDelay;
-console.log("delay",delayTime);
+    const duration=adminSetting.data.data.duration;
+console.log("delay",duration);
     this.setState({
-      hours:delayTime,
+      duration:duration,
       outCallRate: this.props.outCallRate,
       inCallRate: this.props.inCallRate || [],
     });
@@ -69,7 +69,7 @@ console.log("delay",delayTime);
       const body = {
         id: this.props.userId,
         outCallRate: {
-          hours: this.state.hours,
+          hours: this.state.duration,
           shots: this.state.getShots,
           rate: this.state.getRate,
         },
@@ -102,7 +102,7 @@ console.log("delay",delayTime);
       const body = {
         id: this.props.userId,
         inCallRate: {
-          hours:this.state.hours,
+          hours:this.state.duration,
           shots: this.state.getShots,
           rate: this.state.getRate,
         },
