@@ -45,7 +45,7 @@ export default class Login extends Component {
 
   handleLogin = async (props) => {
     this.setState({
-      lstyle:{display:'block',marginLeft:130},
+      lstyle:{display:'block',marginLeft:"45%"},
       button:"",
     });
     this.setState({ errors: {}, getMsg: "" });

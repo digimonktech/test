@@ -273,7 +273,7 @@ export default class PersonalInfo extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3> {this.state.result} </h3>
+                <h4> {this.state.result} </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>

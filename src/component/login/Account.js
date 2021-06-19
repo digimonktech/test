@@ -103,7 +103,7 @@ export default class Account extends Component {
 
   handleSignup = async (props) => {
     this.setState({
-      lstyle: { display: "block", marginLeft: 190 },
+      lstyle: { display: "block", marginLeft: "45%" },
       button: "",
     });
     const {
