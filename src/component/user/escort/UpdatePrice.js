@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import kookyLogo from "../../../images/logo.png";
-import { postData } from "../../FetchNodeServices";
+import { postData,getData } from "../../FetchNodeServices";
 import noOutCallImage from "../../../images/Group 4112@2x.png";
 
 export default class UpdatePrice extends Component {
@@ -23,7 +23,7 @@ export default class UpdatePrice extends Component {
       getHours: 1,
       getShots: "",
       getRate: "",
-
+      hours:[],
       toShow: "outCall",
       open: false,
       result: "Hourly rate has been updated ",
@@ -39,8 +39,13 @@ export default class UpdatePrice extends Component {
     });
   }
 
-  componentDidMount() {
+
+  componentDidMount = async()=> {
+    const adminSetting = await getData("admin/get-all-options")
+    const delayTime=adminSetting.data.data.bookingDelay;
+console.log("delay",delayTime);
     this.setState({
+      hours:delayTime,
       outCallRate: this.props.outCallRate,
       inCallRate: this.props.inCallRate || [],
     });
@@ -64,7 +69,7 @@ export default class UpdatePrice extends Component {
       const body = {
         id: this.props.userId,
         outCallRate: {
-          hours: this.state.getHours,
+          hours: this.state.hours,
           shots: this.state.getShots,
           rate: this.state.getRate,
         },
@@ -97,7 +102,7 @@ export default class UpdatePrice extends Component {
       const body = {
         id: this.props.userId,
         inCallRate: {
-          hours: this.state.getHours,
+          hours:this.state.hours,
           shots: this.state.getShots,
           rate: this.state.getRate,
         },

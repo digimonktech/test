@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import noOutCallImage from "../../../images/Group 4112@2x.png";
-import { postData } from "../../FetchNodeServices";
+import { postData , getData} from "../../FetchNodeServices";
 
 export default class UpdatePrice extends Component {
   constructor() {
@@ -15,7 +15,7 @@ export default class UpdatePrice extends Component {
       getHours: "1",
       getShots: "",
       getRate: "",
-
+      hours:[],
       errors: {},
     };
   }
@@ -86,8 +86,12 @@ export default class UpdatePrice extends Component {
     }
   };
 
-  componentDidMount = () => {
+  componentDidMount = async() => {
+    const adminSetting = await getData("admin/get-all-options")
+    const delayTime=adminSetting.data.data.bookingDelay;
+
     this.setState({
+      hours:delayTime,
       outCallRate: this.props.outCallRate || [],
       inCallRate: this.props.inCallRate || [],
     });
