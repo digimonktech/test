@@ -3,14 +3,26 @@ import React, { Component } from "react";
 import Slider from "react-rangeslider";
 import {Button} from 'react-bootstrap'
 import "react-rangeslider/lib/index.css";
+import {getData} from "../../FetchNodeServices";
 export default class RangeSlider extends Component {
   constructor(prop) {
     super(prop);
     this.state = {
       type: "Region",
-      horizontal: 3,
+      horizontal: 1,
+      bookingDuration:[],
+      index:0,
     };
   }
+
+  componentDidMount = async()=>  {
+    const adminSetting = await getData("admin/get-all-options")
+    console.log('admin',adminSetting.data.data.duration);
+    this.setState({
+      bookingDuration:adminSetting.data.data.duration,
+    })
+  }
+
   handleChangeHorizontal = (value) => {
     this.props.duration(value)
     this.setState({
@@ -18,16 +30,17 @@ export default class RangeSlider extends Component {
     });
   };
   next = () => {
-    if (this.state.horizontal < 15) {
+    if (this.state.horizontal < this.state.bookingDuration[this.state.bookingDuration.length - 1]) {
       this.setState({
-        horizontal: this.state.horizontal + 1,
+     index:this.state.index + 1,
+        horizontal:  this.state.bookingDuration[this.state.index+1],
       });
     }
   };
   prev = () => {
-    if (this.state.horizontal > 1) {
-      this.setState({
-        horizontal: this.state.horizontal - 1,
+    if (this.state.horizontal > this.state.bookingDuration[0]) {
+      this.setState({ index:this.state.index -1,
+        horizontal:  this.state.bookingDuration[this.state.index-1],
       });
     }
   };
@@ -41,8 +54,8 @@ export default class RangeSlider extends Component {
         <Slider
           className="mt-5"
           tooltip
-          min={1}
-          max={15}
+          min={this.state.bookingDuration[0]}
+          max={this.state.bookingDuration[this.state.bookingDuration.length - 1]}
           value={`${horizontal}`}
           format={formatkg}
           handleLabel={horizontal}

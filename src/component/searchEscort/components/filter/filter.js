@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { getData } from "../../../FetchNodeServices";
-
+import { Multiselect } from "multiselect-react-dropdown";
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
 
@@ -10,11 +10,12 @@ export default class Filter extends Component {
     super(props);
     this.state = {
       selectedAgency: null,
-      services:[],
-      bodyType:[],
+      services: [],
+      bodyType: [],
+      allServices: [],
     };
   }
-  componentDidMount= async () => {
+  componentDidMount = async () => {
     console.log("comp", this.props.escorts);
     if (this.props.filter.filtredAgency.length !== 1) {
       this.setState({ selectedAgency: null });
@@ -22,32 +23,43 @@ export default class Filter extends Component {
       this.setState({ selectedAgency: this.props.filter.filtredAgency[0] });
     }
 
-    const services = await getData(
-      "admin/get-all-services"
-    );
+    const services = await getData("admin/get-all-services");
     if (!services.response) {
-      console.log("services data",services.data.data);
-      const service = services.data.data
-  this.setState({
-    services:service,
-  })
+      console.log("services data", services.data.data);
+      const service = services.data.data;
+      const servicesName = services.data.data.map(
+        (services) => services.shortName
+      );
+      this.setState({
+        allServices: servicesName,
+      });
     } else {
-      console.log("services Data",services.response);
+      console.log("services Data", services.response);
     }
 
-    const bodyType = await getData(
-      "admin/get-all-body-type"
-    );
+    const bodyType = await getData("admin/get-all-body-type");
     if (!bodyType.response) {
-      console.log("bodyType  data",bodyType.data.data);
-      const body = bodyType.data.data
-  this.setState({
-    bodyType:body,
-  })
+      console.log("bodyType  data", bodyType.data.data);
+      const body = bodyType.data.data;
+      this.setState({
+        bodyType: body,
+      });
     } else {
-      console.log("bodyType res Data",bodyType.response);
+      console.log("bodyType res Data", bodyType.response);
     }
-  }
+  };
+
+  onServiceSelect = (selectedList, selectedItem) => {
+    this.setState({ services: selectedList }, () => {
+      this.props.handleServices(this.state.services);
+    });
+  };
+
+  onServiceRemove = (selectedList, removedItem) => {
+    this.setState({ services: selectedList }, () => {
+      this.props.handleServices(this.state.services);
+    });
+  };
 
   render() {
     console.log("filter", this.props.filter);
@@ -90,27 +102,49 @@ export default class Filter extends Component {
             <Form.Label>Body Type</Form.Label>
             <Form.Control as="select" onChange={this.props.handleBodyType}>
               <option>Choose Any Body Type</option>
-              { this.state.bodyType.length ? (
-                  this.state.bodyType.map((bodyType, idx) => (  <option key={idx} value={bodyType._id}>{bodyType.name}</option>))):""
-              }
+              {this.state.bodyType.length
+                ? this.state.bodyType.map((bodyType, idx) => (
+                    <option key={idx} value={bodyType.name}>
+                      {bodyType.name}
+                    </option>
+                  ))
+                : ""}
             </Form.Control>
           </Form.Group>
           <Form.Group>
             <Form.Label>Service</Form.Label>
-            <Form.Control as="select" onChange={this.props.handleServices}> 
+            <Multiselect
+              options={this.state.allServices}
+              isObject={false}
+              style={{ chips: { background: "#E100FF" } }}
+              selectedValues={this.state.getServices}
+              onSelect={this.onServiceSelect} // Function will trigger on select event
+              onRemove={this.onServiceRemove} // Function will trigger on remove event
+            />
+            {/* <Form.Control as="select" onChange={this.props.handleServices}> 
             
               <option>Choose Any Service</option>
               { this.state.services.length ? (
-                  this.state.services.map((services, idx) => (  <option key={idx} value={services._id}>{services.shortName}</option>))):""
+                  this.state.services.map((services, idx) => (  <option key={idx} value={services.shortName}>{services.shortName}</option>))):""
               }
-             
-            
-            </Form.Control>
+       
+            </Form.Control> */}
           </Form.Group>
           <Form.Group>
-          <Button onClick={this.props.cancelFilter}  className="btn btn-outline-dark mr-2" >Cancel</Button>
-          &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;  &nbsp;&nbsp;
-            <Button onClick={this.props.applyFilter} style={{textAlign: 'right'}}>Apply</Button>
+            <Button
+              onClick={this.props.cancelFilter}
+              className="btn btn-outline-dark mr-2"
+            >
+              Cancel
+            </Button>
+            &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            &nbsp;&nbsp; &nbsp;&nbsp;
+            <Button
+              onClick={this.props.applyFilter}
+              style={{ textAlign: "right" }}
+            >
+              Apply
+            </Button>
           </Form.Group>
         </div>
       </>

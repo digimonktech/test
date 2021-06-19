@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
-import { Container, Form, Row, Col ,Button} from "react-bootstrap";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import Header from "../Header";
 import Footer from "../Footer";
 import { getData, postData } from "../FetchNodeServices";
@@ -8,13 +8,13 @@ import EscortCard from "./components/escortCard/escortCard";
 import noFavImage from "../../images/Group 4077.png";
 import noResultImage from "../../images/Group 4078.png";
 import Filter from "./components/filter/filter";
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Popup from "../popup/popup";
 import noReviewImage from "../../images/Group 4113@2x.png";
 import man from "../../images/man.png";
 import StarRatingComponent from "react-star-rating-component";
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
+import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
 // import SearchUser from "./SearchUser";
 // import Favorite from "./Favorite";
 export default class SearchEscort extends Component {
@@ -30,12 +30,15 @@ export default class SearchEscort extends Component {
         minAge: 20,
         minHeight: 50,
         filtredAgency: [],
-        bodyType:"",
-        services:"",
+        bodyType: "",
+        services: [],
+        country: "",
+        city: "",
+        gender: "",
       },
-      short:"top",
-      getFrashEscort:[],
-      getOldEscort:[],
+      short: "top",
+      getFrashEscort: [],
+      getOldEscort: [],
       showPopup: false,
       reviews: [],
     };
@@ -44,14 +47,19 @@ export default class SearchEscort extends Component {
   componentDidMount = async () => {
     // console.log("props: ", this.props.location.state);
     const { filter } = this.props.location.state;
-    console.log("filter value",filter);
+    console.log("filter value", filter);
     this.setState({ filter: { ...this.state.filter, ...filter } });
     const result = await getData(
       `booking/get-all-escort/${filter.country}-${filter.city.city}-${filter.gender}`
     );
     if (!result.response) {
-      console.log('take length',result.data.data.length )
-      this.setState({ escorts: result.data.data });
+      console.log("take length", result.data.data.length);
+      this.setState({
+        escorts: result.data.data,
+        country: filter.country,
+        city: filter.city.city,
+        gender: filter.gender,
+      });
     }
     const agency = await getData("agency/get-all-agencies");
     if (!agency.response) {
@@ -66,22 +74,29 @@ export default class SearchEscort extends Component {
     } else {
       console.log("err", agency.response);
     }
-  
-   const getFrashEscort = await getData("escort/get-all-frash-escort");
+
+    const getFrashEscort = await getData(
+      `escort/get-all-frash-escort/${filter.country}-${filter.city.city}-${filter.gender}`
+    );
+    const getOldEscort = await getData(
+      `escort/get-all-old-escort/${filter.country}-${filter.city.city}-${filter.gender}`
+    );
+
     if (!getFrashEscort.response) {
-        console.log("getFrashEscort: ", getFrashEscort);
-      this.setState({ getFrashEscort: getFrashEscort.data.data, getOldEscort:getFrashEscort});
+      console.log("getFrashEscort: ", getFrashEscort);
+      this.setState({
+        getFrashEscort: getFrashEscort.data.data,
+        getOldEscort: getOldEscort.data.data,
+      });
       // getFrashEscort.reverse();
       // console.log("getFrashEscort: ", getFrashEscort)
       // this.setState({  getOldEscort:getFrashEscort});
-  
     }
-   
   };
 
-  goBack =()=>{
-    this.props.history.push(`/booking`)
-  }
+  goBack = () => {
+    this.props.history.push(`/booking`);
+  };
   handlePopupClose = () => {
     this.setState({ showPopup: false, reviews: [] });
   };
@@ -91,7 +106,7 @@ export default class SearchEscort extends Component {
     const review = await getData(`review/get-review-by-escort/${id}`);
     if (!review.response) {
       console.log(review.data.data);
-      this.setState({ showPopup: true , reviews:review.data.data});
+      this.setState({ showPopup: true, reviews: review.data.data });
     } else {
       console.log(review.response);
     }
@@ -105,15 +120,17 @@ export default class SearchEscort extends Component {
     this.setState({ filter: { ...this.state.filter, minHeight: height } });
   };
 
-  handleBodyType =(e) => {
-    console.log('body',e.target.value);
-    this.setState({ filter: { ...this.state.filter, bodyType: e.target.value } });
-  }
+  handleBodyType = (e) => {
+    console.log("body", e.target.value);
+    this.setState({
+      filter: { ...this.state.filter, bodyType: e.target.value },
+    });
+  };
 
-  handleServices =(e) => {
-    console.log('service',e.target.value);
-    this.setState({ filter: { ...this.state.filter, services: e.target.value } });
-  }
+  handleServices = (services) => {
+    // console.log('service',e.target.value);
+    this.setState({ filter: { ...this.state.filter, services } });
+  };
 
   handleAgencyChange = (e) => {
     let newArr = [];
@@ -128,58 +145,94 @@ export default class SearchEscort extends Component {
 
   applyFilter = async () => {
     const body = { ...this.state.filter };
-  console.log("after applay ",body)
+    console.log("after applay ", body);
+    const Escorts = await postData("booking/filter-escort-for-booking", body);
     const newEscorts = await postData(
-      "booking/filter-escort-for-booking",
+      "booking/filter-frash-escort-for-booking",
+      body
+    );
+    const oldEscorts = await postData(
+      "booking/filter-old-escort-for-booking",
       body
     );
     if (!newEscorts.response) {
-      this.setState({ escorts: newEscorts.data });
+      this.setState({
+        escorts: Escorts.data,
+        getFrashEscort: newEscorts.data.data,
+        getOldEscort: oldEscorts.data.data,
+      });
     } else {
       console.log("err: ", newEscorts.response);
     }
     this.setState({ tab: "online" });
-    console.log("short",this.state.short);
+    //  console.log("short",this.state.short);
   };
 
   cancelFilter = async () => {
-  
     this.setState({ tab: "online" });
-  }
+  };
   render() {
     const { filter } = this.props.location.state;
-    console.log("render filter" ,filter)
+    console.log("render filter", filter);
 
     return (
       <>
         <Header />
         <Container style={{ minHeight: "100vh" }}>
-          <div style={{textAlign: "center",marginTop:100,color:"#E100FF"}}>
-<b><p style={{fontSize:25}}>{   this.state.escorts.length } Escorts Are wating For You</p></b>
-
+          <div
+            style={{ textAlign: "center", marginTop: 100, color: "#E100FF" }}
+          >
+            <b>
+              <p style={{ fontSize: 25 }}>
+                {this.state.escorts.length} Escorts Are wating For You
+              </p>
+            </b>
           </div>
-          <hr style={{marginBottom:"-80px",height:0.5,backgroundColor:"#E100FF"}} />
+          <hr
+            style={{
+              marginBottom: "-80px",
+              height: 0.5,
+              backgroundColor: "#E100FF",
+            }}
+          />
 
-          <Breadcrumbs aria-label="breadcrumb" style={{marginTop:"9%",textAlign: "center",marginLeft:"23%"}}>
-          <Typography color="textPrimary" style={{ display: 'flex',fontSize:18,color:"#E100FF",}}>
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            style={{ marginTop: "9%", textAlign: "center", marginLeft: "23%" }}
+          >
+            <Typography
+              color="textPrimary"
+              style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
+            >
+              Country : {filter.country}
+            </Typography>
+            <Typography
+              color="textPrimary"
+              style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
+            >
+              City : {filter.city.city}
+            </Typography>
+            <Typography
+              color="textPrimary"
+              style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
+            >
+              Gender : {filter.gender}
+            </Typography>
+            <Typography
+              color="textPrimary"
+              style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
+            >
+              Time : {filter.time}
+            </Typography>
+          </Breadcrumbs>
 
-Country : {filter.country}
-</Typography>
-      <Typography color="textPrimary" style={{ display: 'flex',fontSize:18,color:"#E100FF",}}>
-
-City : {filter.city.city}
-</Typography>
-      <Typography color="textPrimary" style={{ display: 'flex',fontSize:18,color:"#E100FF",}}>
-  
-   Gender : {filter.gender}
-   </Typography>
-      <Typography color="textPrimary" style={{ display: 'flex',fontSize:18,color:"#E100FF",}}>
-   
-       Time : {filter.time}
-      </Typography>
-    </Breadcrumbs>
-
-          <hr style={{marginBottom:"-80px",height:0.5,backgroundColor:"#E100FF"}} />
+          <hr
+            style={{
+              marginBottom: "-80px",
+              height: 0.5,
+              backgroundColor: "#E100FF",
+            }}
+          />
           <div
             className="onlineuser"
             style={{ marginTop: "13vh", marginBottom: "5vh" }}
@@ -216,8 +269,13 @@ City : {filter.city.city}
                   <div className="user-filter">
                     <div className="e-fillter">
                       <span>Sort by :</span>
-                      <Form.Control as="select" onChange={(e) => this.setState({short:e.target.value})}>
-                        <option value="top" >Top Rated</option>
+                      <Form.Control
+                        as="select"
+                        onChange={(e) =>
+                          this.setState({ short: e.target.value })
+                        }
+                      >
+                        <option value="top">Top Rated</option>
                         <option value="new">New</option>
                         <option value="old">Old</option>
                       </Form.Control>
@@ -235,10 +293,9 @@ City : {filter.city.city}
             </Container>
           </div>
           {this.state.tab === "online" ? (
-     <Row xs={1} md={2} lg={2}>
-              {             
-                this.state.escorts.length && this.state.short==="top"? (
-                  
+            <Row xs={1} md={2} lg={2}>
+              {
+                this.state.escorts.length && this.state.short === "top" ? (
                   this.state.escorts.map((escort, idx) => (
                     <EscortCard
                       escort={escort}
@@ -249,50 +306,56 @@ City : {filter.city.city}
                   ))
                 ) : (
                   <>
-                  {  this.state.escorts.length && this.state.short==="new"? (
-  this.state.getFrashEscort.map((escort, idx) => (
-                    <EscortCard
-                      escort={escort}
-                      key={idx}
-                      details={this.state.filter}
-                      handleReview={this.handlePopupOpen}
-                    />
-                  ))
-                  ) : (
-                    <>
-                  {  this.state.escorts.length && this.state.short==="old"? (
-                    this.state.getOldEscort.map((escort, idx) => (
-                    <EscortCard
-                      escort={escort}
-                      key={idx}
-                      details={this.state.filter}
-                      handleReview={this.handlePopupOpen}
-                    />
-                  ))
-                  )
-                  :
-                  (
-                    <div style={{ textAlign: "center", marginTop: 100,marginLeft: "25%" }}>
-
-<img src={noResultImage} alt="No favorite Escort available" />
-<br/>           <br/>
-
-<Button
-    className="btn-outline-dark" 
-    hidden={this.state.chat ? true : false}
- style={{width:"40%",height:"20%",fontSize:20}}
- onClick={ ()=>this.goBack()}
- >
-  FIND AN ESCORT
-  </Button>
-
-</div>
-                  ) 
-                  }
-                  </>
-                  )
-                                    }
-            
+                    {this.state.escorts.length && this.state.short === "new" ? (
+                      this.state.getFrashEscort.map((escort, idx) => (
+                        <EscortCard
+                          escort={escort}
+                          key={idx}
+                          details={this.state.filter}
+                          handleReview={this.handlePopupOpen}
+                        />
+                      ))
+                    ) : (
+                      <>
+                        {this.state.escorts.length &&
+                        this.state.short === "old" ? (
+                          this.state.getOldEscort.map((escort, idx) => (
+                            <EscortCard
+                              escort={escort}
+                              key={idx}
+                              details={this.state.filter}
+                              handleReview={this.handlePopupOpen}
+                            />
+                          ))
+                        ) : (
+                          <div
+                            style={{
+                              textAlign: "center",
+                              marginTop: 100,
+                              marginLeft: "25%",
+                            }}
+                          >
+                            <img
+                              src={noResultImage}
+                              alt="No favorite Escort available"
+                            />
+                            <br /> <br />
+                            <Button
+                              className="btn-outline-dark"
+                              hidden={this.state.chat ? true : false}
+                              style={{
+                                width: "40%",
+                                height: "20%",
+                                fontSize: 20,
+                              }}
+                              onClick={() => this.goBack()}
+                            >
+                              FIND AN ESCORT
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
                   </>
                 )
 
@@ -317,19 +380,17 @@ City : {filter.city.city}
                 />
               ))
             ) : (
-          
-              <div style={{ textAlign: "center", marginTop:120 }}>
-              
+              <div style={{ textAlign: "center", marginTop: 120 }}>
                 <img src={noFavImage} alt="No favorite Escort available" />
-                <br/> <br/>
+                <br /> <br />
                 <Button
-                      className="btn-outline-dark" 
-                      hidden={this.state.chat ? true : false}
-                   style={{width:"25%",height:"25%",fontSize:22}}
-                   onClick={ ()=>this.goBack()}
-                   >
-                    FIND AN ESCORT
-                    </Button>
+                  className="btn-outline-dark"
+                  hidden={this.state.chat ? true : false}
+                  style={{ width: "25%", height: "25%", fontSize: 22 }}
+                  onClick={() => this.goBack()}
+                >
+                  FIND AN ESCORT
+                </Button>
               </div>
             )
           ) : this.state.tab === "filter" ? (
@@ -402,7 +463,6 @@ City : {filter.city.city}
                 ))
               ) : (
                 <>
-          
                   <img
                     style={{
                       position: "relative",

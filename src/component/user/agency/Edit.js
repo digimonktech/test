@@ -49,19 +49,43 @@ export default class Edit extends Component {
       result: "Added Successful",
       result1: "Updated Successfully ",
       allLanguage: ["English", "Hindi", "Japanese", "Franch"],
-      allServices: ["Service 1", "Service 2", "Service 3", "Service 4"],
+      allServices: [],
       msg: "",
       currImg: "",
       errors: {},
       allCountries: [],
       allCities: [],
-      allBodyShape: ["Curvy", "Slim", "Chubby"],
+      allBodyShape: [],
+      serviceObject:[],
     };
   }
 
   componentDidMount = async () => {
     const { escort } = this.props;
+    const services = await getData("admin/get-all-services");
+    if (!services.response) {
+      // console.log("services data", services.data.data);
+      const service = services.data.data;
+      const servicesName = services.data.data.map(services => services.shortName)
+      this.setState({
+        allServices: servicesName,
+        serviceObject:service})
+    } else {
+      // console.log("services Data", services.response);
+    }
+
+    const bodyType = await getData("admin/get-all-body-type");
+    if (!bodyType.response) {
+       console.log("bodyType  data", bodyType.data.data);
+      const body = bodyType.data.data;
+      this.setState({
+        allBodyShape: body
+      })
+    } else {
+      // console.log("bodyType res Data", bodyType.response);
+    }
     this.setState({
+     
       escort: this.props.escort,
       currImg: escort.profileImg || "",
       escortName: !escort ? "" : escort.name,
@@ -394,12 +418,12 @@ export default class Edit extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3>
+                <h4>
                   {" "}
                   {Object.keys(this.props.escort).length
                     ? this.state.result1
                     : this.state.result}{" "}
-                </h3>
+                </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -508,7 +532,7 @@ export default class Edit extends Component {
               </label>
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="age">Age</Form.Label>
+              <Form.Label htmlFor="age">Age (in Years)</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Escort Age"
@@ -541,14 +565,14 @@ export default class Edit extends Component {
                   this.setState({ escortBodyShape: e.target.value });
                 }}
               >
-                <option>Select Body Shape</option>
+               <option>Select Body Shape</option>
                 {this.state.allBodyShape.map((shape, idx) => (
                   <option
-                    value={shape}
+                    value={shape.name}
                     key={idx}
-                    selected={this.state.escortCountry === shape}
+                    selected={this.state.escortBodyShape === shape.name}
                   >
-                    {shape}
+                    {shape.name}
                   </option>
                 ))}
               </Form.Control>

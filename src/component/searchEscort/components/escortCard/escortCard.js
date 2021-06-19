@@ -49,7 +49,7 @@ export default class EscortCard extends Component {
         <Col>
           <div className="s-online mb-4">
             <div className="online-live">
-              <i className="fas fa-circle"></i> Online
+              {escort.isOnline===true?<div><i className="fas fa-circle"></i> Online</div> :<div><i className="fas fa-circle" style={{color:"White"}}></i> Offline</div>}
             </div>
             <div className="verified">
               {escort.isVerified ? "Verified" : ""}

@@ -10,6 +10,7 @@ import RangeSlider from "./search/RangeSlider";
 import SearchTabs from "./search/SearchTabs";
 import kookyLogo from "../../images/logo.png"
 import { Link } from "react-router-dom";
+import { getData } from "../FetchNodeServices";
 
 export default class Booking extends Component {
   constructor() {
@@ -32,6 +33,7 @@ export default class Booking extends Component {
       amOrPm: "am",
       hours24: 0o0,
       filter: { inCall: false, outCall: true, gender: "female" },
+      bookingDelay:0,
     };
   }
   DurationBox() {
@@ -63,7 +65,10 @@ export default class Booking extends Component {
     console.log(newFilter);
   };
 
-  componentDidMount() {
+  componentDidMount = async()=> {
+    const adminSetting = await getData("admin/get-all-options")
+const delayTime=adminSetting.data.data.bookingDelay;
+
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
       linear: false,
       animation: true,
@@ -80,26 +85,28 @@ export default class Booking extends Component {
         : 0;
     var hour24 = 0;
     if (currentHour === 23) {
-      hour24 = 1;
+      hour24 = delayTime-1;
       this.setState({ Bookingdate: date.getDate() + 1 , theDay:"tommorow"});
     } else if (currentHour === 0) {
-      hour24 = 2;
+      hour24 = delayTime;
       this.setState({ Bookingdate: date.getDate() ,theDay:"tommorow"});
     } else if (currentHour === 22) {
-      hour24 = 0;
+      hour24 = delayTime-2;
       this.setState({ Bookingdate: date.getDate() + 1 });
     } else {
-      hour24 = currentHour + 2;
+      hour24 = currentHour + delayTime;
       this.setState({ Bookingdate: date.getDate() });
     }
     var hour = 0;
     if (currentHour != 23) {
-      hour = currentHour <= 10 ? currentHour + 2 : currentHour - 10;
+      hour = currentHour <= 10 ? currentHour + delayTime : currentHour - 10;
     } else {
-      hour = 1;
+      hour = delayTime-1;
     }
     console.log(hour24,hour);
 
+    // console.log('diff',adminSetting.data.data.bookingDelay);
+   
     //  console.log("currenthours, hours , hour24 ", currentHour,hour,hour24);
     this.setState({
       //for delay of 2 hours we add 2
@@ -111,6 +118,8 @@ export default class Booking extends Component {
       amOrPm: currentHour + 2 > 11 && currentHour + 2 < 24 ? "pm" : "am",
       currentAmOrPm: currentHour + 2 > 11 && currentHour + 2 < 24 ? "pm" : "am",
 date: new Date().toISOString().split("T")[0],
+bookingDelay:adminSetting.data.data.bookingDelay,
+
     });
     // console.log(this.state.hours)
   }

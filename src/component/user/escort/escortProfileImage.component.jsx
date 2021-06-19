@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import User from "../../../images/avatar1.png";
 import { postData } from "../../FetchNodeServices";
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import kookyLogo from "../../../images/logo.png";
 import ImageCropper from "../../imageCropper/imageCropper";
 import Popup from "../../popup/popup";
 
@@ -13,6 +18,7 @@ export default class UploadProfile extends Component {
       photo: "",
       userImage: "",
       isOpen: false,
+      open:false,
       crop: {
         unit: "%",
         width: 255,
@@ -117,6 +123,16 @@ export default class UploadProfile extends Component {
     console.log("result", result);
   };
 
+  handleOpen = () =>{
+    this.setState({
+      open:true
+    })
+  }
+  handleClose = () => {
+    this.setState({
+      open:false
+    })
+  }
   render() {
     return (
       <>
@@ -178,12 +194,47 @@ export default class UploadProfile extends Component {
             <Button
               className="btn-delet"
               variant="false"
-              // onClick={() => this.handleDelete()}
+              onClick={() => this.handleOpen()}
             >
               Delete Account
             </Button>
           </div>
         </div>
+        <Dialog
+            open={this.state.open}
+            // TransitionComponent={Transition}
+            keepMounted
+            maxWidth="md"
+            onClose={() => this.handleClose()}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+          >
+          <DialogTitle id="customized-dialog-title" onClose={()=>this.handleClose()} style={{textAlign:"center"}}>
+          <img src={kookyLogo} alt="" />
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="alert-dialog-slide-description"
+                style={{
+                  position: "relative",
+                  textAlign: "center",
+                  minWidth: 620,
+                  minHeight: 50,
+                  marginTop: 20,
+                }}
+              >
+                <h4>Are you sure want to delete this account permanantlty !</h4>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+          <Button onClick={()=>this.handleClose()} color="primary">
+            Disagree
+          </Button>
+          <Button onClick={()=>this.handleClose()} color="primary">
+            Agree
+          </Button>
+        </DialogActions>
+          </Dialog>
       </>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { Row, Col, Form, Button } from "react-bootstrap";
 import kookyLogo from "../../../images/logo.png";
-import { postData } from "../../FetchNodeServices";
+import { postData,getData } from "../../FetchNodeServices";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -23,9 +23,11 @@ export default class AgencyProfile extends Component {
       result: "Profile Update Successfully",
       button: "Update",
       lstyle: { display: "none" },
+      allCountries:[],
+      allCities:[],
     };
   }
-  componentDidMount() {
+  componentDidMount = async () =>{
     const { agencyDetails } = this.props;
     this.setState({
       email: agencyDetails.email ? agencyDetails.email : "",
@@ -36,6 +38,12 @@ export default class AgencyProfile extends Component {
         ? agencyDetails.percentageShare
         : 0,
     });
+
+    const countries = await getData("admin/get-all-country");
+    if (!countries.response) {
+      const data = countries.data.data;
+      this.setState({ allCountries: data });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -51,8 +59,20 @@ export default class AgencyProfile extends Component {
           : 0,
       });
     }
+    if (prevState.country !== this.state.country) {
+      this.handleCountryChange();
+    }
   }
 
+  handleCountryChange = async () => {
+    const cities = await getData(
+      `admin/get-all-city-by-country/${this.state.country}`
+    );
+    console.log('city',cities);
+    if (!cities.response) {
+      this.setState({ allCities: cities.data.data });
+    }
+  };
   handleSave = async (e) => {
     this.setState({
       lstyle: { display: "block" },
@@ -121,7 +141,7 @@ export default class AgencyProfile extends Component {
                   marginTop: 20,
                 }}
               >
-                <h3>{this.state.result}</h3>
+                <h4>{this.state.result}</h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ textItem: "center", postion: "relative" }}>
@@ -170,10 +190,19 @@ export default class AgencyProfile extends Component {
                     value={this.state.country}
                     onChange={(e) => this.setState({ country: e.target.value })}
                   >
-                    <option>Select Country</option>
-                    <option value="country1">Country 1</option>
-                    <option value="country2">Country 2</option>
-                    <option value="country3">Country 3</option>
+                  
+                  <option>Select Country</option>
+                    {this.state.allCountries.map((country, idx) => (
+                      <option
+                        value={country.code3}
+                        key={idx}
+                        selected={this.state.country === country.code3}
+                      >
+                        {country.name
+                          .replace("_", " ")
+                          .replace(/\b\w/g, (l) => l.toUpperCase())}
+                      </option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -185,10 +214,24 @@ export default class AgencyProfile extends Component {
                     value={this.state.city}
                     onChange={(e) => this.setState({ city: e.target.value })}
                   >
-                    <option>Select City</option>
-                    <option value="city1">City 1</option>
-                    <option value="city2">City 2</option>
-                    <option value="city3">City 3</option>
+                   {this.state.country ? (
+                      <>
+                        <option>Select City </option>
+                        {this.state.allCities.map((city, idx) => (
+                          <option
+                            value={city.city}
+                            key={idx}
+                            selected={this.state.city === city.city}
+                          >
+                            {city.city
+                              .replace("_", " ")
+                              .replace(/\b\w/g, (l) => l.toUpperCase())}
+                          </option>
+                        ))}
+                      </>
+                    ) : (
+                      <option>Select Country First</option>
+                    )}
                   </Form.Control>
                 </Form.Group>
               </Col>

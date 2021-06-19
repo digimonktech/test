@@ -299,6 +299,7 @@ export default class BookingEscort extends Component {
                       value={this.state.date}
                       min={new Date().toISOString().split("T")[0]}
                       onChange={(e) => this.setState({ date: e.target.value })}
+                    disabled={this.state.date ? true : false}
                     ></Form.Control>
                     <label
                       style={{
@@ -324,6 +325,7 @@ export default class BookingEscort extends Component {
                         console.log(e.target.value.toISOString());
                         this.setState({ time: e.target.value });
                       }}
+                    disabled={this.state.time ? true : false}
                     />
 
                     {/* <Form.Control

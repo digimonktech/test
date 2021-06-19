@@ -505,7 +505,7 @@ export default class Account extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Verification link is sent to you email address:{" "}
+            We have sent a verification link on your given email:{" "}
               {this.state.getemail}
             </DialogContentText>
           </DialogContent>

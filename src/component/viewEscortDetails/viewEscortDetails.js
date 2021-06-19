@@ -43,7 +43,9 @@ export default class ViewEscortDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPlan: ["outCall", 0],
+      currentPlan: "outCall",
+      selectedPlanOut: 0, //index
+      selectedPlanIn: 0, //index
       plan: "outCall",
       showPopup: false,
       reviews: [],
@@ -532,7 +534,7 @@ export default class ViewEscortDetails extends Component {
                           eventKey="second"
                           onClick={() =>
                             this.setState({
-                              selectedPlan: ["inCall", 0],
+                              currentPlan: "inCall",
                             })
                           }
                         >
@@ -559,28 +561,27 @@ export default class ViewEscortDetails extends Component {
                                   <td>{rate.hours} Hour</td>
                                   <td>{`$${rate.rate}`}</td>
                                   <td>{rate.shots}</td>
-                                  <td className="text-right">
-                                    <span
+                                  <td    className="text-right">
+                                    <span style={{
+                                            backgroundColor: this.state.selectedPlanOut===idx ?"#E100FF":"white",
+                                            color: this.state.selectedPlanOut===idx ?"white":"#E100FF",
+                                          }}
                                       className={`selected ${
-                                        idx === this.state.selectedPlan
+                                        idx === this.state.selectedPlanOut
                                           ? "active"
                                           : ""
                                       }`}
                                       onClick={() =>
                                         this.setState({
-                                          selectedPlan: ["outCall", idx],
+                                          selectedPlanOut: idx,
+                                          currentPlan: "outCall",
                                         })
                                       }
                                     >
-                                      {idx === this.state.selectedPlan[1] ? (
-                                        <button
-                                          style={{
-                                            backgroundColor: "#E100FF",
-                                            color: "white",
-                                          }}
-                                        >
-                                          Selected
-                                        </button>
+                                      {idx === this.state.selectedPlanOut ? (
+                                       
+                                          "Selected"
+                                    
                                       ) : (
                                         "Select"
                                       )}
@@ -611,18 +612,22 @@ export default class ViewEscortDetails extends Component {
                                   <td>{rate.shots}</td>
                                   <td className="text-right">
                                     <span
+                                    style={{ backgroundColor: this.state.selectedPlanIn===idx ?"#E100FF":"white",
+                                            color: this.state.selectedPlanIn===idx ?"white":"#E100FF",
+}}
                                       className={`selected ${
-                                        idx === this.state.selectedPlan
+                                        idx === this.state.selectedPlanIn
                                           ? "active"
                                           : ""
                                       }`}
                                       onClick={() =>
                                         this.setState({
-                                          selectedPlan: ["inCall", idx],
+                                          selectedPlanIn: idx,
+                                          currentPlan: "inCall",
                                         })
                                       }
                                     >
-                                      {idx === this.state.selectedPlan[1]
+                                      {idx === this.state.selectedPlanIn
                                         ? "Selected"
                                         : "Select"}
                                     </span>
@@ -648,26 +653,26 @@ export default class ViewEscortDetails extends Component {
                         details: this.props.location.state
                           ? {
                               selectedPlan:
-                                this.state.selectedPlan[0] === "outCall"
+                                this.state.currentPlan === "outCall"
                                   ? this.state.escort.outCallRate[
-                                      this.state.selectedPlan[1]
+                                      this.state.selectedPlanOut
                                     ]
                                   : this.state.escort.inCallRate[
-                                      this.state.selectedPlan[1]
+                                      this.state.selectedPlanIn
                                     ],
-                              typePlan: this.state.selectedPlan[0],
+                              typePlan: this.state.currentPlan,
                               ...this.props.location.state.details,
                             }
                           : {
                               selectedPlan:
-                                this.state.selectedPlan[0] === "outCall"
+                                this.state.currentPlan === "outCall"
                                   ? this.state.escort.outCallRate[
-                                      this.state.selectedPlan[1]
+                                      this.state.selectedPlanOut
                                     ]
                                   : this.state.escort.inCallRate[
-                                      this.state.selectedPlan[1]
+                                      this.state.selectedPlanIn
                                     ],
-                              typePlan: this.state.selectedPlan[0],
+                              typePlan: this.state.currentPlan,
                             },
                       },
                     }}

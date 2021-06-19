@@ -36,6 +36,7 @@ export default class EscortDashboard extends Component {
       reviews: [],
       booking: [],
       isUpdated: false,
+      isOnline:false,
     };
   }
 
@@ -122,6 +123,7 @@ export default class EscortDashboard extends Component {
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>
                 </Dropdown.Toggle>
+                
 
                 <Dropdown.Menu as="ul">
                   <li>
@@ -1276,7 +1278,7 @@ export default class EscortDashboard extends Component {
         }
         console.log("result: ", result);
         if (result.data.data !== null) {
-          this.setState({ escortDetails: result.data.data });
+          this.setState({ escortDetails: result.data.data , isOnline:result.data.data.isOnline});
         } else {
           this.props.history.push(`/page-not-found`);
         }
@@ -1299,6 +1301,7 @@ export default class EscortDashboard extends Component {
       const result = await getData(
         "escort/get-escort-details/" + this.props.match.params.id
       );
+
       if (!result.response) {
         this.setState({ escortDetails: result.data.data });
       } else {
@@ -1325,6 +1328,24 @@ export default class EscortDashboard extends Component {
     const result = await postData("escort/change-booking-status");
     if (!result.response) {
       this.handleUpdateProfile();
+    } else {
+      console.log("err: ", result.response);
+    }
+  };
+
+  onOnlineModeChange = async (e) => {
+   const  body={
+      id:this.state.escortDetails._id,
+      prevStatus:this.state.isOnline
+    }
+    console.log(body);
+    const result = await postData("escort/change-online-status",body);
+    console.log("online",result);
+    if (!result.response) {
+    
+      this.setState({
+        isOnline:result.data.data.isOnline
+      })
     } else {
       console.log("err: ", result.response);
     }
@@ -1368,8 +1389,15 @@ export default class EscortDashboard extends Component {
                       <Form.Check
                         type="switch"
                         id="custom-switch"
-                        label="Online"
+                        label={
+                            this.state.isOnline ?
+                              "Online"
+                              : "Offline"
+                          }
+                          checked={this.state.isOnline}
+                          onChange={this.onOnlineModeChange}
                       />
+                      
                       <Tooltip
                         title={
                           this.state.escortDetails.outCallRate.length

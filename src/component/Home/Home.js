@@ -52,7 +52,7 @@ export default class Home extends Component {
       // console.log("escortByCity: ", escortByCity);
       this.setState({ escortByCity: escortByCity.data.data.slice(0, 10) });
     }
-    const getFrashEscort = await getData("escort/get-all-frash-escort");
+    const getFrashEscort = await getData("escort/get-home-all-frash-escort");
     if (!getFrashEscort.response) {
       //  console.log("getFrashEscort: ", getFrashEscort.data.data.slice(0, 2));
       this.setState({ getFrashEscort: getFrashEscort.data.data.slice(0, 10) });
