@@ -181,6 +181,9 @@ export default class BookingEscort extends Component {
     this.setState({ isOpen: false });
     this.props.history.push("/");
   };
+  callIcon =()=>{
+    this.props.history.push("../");
+  }
   render() {
     if (!this.props.location.state) {
       // this.props.history.push(`/viewEscort/${this.props.match.id}`);
@@ -228,7 +231,13 @@ export default class BookingEscort extends Component {
             <Row>
               <Col md="12">
                 <div className="view-title mb-4">
-                  <h2>Booking Details</h2>
+                  
+                  <h2> <i
+                      onClick={()=>this.callIcon()}
+                        style={{ color: "#E100FF" }}
+                        className="fa fa-arrow-circle-left"
+                      ></i>
+Booking Details</h2>
                 </div>
               </Col>
               <Col md="12">
@@ -299,7 +308,7 @@ export default class BookingEscort extends Component {
                       value={this.state.date}
                       min={new Date().toISOString().split("T")[0]}
                       onChange={(e) => this.setState({ date: e.target.value })}
-                    disabled={this.state.date ? true : false}
+                  //+  disabled={this.state.date ? true : false}
                     ></Form.Control>
                     <label
                       style={{
@@ -462,13 +471,13 @@ export default class BookingEscort extends Component {
                 </p>
                 <Form.Group className="text-right">
                
-                <Button
+                {/* <Button
                     className="btn btn-primary"
                     // onClick={this.handleBooking}
                   >
                   Cancel{" "}
-                  </Button>
-                  <Button
+                  </Button> */}
+                  <Button 
                     className="btn btn-primary"
                     onClick={this.handleBooking}
                   >

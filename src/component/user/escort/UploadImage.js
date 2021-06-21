@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { postData } from "../../FetchNodeServices";
+import { postData ,getData} from "../../FetchNodeServices";
 import kookyLogo from "../../../images/logo.png";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -19,6 +19,7 @@ export default class UploadImage extends Component {
       result: "Photo Upload Successfully",
       lstyle: { display: "none" },
       button: "Upload",
+      numOfImagesByEscort:"",
     };
   }
 
@@ -31,14 +32,14 @@ export default class UploadImage extends Component {
 
       reader.onload = (e) => {
         const newfiles =
-          this.state.file.length < 5
+          this.state.file.length < this.state.numOfImagesByEscort
             ? [...this.state.file, e.target.result]
             : [...this.state.file];
         console.log("file: ", newfiles);
+       this.uploadFiles(e,newfiles);
+     
         this.setState({
           file: newfiles,
-          lstyle: { display: "none" },
-          button: "Upload",
         });
       };
     } catch {
@@ -46,30 +47,37 @@ export default class UploadImage extends Component {
     }
   };
 
-  uploadFiles = async (e) => {
-    this.setState({ lstyle: { display: "block" }, button: "" });
+  uploadFiles = async (e,newfiles) => {
     e.preventDefault();
-    console.log("files: ", this.state.file);
+    console.log("files: ", newfiles);
     const body = {
-      image: this.state.file,
+      image: newfiles,
       id: this.props.userId,
       username: this.props.username,
     };
     const result = await postData("escort/upload-images", body);
     if (!result.response) {
       // this.props.handleEscortImageUploads(result.data);
+      setTimeout(() =>{
       this.setState({
         open: true,
         lstyle: { display: "none" },
         button:"Upload",
       });
+    },3000);
+
       console.log("Uploaded: ", result);
     } else {
       console.log("Err: ", result.response);
     }
   };
 
-  componentDidMount() {
+  componentDidMount=async()=> {
+    var check = await getData("admin/get-all-options");
+    console.log("check",check);
+    this.setState({
+      numOfImagesByEscort:check.data.data.numOfImagesByEscort,
+    })
     this.props.handleUpdateProfile();
     this.setState({ file: this.props.images || [] });
   }
@@ -153,7 +161,7 @@ export default class UploadImage extends Component {
           <form>
             <div className="uploadimgae-title">
               <h3>
-                Upload upto 5 Photos{" "}
+                Upload upto {this.state.numOfImagesByEscort} Photos{" "}
                 <span>({this.state.file.length} Photos)</span>
               </h3>
             </div>
@@ -170,7 +178,7 @@ export default class UploadImage extends Component {
               ))}
               
             </div>
-            {this.state.file.length < 5 ? (
+            {this.state.file.length < this.state.numOfImagesByEscort ? (
               <div className="form-group">
                 <Form.Label>Upload Photos</Form.Label>
                 <div className="uploadimgrdiv">

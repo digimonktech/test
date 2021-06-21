@@ -20,9 +20,12 @@ export default class UploadProfile extends Component {
       isOpen: false,
       open:false,
       crop: {
-        unit: "%",
-        width: 255,
-        aspect: 9 / 9,
+        unit: "px",
+       width:255,
+  
+
+        aspect: 16 / 9,
+      
       },
       croppedImage: "",
     };

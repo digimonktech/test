@@ -712,6 +712,10 @@ console.log("new date",date);
                             </Col>
                           </Nav>
 
+<div className="booking-title" style={{marginTop:30,marginBottom:"-30px"}}>
+                          Select Rates
+                         
+                        </div>
                           <Tab.Content className="mt-5 mb-5">
                             <Tab.Pane eventKey="first">
                               <OutCall handleFilter={this.handleFilter} />

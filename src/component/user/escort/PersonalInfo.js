@@ -42,6 +42,7 @@ export default class PersonalInfo extends Component {
       button: "Update",
       lstyle: { display: "none" },
       escortId: "",
+      wordCount:0,
       open: false,
       result: "Profile Update Successfully",
       allLanguage: ["English", "Hindi", "Japanese", "French"],
@@ -88,6 +89,13 @@ export default class PersonalInfo extends Component {
   };
 
   componentDidMount = async () => {
+
+    var check = await getData("admin/get-all-options");
+    console.log("check",check);
+    this.setState({
+       wordCount:check.data.data.escortDescriptionWordLimit,
+    })
+
     const { escortDetail } = this.props;
     const services = await getData("admin/get-all-services");
     if (!services.response) {
@@ -215,6 +223,32 @@ export default class PersonalInfo extends Component {
       button: "Update",
     });
   };
+
+  handleWordLimit = (e) =>{
+    console.log(e.target.value);
+  
+     var text = e.target.value;
+     let wordLimit = this.state.wordCount;
+   for (var i = 0; i <= text.length; i++) {
+     if (text.charAt(i) == ' ') {
+       if(this.state.wordCount > 0)
+       {
+        console.log(i);
+        wordLimit=wordLimit - 1;
+        console.log(wordLimit);
+        this.setState({
+          getAbout:e.target.value,
+        })
+       }
+       
+  }
+   }
+   this.setState({
+        wordCount:wordLimit,
+       })
+   console.log('wordl',wordLimit);
+  console.log(this.state.wordCount);
+  }
 
   handleCountryChange = async () => {
     const cities = await getData(
@@ -590,7 +624,8 @@ export default class PersonalInfo extends Component {
                 type="text"
                 as="textarea"
                 placeholder="Tell us about yourself"
-                onChange={(e) => this.setState({ getAbout: e.target.value })}
+                // onKeyUp={(e) => this.handleWordLimit(e)}
+                onChange={(e)=>this.handleWordLimit(e)}
                 value={this.state.getAbout}
               />
             </Form.Group>

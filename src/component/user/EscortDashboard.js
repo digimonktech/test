@@ -98,17 +98,6 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() => this.ChangeTab("updateprice")}
-                      activeClassName={
-                        this.state.type === "updateprice" ? "active" : ""
-                      }
-                    >
-                      Update Rate or Price
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="#"
                       onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
@@ -119,6 +108,13 @@ export default class EscortDashboard extends Component {
                   </li>
                 </Dropdown.Menu>
               </Dropdown>
+              <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>
@@ -233,17 +229,6 @@ export default class EscortDashboard extends Component {
                     <li>
                       <NavLink
                         to="#"
-                        onClick={() => this.ChangeTab("updateprice")}
-                        activeClassName={
-                          this.state.type === "updateprice" ? "active" : ""
-                        }
-                      >
-                        Update Rate or Price
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="#"
                         onClick={() => this.ChangeTab("getverified")}
                         activeClassName={
                           this.state.type === "getverified" ? "active" : ""
@@ -254,6 +239,13 @@ export default class EscortDashboard extends Component {
                     </li>
                   </Dropdown.Menu>
                 </Dropdown>
+                <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     My Booking <span>({this.state.booking.length})</span>
@@ -367,17 +359,6 @@ export default class EscortDashboard extends Component {
                     <li>
                       <NavLink
                         to="#"
-                        onClick={() => this.ChangeTab("updateprice")}
-                        activeClassName={
-                          this.state.type === "updateprice" ? "active" : ""
-                        }
-                      >
-                        Update Rate or Price
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="#"
                         onClick={() => this.ChangeTab("getverified")}
                         activeClassName={
                           this.state.type === "getverified" ? "active" : ""
@@ -388,6 +369,14 @@ export default class EscortDashboard extends Component {
                     </li>
                   </Dropdown.Menu>
                 </Dropdown>
+
+                <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     My Booking <span>({this.state.booking.length})</span>
@@ -498,18 +487,7 @@ export default class EscortDashboard extends Component {
                         Change Password
                       </NavLink>
                     </li>
-                    <li>
-                      <NavLink
-                        to="#"
-                        onClick={() => this.ChangeTab("updateprice")}
-                        activeClassName={
-                          this.state.type === "updateprice" ? "active" : ""
-                        }
-                      >
-                        Update Rate or Price
-                      </NavLink>
-                    </li>
-                    <li>
+                     <li>
                       <NavLink
                         to="#"
                         onClick={() => this.ChangeTab("getverified")}
@@ -522,6 +500,13 @@ export default class EscortDashboard extends Component {
                     </li>
                   </Dropdown.Menu>
                 </Dropdown>
+                <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     My Booking <span>({this.state.booking.length})</span>
@@ -632,18 +617,7 @@ export default class EscortDashboard extends Component {
                         Change Password
                       </NavLink>
                     </li>
-                    <li>
-                      <NavLink
-                        to="#"
-                        onClick={() => this.ChangeTab("updateprice")}
-                        activeClassName={
-                          this.state.type === "updateprice" ? "active" : ""
-                        }
-                      >
-                        Update Rate or Price
-                      </NavLink>
-                    </li>
-                    <li>
+                     <li>
                       <NavLink
                         to="#"
                         onClick={() => this.ChangeTab("getverified")}
@@ -656,6 +630,20 @@ export default class EscortDashboard extends Component {
                     </li>
                   </Dropdown.Menu>
                 </Dropdown>
+<li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+                        {/* onClick={() => this.ChangeTab("updateprice")}
+                        activeClassName={
+                          this.state.type === "updateprice" ? "active" : ""
+                        }
+                      >
+                        Update Rate or Price
+               */}
+
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     My Booking <span>({this.state.booking.length})</span>
@@ -765,18 +753,7 @@ export default class EscortDashboard extends Component {
                       Change Password
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="#"
-                      onClick={() => this.ChangeTab("updateprice")}
-                      activeClassName={
-                        this.state.type === "updateprice" ? "active" : ""
-                      }
-                    >
-                      Update Rate or Price
-                    </NavLink>
-                  </li>
-                  <li>
+                   <li>
                     <NavLink
                       to="#"
                       onClick={() => this.ChangeTab("getverified")}
@@ -789,6 +766,13 @@ export default class EscortDashboard extends Component {
                   </li>
                 </Dropdown.Menu>
               </Dropdown>
+              <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>
@@ -899,17 +883,6 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() => this.ChangeTab("updateprice")}
-                      activeClassName={
-                        this.state.type === "updateprice" ? "active" : ""
-                      }
-                    >
-                      Update Rate or Price
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="#"
                       onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
@@ -920,6 +893,13 @@ export default class EscortDashboard extends Component {
                   </li>
                 </Dropdown.Menu>
               </Dropdown>
+              <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>
@@ -1030,17 +1010,6 @@ export default class EscortDashboard extends Component {
                   <li>
                     <NavLink
                       to="#"
-                      onClick={() => this.ChangeTab("updateprice")}
-                      activeClassName={
-                        this.state.type === "updateprice" ? "active" : ""
-                      }
-                    >
-                      Update Rate or Price
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="#"
                       onClick={() => this.ChangeTab("getverified")}
                       activeClassName={
                         this.state.type === "getverified" ? "active" : ""
@@ -1051,6 +1020,13 @@ export default class EscortDashboard extends Component {
                   </li>
                 </Dropdown.Menu>
               </Dropdown>
+              <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>
@@ -1158,18 +1134,7 @@ export default class EscortDashboard extends Component {
                       Change Password
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="#"
-                      onClick={() => this.ChangeTab("updateprice")}
-                      activeClassName={
-                        this.state.type === "updateprice" ? "active" : ""
-                      }
-                    >
-                      Update Rate or Price
-                    </NavLink>
-                  </li>
-                  <li>
+                   <li>
                     <NavLink
                       to="#"
                       onClick={() => this.ChangeTab("getverified")}
@@ -1182,6 +1147,13 @@ export default class EscortDashboard extends Component {
                   </li>
                 </Dropdown.Menu>
               </Dropdown>
+              <li>
+<a onClick={() => this.ChangeTab("updateprice")}>
+Update Rate or Price
+</a>
+
+  </li>
+
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   My Booking <span>({this.state.booking.length})</span>

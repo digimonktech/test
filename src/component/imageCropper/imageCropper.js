@@ -7,9 +7,13 @@ class ImageCropper extends PureComponent {
   state = {
     src: null,
     crop: {
-      unit: "%",
-      width: 255,
-      aspect: 9 / 9,
+      unit: "px",
+      x: 230,
+  y: 100,
+
+  minHeight: 100,
+      aspect: 16 / 9,
+      minWidth:100
     },
   };
   componentDidMount() {
@@ -113,7 +117,7 @@ class ImageCropper extends PureComponent {
               onChange={this.onCropChange}
               // style={{ height: "10rem" }}
               height="100"
-              locked
+              
             />
           )}
           <div style={{ marginTop: "12vh" }}>
