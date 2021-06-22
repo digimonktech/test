@@ -35,24 +35,26 @@ export default class Account extends Component {
       getAgency: "",
       text: "user",
       getUsername: "",
-      result:" We have sent a verification link on your given email",
+      result: " We have sent a verification link on your given email",
       button: "Continue",
       lstyle: { display: "none" },
       isOpen: false,
-      sendEmailVerificationLink:"",
+      sendEmailVerificationLink: "",
       allAgency: [],
       avaliableCountries: [],
+
+      agency: "independent", //agency selected by escort
 
       errors: {},
     };
   }
   componentDidMount = async () => {
     var check = await getData("admin/get-all-options");
-    console.log("check",check);
+    console.log("check", check);
     this.setState({
-       sendEmailVerificationLink:check.data.data.sendEmailVerificationLink
+      sendEmailVerificationLink: check.data.data.sendEmailVerificationLink,
       // sendEmailVerificationLink:false
-    })
+    });
     window.scrollTo(0, 0);
     if (localStorage.getItem("TOKEN")) {
       const decode = jwt_decode(localStorage.getItem("TOKEN"));
@@ -94,7 +96,6 @@ export default class Account extends Component {
   };
 
   handleLogin = async (props) => {
- 
     var body = { email: this.state.getemail, password: this.state.getpassword };
     let url = "auth/login";
     var result = await postData(url, body);
@@ -172,7 +173,7 @@ export default class Account extends Component {
       countryCode: countryCode,
       username: getUsername,
       agencyId: getAgency,
-      sendEmailVerificationLink:this.state.sendEmailVerificationLink,
+      sendEmailVerificationLink: this.state.sendEmailVerificationLink,
     };
     let url = "";
     if (text === "user") {
@@ -195,24 +196,22 @@ export default class Account extends Component {
             button: "Continue",
           });
         } else if (result.status === "success") {
-          if(this.state.sendEmailVerificationLink===true){
-          this.setState({
-            getMsg: result.message,
-            isOpen: true,
-            lstyle: { display: "none" },
-            button: "Continue",
-          });
-        }
-        else
-        {
-          this.setState({
-            getMsg: result.message,
-            isOpen: true,
-            result:"Regisered Successfully",
-            lstyle: { display: "none" },
-            button: "Continue",
-          });
-        }
+          if (this.state.sendEmailVerificationLink === true) {
+            this.setState({
+              getMsg: result.message,
+              isOpen: true,
+              lstyle: { display: "none" },
+              button: "Continue",
+            });
+          } else {
+            this.setState({
+              getMsg: result.message,
+              isOpen: true,
+              result: "Regisered Successfully",
+              lstyle: { display: "none" },
+              button: "Continue",
+            });
+          }
           // this.props.history.push("/login");
         }
         if (result) {
@@ -333,9 +332,7 @@ export default class Account extends Component {
                   value={this.state.getname}
                   onChange={(e) => this.setState({ getname: e.target.value })}
                   style={{
-                    backgroundColor: this.state.getname
-                      ? "white"
-                      : "transparent",
+                    backgroundColor: this.state.getname ? "white" : "",
                   }}
                 />
                 <span className="flaticon-user"></span>
@@ -356,9 +353,7 @@ export default class Account extends Component {
                     this.setState({ getUsername: e.target.value })
                   }
                   style={{
-                    backgroundColor: this.state.getUsername
-                      ? "white"
-                      : "transparent",
+                    backgroundColor: this.state.getUsername ? "white" : "",
                   }}
                 />
                 <span className="flaticon-user"></span>
@@ -377,9 +372,7 @@ export default class Account extends Component {
                   placeholder="Email"
                   onChange={(e) => this.setState({ getemail: e.target.value })}
                   style={{
-                    backgroundColor: this.state.getemail
-                      ? "white"
-                      : "transparent",
+                    backgroundColor: this.state.getemail ? "white" : "",
                   }}
                 />
                 <span className="flaticon-envelope"></span>
@@ -439,25 +432,49 @@ export default class Account extends Component {
                 </label>
               </Form.Group>
               {this.state.text === "escort" ? (
-                <Form.Group className="login-icon">
-                  <Form.Control
-                    as="select"
-                    onChange={(e) =>
-                      this.setState({ getAgency: e.target.value })
-                    }
-                    style={{
-                      backgroundColor: this.state.getAgency
-                        ? "white"
-                        : "transparent",
-                    }}
-                  >
-                    <option>Independent</option>
-                    {this.state.allAgency.map((agency, idx) => (
-                      <option value={agency._id}>{agency.name}</option>
-                    ))}
-                  </Form.Control>
-                  {/* <span className="flaticon-password"></span> */}
-                </Form.Group>
+                <>
+                  <Form.Group className="signup-tabs mb-3">
+                    <ul>
+                      <li>
+                        <input
+                          type="radio"
+                          id="independent"
+                          name="selectType"
+                          checked={this.state.text}
+                        />
+                        <label htmlFor="independent">Independent</label>
+                        <div className="check"></div>
+                      </li>
+                      <li>
+                        <input
+                          type="radio"
+                          id="agencySelect"
+                          name="selectType"
+                        />
+                        <label htmlFor="agencySelect">Agency</label>
+                        <div className="check"></div>
+                      </li>
+                    </ul>
+                  </Form.Group>
+                  <Form.Group className="login-icon">
+                    <Form.Control
+                      as="select"
+                      onChange={(e) =>
+                        this.setState({ getAgency: e.target.value })
+                      }
+                      style={{
+                        backgroundColor: this.state.getAgency ? "white" : "",
+                      }}
+                    >
+                      <option>Independent</option>
+                      {this.state.allAgency.map((agency, idx) => (
+                        <option value={agency._id}>{agency.name}</option>
+                      ))}
+                      th
+                    </Form.Control>
+                    {/* <span className="flaticon-password"></span> */}
+                  </Form.Group>
+                </>
               ) : (
                 ""
               )}
@@ -469,9 +486,7 @@ export default class Account extends Component {
                     this.setState({ getpassword: e.target.value })
                   }
                   style={{
-                    backgroundColor: this.state.getpassword
-                      ? "white"
-                      : "transparent",
+                    backgroundColor: this.state.getpassword ? "white" : "",
                   }}
                 />
                 <span className="flaticon-password"></span>
@@ -486,7 +501,7 @@ export default class Account extends Component {
                   style={{
                     backgroundColor: this.state.getConfirmPassword
                       ? "white"
-                      : "transparent",
+                      : "",
                   }}
                 />
                 <span className="flaticon-password"></span>
@@ -537,8 +552,7 @@ export default class Account extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-             {this.state.result}:{" "}
-              {this.state.getemail}
+              {this.state.result}: {this.state.getemail}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

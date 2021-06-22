@@ -18,7 +18,7 @@ export default class UploadImage extends Component {
       open: false,
       result: "Photo Upload Successfully",
       lstyle: { display: "none" },
-      button: "Upload",
+      button: "Browse Photos",
       numOfImagesByEscort:"",
     };
   }
@@ -62,10 +62,9 @@ export default class UploadImage extends Component {
       this.setState({
         open: true,
         lstyle: { display: "none" },
-        button:"Upload",
+        button:"Browse Photos",
       });
     },3000);
-
       console.log("Uploaded: ", result);
     } else {
       console.log("Err: ", result.response);
@@ -91,7 +90,7 @@ export default class UploadImage extends Component {
     this.setState({
       open: false,
       lstyle: { display: "none" },
-      button: "Upload",
+      button: "Browse Photos",
     });
   };
   removeClick = async (idx) => {
@@ -111,7 +110,7 @@ export default class UploadImage extends Component {
         open: true,
         result: "Photo revomed successfully",
         lstyle: { display: "none" },
-        button: "Upload",
+        button: "Browse Photos",
       });
     } else {
       console.log("err: ", result.response);
@@ -187,7 +186,7 @@ export default class UploadImage extends Component {
                       <i className="flaticon-cloud-computing"></i>
                       <h4>Drag and drop files</h4>
                       <span>Or</span>
-                      <button>Browse files</button>
+                      <button> {this.state.button}   <CircularProgress style={this.state.lstyle} color="white" /> </button>
                       <input
                         type="file"
                         className="form-control"
@@ -203,16 +202,16 @@ export default class UploadImage extends Component {
               ""
             )}
 
-            <Form.Group className="text-right">
+            {/* <Form.Group className="text-right">
               <Button
                 type="submit"
                 className="uppercase"
                 onClick={this.uploadFiles}
               >
                 {this.state.button}{" "}
-                <CircularProgress style={this.state.lstyle} color="white" />
+              
               </Button>
-            </Form.Group>
+            </Form.Group> */}
           </form>
         </div>
       </>
