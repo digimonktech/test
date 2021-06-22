@@ -8,7 +8,7 @@ import City from "./Region/City";
 import OutCall from "./search/OutCall";
 import RangeSlider from "./search/RangeSlider";
 import SearchTabs from "./search/SearchTabs";
-import kookyLogo from "../../images/logo.png"
+import kookyLogo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { getData } from "../FetchNodeServices";
 
@@ -33,7 +33,7 @@ export default class Booking extends Component {
       amOrPm: "am",
       hours24: 0o0,
       filter: { inCall: false, outCall: true, gender: "female" },
-      bookingDelay:0,
+      bookingDelay: 0,
     };
   }
   DurationBox() {
@@ -65,9 +65,9 @@ export default class Booking extends Component {
     console.log(newFilter);
   };
 
-  componentDidMount = async()=> {
-    const adminSetting = await getData("admin/get-all-options")
-const delayTime=adminSetting.data.data.bookingDelay;
+  componentDidMount = async () => {
+    const adminSetting = await getData("admin/get-all-options");
+    const delayTime = adminSetting.data.data.bookingDelay;
 
     this.stepper = new Stepper(document.querySelector("#stepper1"), {
       linear: false,
@@ -85,13 +85,13 @@ const delayTime=adminSetting.data.data.bookingDelay;
         : 0;
     var hour24 = 0;
     if (currentHour === 23) {
-      hour24 = delayTime-1;
-      this.setState({ Bookingdate: date.getDate() + 1 , theDay:"tommorow"});
+      hour24 = delayTime - 1;
+      this.setState({ Bookingdate: date.getDate() + 1, theDay: "tommorow" });
     } else if (currentHour === 0) {
       hour24 = delayTime;
-      this.setState({ Bookingdate: date.getDate() ,theDay:"tommorow"});
+      this.setState({ Bookingdate: date.getDate(), theDay: "tommorow" });
     } else if (currentHour === 22) {
-      hour24 = delayTime-2;
+      hour24 = delayTime - 2;
       this.setState({ Bookingdate: date.getDate() + 1 });
     } else {
       hour24 = currentHour + delayTime;
@@ -101,12 +101,12 @@ const delayTime=adminSetting.data.data.bookingDelay;
     if (currentHour != 23) {
       hour = currentHour <= 10 ? currentHour + delayTime : currentHour - 10;
     } else {
-      hour = delayTime-1;
+      hour = delayTime - 1;
     }
-    console.log(hour24,hour);
+    console.log(hour24, hour);
 
     // console.log('diff',adminSetting.data.data.bookingDelay);
-   
+
     //  console.log("currenthours, hours , hour24 ", currentHour,hour,hour24);
     this.setState({
       //for delay of 2 hours we add 2
@@ -117,12 +117,11 @@ const delayTime=adminSetting.data.data.bookingDelay;
       currentMinute: minit,
       amOrPm: currentHour + 2 > 11 && currentHour + 2 < 24 ? "pm" : "am",
       currentAmOrPm: currentHour + 2 > 11 && currentHour + 2 < 24 ? "pm" : "am",
-date: new Date().toISOString().split("T")[0],
-bookingDelay:adminSetting.data.data.bookingDelay,
-
+      date: new Date().toISOString().split("T")[0],
+      bookingDelay: adminSetting.data.data.bookingDelay,
     });
     // console.log(this.state.hours)
-  }
+  };
 
   onSubmit(e) {
     e.preventDefault();
@@ -144,16 +143,17 @@ bookingDelay:adminSetting.data.data.bookingDelay,
               ></span>
             </div>
             <RangeSlider duration={this.duration} />
-            <Row  style={{marginTop:70}}>
-                          <Col md="6">
-                              <div className="text-left">
-              <button
-                className="btn btn-outline-dark mr-2"
-                onClick={() => this.stepper.previous()}
-              >
-                Back
-              </button>
-              </div></Col>
+            <Row style={{ marginTop: 70 }}>
+              <Col md="6">
+                <div className="text-left">
+                  <button
+                    className="btn btn-outline-dark mr-2"
+                    onClick={() => this.stepper.previous()}
+                  >
+                    Back
+                  </button>
+                </div>
+              </Col>
               {/* <button
                 className="btn btn-primary"
                 onClick={() => this.setState({ stepFourType: "search" })}
@@ -161,25 +161,24 @@ bookingDelay:adminSetting.data.data.bookingDelay,
                 Search
               </button> */}
               <Col md="6">
-              <div className="text-right">
-              <Link
-                to={{
-                  pathname: "/search-escort",
-                  state: { filter: this.state.filter },
-                }}
-              >
-                <button
-                  className="btn btn-primary"
-                  onClick={() => this.setState({ stepFourType: "search" })}
-                >
-                  Search
-                </button>
-              </Link>
-              </div>
+                <div className="text-right">
+                  <Link
+                    to={{
+                      pathname: "/search-escort",
+                      state: { filter: this.state.filter },
+                    }}
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => this.setState({ stepFourType: "search" })}
+                    >
+                      Search
+                    </button>
+                  </Link>
+                </div>
               </Col>
-              </Row>
-            </div>
-        
+            </Row>
+          </div>
         );
       case "search":
         console.log("SEARCH : SearchTabs");
@@ -222,8 +221,6 @@ bookingDelay:adminSetting.data.data.bookingDelay,
 
   //// for adition
   addition = () => {
-
-
     const date = new Date();
     if (this.state.hours < 12) {
       this.setState({
@@ -243,9 +240,9 @@ bookingDelay:adminSetting.data.data.bookingDelay,
         hours24: 0,
       });
     }
-  
+
     if (
-      this.state.currentHour === this.state.hours24 -1 &&
+      this.state.currentHour === this.state.hours24 - 1 &&
       this.state.Bookingdate !== date.getDate()
     ) {
       // console.log("hi",this.state.Bookingdate,date.getDate());
@@ -273,8 +270,8 @@ bookingDelay:adminSetting.data.data.bookingDelay,
     //   this.state.hours,
     //   this.state.hours24
     // );
-    console.log('cuurent hour',this.state.currentHour,this.state.hours24);
-    if(this.state.currentHour===11){
+    console.log("cuurent hour", this.state.currentHour, this.state.hours24);
+    if (this.state.currentHour === 11) {
       if (this.state.hours24 === 21 && this.state.minutes === 45) {
         this.setState({
           Bookingdate: this.state.Bookingdate + 1,
@@ -287,22 +284,21 @@ bookingDelay:adminSetting.data.data.bookingDelay,
           amOrPm: "pm",
         });
       }
+    } else {
+      if (this.state.hours24 === 23 && this.state.minutes === 45) {
+        this.setState({
+          Bookingdate: this.state.Bookingdate + 1,
+          amOrPm: "am",
+          theDay: "Tommorow",
+        });
+      }
+
+      if (this.state.hours24 === 11 && this.state.minutes === 45) {
+        this.setState({
+          amOrPm: "pm",
+        });
+      }
     }
-    else {
-    if (this.state.hours24 === 23 && this.state.minutes === 45) {
-      this.setState({
-        Bookingdate: this.state.Bookingdate + 1,
-        amOrPm: "am",
-        theDay: "Tommorow",
-      });
-    }
-  
-    if (this.state.hours24 === 11 && this.state.minutes === 45) {
-      this.setState({
-        amOrPm: "pm",
-      });
-    }
-  }
     if (this.state.minutes < 45) {
       this.setState({
         minutes: this.state.minutes + 15,
@@ -320,12 +316,12 @@ bookingDelay:adminSetting.data.data.bookingDelay,
 
   // Subtract Time from
   subtraction = () => {
-     const date = this.state.date.split("-")[2];
-     const month = this.state.date.split("-")[1];
+    const date = this.state.date.split("-")[2];
+    const month = this.state.date.split("-")[1];
 
-//  date.setDate(date.getDate() -1);
+    //  date.setDate(date.getDate() -1);
 
-console.log("new date",date);
+    console.log("new date", date);
 
     if (this.state.hours > 1 && this.state.hours <= 12) {
       this.setState({
@@ -402,16 +398,21 @@ console.log("new date",date);
         <div className="booking-header">
           <Container>
             <div className="booking-menu">
-           <Row>   <Col md="2"><a href="./"><img style={{}} src={kookyLogo} alt="Logo" /></a>
-             </Col>
-             <Col md="8">
-              <h1>
-                BOOK AN ESCORT
-                {/* <span>
+              <Row>
+                {" "}
+                <Col md="2">
+                  <a href="./">
+                    <img style={{}} src={kookyLogo} alt="Logo" />
+                  </a>
+                </Col>
+                <Col md="8">
+                  <h1>
+                    BOOK AN ESCORT
+                    {/* <span>
                   <i className="fas fa-bars"></i>
                 </span> */}
-              </h1>
-              </Col>
+                  </h1>
+                </Col>
               </Row>
             </div>
           </Container>
@@ -494,69 +495,64 @@ console.log("new date",date);
                         </div>
                         {this.state.type === "Region" ? (
                           <>
-                          <Region
-                            changeTab={this.changeNewTab}
-                            handleFilter={this.handleFilter}
-                          />
-                           <Row  style={{marginTop:70}}>
-                          <Col md="6">
-                        <div className="text-left">
-                          <a href="./">
-              <button
-                className="btn btn-outline-dark mr-2"
-                
-              >
-                Back
-              </button>
-              </a>
-              </div>
-              </Col>
-              <Col md="6">
-                         <div className="text-right">
-              <button
-                className="btn btn-primary"
-                onClick={() => this.stepper.next()}
-              >
-                Next
-              </button>
-              </div>
-              </Col></Row>
+                            <Region
+                              changeTab={this.changeNewTab}
+                              handleFilter={this.handleFilter}
+                            />
+                            <Row style={{ marginTop: 70 }}>
+                              <Col md="6">
+                                <div className="text-left">
+                                  <a href="./">
+                                    <button className="btn btn-outline-dark mr-2">
+                                      Back
+                                    </button>
+                                  </a>
+                                </div>
+                              </Col>
+                              <Col md="6">
+                                <div className="text-right">
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => this.stepper.next()}
+                                  >
+                                    Next
+                                  </button>
+                                </div>
+                              </Col>
+                            </Row>
                           </>
                         ) : (
                           ""
                         )}
                         {this.state.type === "city" ? (
-                        <>
-                          <City
-                            stepper={this.stepper}
-                            handleFilter={this.handleFilter}
-                            country={this.state.filter.country}
-                          />
-                               <Row  style={{marginTop:70}}>
-                          <Col md="6">
-                        <div className="text-left">
-                          <a href="./booking">
-              <button
-                className="btn btn-outline-dark mr-2"
-                
-              >
-                Back
-              </button>
-             </a>
-              </div>
-              </Col>
-              <Col md="6">
-                         <div className="text-right">
-              <button
-                className="btn btn-primary"
-                onClick={() => this.stepper.next()}
-              >
-                Next
-              </button>
-              </div>
-              </Col></Row>
+                          <>
+                            <City
+                              stepper={this.stepper}
+                              handleFilter={this.handleFilter}
+                              country={this.state.filter.country}
+                            />
+                            <Row style={{ marginTop: 70 }}>
+                              <Col md="6">
+                                <div className="text-left">
+                                  <a href="./booking">
+                                    <button className="btn btn-outline-dark mr-2">
+                                      Back
+                                    </button>
+                                  </a>
+                                </div>
+                              </Col>
+                              <Col md="6">
+                                <div className="text-right">
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => this.stepper.next()}
+                                  >
+                                    Next
+                                  </button>
+                                </div>
+                              </Col>
+                            </Row>
                           </>
-                      
                         ) : (
                           ""
                         )}
@@ -570,7 +566,6 @@ console.log("new date",date);
                         >
                           Next
                         </button> */}
-                       
                       </div>
                     </div>
                     <div id="test-l-2" className="content">
@@ -712,10 +707,12 @@ console.log("new date",date);
                             </Col>
                           </Nav>
 
-<div className="booking-title" style={{marginTop:30,marginBottom:"-30px"}}>
-                          Select Rates
-                         
-                        </div>
+                          <div
+                            className="booking-title"
+                            style={{ marginTop: 30, marginBottom: "-30px" }}
+                          >
+                            Select Rates
+                          </div>
                           <Tab.Content className="mt-5 mb-5">
                             <Tab.Pane eventKey="first">
                               <OutCall handleFilter={this.handleFilter} />
@@ -729,32 +726,31 @@ console.log("new date",date);
                           </Tab.Content>
                         </Tab.Container>
 
-                        <div >
+                        <div>
                           {this.state.filter.gender ? (
                             <>
-                              <Row  style={{marginTop:70}}>
-                          <Col md="6">
-                              <div className="text-left">
-                              <button
-                                className="btn btn-outline-dark mr-2"
-                                onClick={() => this.stepper.previous()}
-                              >
-                                Back
-                              </button>
-                              </div>
-                              </Col>
-                              <Col md="6">
-                              <div className="text-right">
-                              <button
-                                className="btn btn-primary"
-                                onClick={() => this.stepper.next()}
-                              >
-                                Next
-                              </button>
-                              </div>
-                              </Col>
+                              <Row style={{ marginTop: 70 }}>
+                                <Col md="6">
+                                  <div className="text-left">
+                                    <button
+                                      className="btn btn-outline-dark mr-2"
+                                      onClick={() => this.stepper.previous()}
+                                    >
+                                      Back
+                                    </button>
+                                  </div>
+                                </Col>
+                                <Col md="6">
+                                  <div className="text-right">
+                                    <button
+                                      className="btn btn-primary"
+                                      onClick={() => this.stepper.next()}
+                                    >
+                                      Next
+                                    </button>
+                                  </div>
+                                </Col>
                               </Row>
-                             
                             </>
                           ) : (
                             ""
@@ -818,43 +814,43 @@ console.log("new date",date);
                             </button>
                           </div>
                         </div>
-                        <Row  style={{marginTop:70}}>
+                        <Row style={{ marginTop: 70 }}>
                           <Col md="6">
-                              <div className="text-left">
-                          <button
-                            className="btn btn-outline-dark mr-2"
-                            onClick={() => this.stepper.previous()}
-                          >
-                                                        Back
-                          </button>
-                          </div></Col>
-                        <Col md="6">
-                          <div className="text-right" >
-                          <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                              this.setState({
-                                stepFourType: "duration",
-                                filter: {
-                                  ...this.state.filter,
-                                  date: this.state.theDay,
-                                  time:
-                                    this.state.hours +
-                                    ":" +
-                                    this.state.minutes +
-                                    " " +
-                                    this.state.amOrPm,
-                                },
-                              });
-                              this.stepper.next();
-                            }}
-                          >
-                            Next
-                          </button>
-                          </div>
+                            <div className="text-left">
+                              <button
+                                className="btn btn-outline-dark mr-2"
+                                onClick={() => this.stepper.previous()}
+                              >
+                                Back
+                              </button>
+                            </div>
                           </Col>
-                          </Row>
-                      
+                          <Col md="6">
+                            <div className="text-right">
+                              <button
+                                className="btn btn-primary"
+                                onClick={() => {
+                                  this.setState({
+                                    stepFourType: "duration",
+                                    filter: {
+                                      ...this.state.filter,
+                                      date: this.state.theDay,
+                                      time:
+                                        this.state.hours +
+                                        ":" +
+                                        this.state.minutes +
+                                        " " +
+                                        this.state.amOrPm,
+                                    },
+                                  });
+                                  this.stepper.next();
+                                }}
+                              >
+                                Next
+                              </button>
+                            </div>
+                          </Col>
+                        </Row>
                       </div>
                     </div>
                     <div id="test-l-4" className="content">
