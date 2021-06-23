@@ -60,6 +60,7 @@ export default class ViewEscortDetails extends Component {
         chat: false,
         openSeeAll: false,
       },
+      allServices:[],
       imageList: [],
     };
   }
@@ -103,6 +104,13 @@ export default class ViewEscortDetails extends Component {
         imageList,
         reviews: review.data.data,
       });
+      const services = await getData("admin/get-all-services");
+      if (!services.response) {
+      const service = services.data.data;
+      this.setState({
+        allServices: service
+      });
+    }
     } else {
       this.props.history.push(`/page-not-found`);
     }
@@ -454,18 +462,19 @@ export default class ViewEscortDetails extends Component {
                     <li>
                       Ratings
                       <span>
-                        <StarRatingComponent
+                      escort.recivedStarts / escort.numOfUserRated 
+                        {/* <StarRatingComponent
                           name="rate1"
                           starCount={5}
                           emptyStarColor={"#707070"}
                           value={
-                            escort.recivedStarts / escort.numOfUserRated || 0
+                            
                           }
                           starColor={"#DFD800"}
                           renderStarIcon={() => (
                             <span className="flaticon-star"></span>
                           )}
-                        />
+                        /> */}
                       </span>
                     </li>
                     <li>
@@ -503,7 +512,19 @@ export default class ViewEscortDetails extends Component {
                       <span>
                         {escort.services.length
                           ? escort.services.map((serv, idx) => {
-                              return <small key={idx}>{serv}</small>;
+                         
+                              return (
+                                <div>
+                                     { this.state.allServices.map((alserv, idx) => {
+                                     alserv.shortName===serv?  
+                                <span className="tooltiptext">{alserv.fullName}</span>
+                                     : 
+                                     ""
+                                     })
+                                    }
+                              <small className="tooltip"  key={idx}>{serv}</small>
+                              </div>
+                              );
                             })
                           : "N/A"}
                       </span>
