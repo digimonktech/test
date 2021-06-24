@@ -61,6 +61,7 @@ export default class ViewEscortDetails extends Component {
         openSeeAll: false,
       },
       imageList: [],
+      allServices:[]
     };
   }
   componentDidMount = async () => {
@@ -103,6 +104,13 @@ export default class ViewEscortDetails extends Component {
         imageList,
         reviews: review.data.data,
       });
+      const services = await getData("admin/get-all-services");
+      if (!services.response) {
+      const service = services.data.data;
+      this.setState({
+        allServices: service
+      });
+    }
     } else {
       this.props.history.push(`/page-not-found`);
     }
@@ -453,8 +461,8 @@ export default class ViewEscortDetails extends Component {
                     </li>
                     <li>
                       Ratings
-                      <span>
-                        <StarRatingComponent
+                      <span>  {escort.recivedStarts / escort.numOfUserRated} <i className="fas fa-star" style={{color: "#E100FF" }}></i>
+                        {/* <StarRatingComponent
                           name="rate1"
                           starCount={5}
                           emptyStarColor={"#707070"}
@@ -465,7 +473,7 @@ export default class ViewEscortDetails extends Component {
                           renderStarIcon={() => (
                             <span className="flaticon-star"></span>
                           )}
-                        />
+                        /> */}
                       </span>
                     </li>
                     <li>
@@ -504,6 +512,16 @@ export default class ViewEscortDetails extends Component {
                         {escort.services.length
                           ? escort.services.map((serv, idx) => {
                               return <small key={idx}>{serv}</small>;
+                              // <div>
+                              //        { this.state.allServices.map((alserv, idx) => {
+                              //        alserv.shortName===serv?  
+                              //   <span className="tooltiptext">{alserv.fullName}</span>
+                              //        : 
+                              //        ""
+                              //        })
+                              //       }
+                              // <small className="tooltip"  key={idx}>{serv}</small>
+                              // </div>
                             })
                           : "N/A"}
                       </span>
