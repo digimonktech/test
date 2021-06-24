@@ -42,6 +42,7 @@ export default class Account extends Component {
       sendEmailVerificationLink: "",
       allAgency: [],
       avaliableCountries: [],
+      getCountry: "THA",
 
       agency: "independent", //agency selected by escort
 
@@ -72,7 +73,7 @@ export default class Account extends Component {
           break;
       }
     }
-    const country = await getData("admin/get-all-country");
+    const country = await getData("admin/get-all-avaliable-country");
     let avaliableCountries = [];
     for (const i in country.data.data) {
       avaliableCountries.push(
@@ -134,6 +135,7 @@ export default class Account extends Component {
       getConfirmPassword,
       getUsername,
       getAgency,
+      getCountry,
     } = this.state;
     if (!text) {
       this.setState({
@@ -174,7 +176,9 @@ export default class Account extends Component {
       username: getUsername,
       agencyId: getAgency,
       sendEmailVerificationLink: this.state.sendEmailVerificationLink,
+      country: getCountry,
     };
+    console.log(body);
     let url = "";
     if (text === "user") {
       url = "user/sign-up";
@@ -260,6 +264,41 @@ export default class Account extends Component {
     this.setState({
       text: "agency",
     });
+  };
+
+  phoneInput = () => {
+    return (
+      <Form.Group className="login-icon">
+        <PhoneInput
+          international
+          countryCallingCodeEditable={false}
+          defaultCountry="TH"
+          onCountryChange={(country) => {
+            let newCountry = AllCountries.filter((c) => c.code === country);
+            this.setState({ getCountry: newCountry[0].code3 });
+          }}
+          countries={this.state.avaliableCountries}
+          value={this.state.getphonenumber}
+          onChange={(e) => this.setState({ getphonenumber: e })}
+          className="form-control"
+          limitMaxLength={true}
+          style={{
+            backgroundColor: this.state.getphonenumber
+              ? "white"
+              : "transparent",
+          }}
+        />
+        <span className="flaticon-phone"></span>
+        <label
+          style={{
+            display: this.state.errors.contactNumber ? "block" : "none",
+            color: "red",
+          }}
+        >
+          {this.state.errors.contactNumber}
+        </label>
+      </Form.Group>
+    );
   };
 
   render() {
@@ -386,51 +425,7 @@ export default class Account extends Component {
                 </label>
               </Form.Group>
 
-              <Form.Group className="login-icon">
-                {/* <Form.Control
-                  type="text"
-                  placeholder="Phone Number"
-                  onChange={(e) =>
-                    this.setState({ getphonenumber: e.target.value })
-                  }
-                  value={this.state.getphonenumber}
-                  style={{
-                    backgroundColor: this.state.getphonenumber
-                      ? "white"
-                      : "transparent",
-                  }}
-                /> */}
-                <PhoneInput
-                  international
-                  countryCallingCodeEditable={false}
-                  defaultCountry="TH"
-                  onCountryChange={(country) => {
-                    let newCountry = AllCountries.filter(
-                      (c) => c.code === country
-                    );
-                    console.log("newCOunt", newCountry[0].code3);
-                  }}
-                  countries={this.state.avaliableCountries}
-                  value={this.state.getphonenumber}
-                  onChange={(e) => this.setState({ getphonenumber: e })}
-                  className="form-control"
-                  limitMaxLength={true}
-                  style={{
-                    backgroundColor: this.state.getphonenumber
-                      ? "white"
-                      : "transparent",
-                  }}
-                />
-                <span className="flaticon-phone"></span>
-                <label
-                  style={{
-                    display: this.state.errors.contactNumber ? "block" : "none",
-                    color: "red",
-                  }}
-                >
-                  {this.state.errors.contactNumber}
-                </label>
-              </Form.Group>
+              {this.state.avaliableCountries.length ? this.phoneInput() : ""}
               {this.state.text === "escort" ? (
                 <>
                   <Form.Group className="signup-tabs mb-3">
@@ -440,7 +435,10 @@ export default class Account extends Component {
                           type="radio"
                           id="independent"
                           name="selectType"
-                          checked={this.state.text}
+                          checked={this.state.agency === "independent"}
+                          onChange={() =>
+                            this.setState({ agency: "independent" })
+                          }
                         />
                         <label htmlFor="independent">Independent</label>
                         <div className="check"></div>
@@ -450,30 +448,34 @@ export default class Account extends Component {
                           type="radio"
                           id="agencySelect"
                           name="selectType"
+                          onChange={() => this.setState({ agency: "agency" })}
                         />
                         <label htmlFor="agencySelect">Agency</label>
                         <div className="check"></div>
                       </li>
                     </ul>
                   </Form.Group>
-                  <Form.Group className="login-icon">
-                    <Form.Control
-                      as="select"
-                      onChange={(e) =>
-                        this.setState({ getAgency: e.target.value })
-                      }
-                      style={{
-                        backgroundColor: this.state.getAgency ? "white" : "",
-                      }}
-                    >
-                      <option>Independent</option>
-                      {this.state.allAgency.map((agency, idx) => (
-                        <option value={agency._id}>{agency.name}</option>
-                      ))}
-                      th
-                    </Form.Control>
-                    {/* <span className="flaticon-password"></span> */}
-                  </Form.Group>
+                  {this.state.agency === "agency" ? (
+                    <Form.Group className="login-icon">
+                      <Form.Control
+                        as="select"
+                        onChange={(e) =>
+                          this.setState({ getAgency: e.target.value })
+                        }
+                        style={{
+                          backgroundColor: this.state.getAgency ? "white" : "",
+                        }}
+                      >
+                        <option>Select Agency</option>
+                        {this.state.allAgency.map((agency, idx) => (
+                          <option value={agency._id}>{agency.name}</option>
+                        ))}
+                        th
+                      </Form.Control>
+                    </Form.Group>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""

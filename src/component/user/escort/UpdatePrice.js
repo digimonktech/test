@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import kookyLogo from "../../../images/logo.png";
-import { postData,getData } from "../../FetchNodeServices";
+import { postData, getData } from "../../FetchNodeServices";
 import noOutCallImage from "../../../images/Group 4112@2x.png";
 
 export default class UpdatePrice extends Component {
@@ -23,7 +23,7 @@ export default class UpdatePrice extends Component {
       getHours: 1,
       getShots: "",
       getRate: "",
-      duration:[],
+      duration: [],
       toShow: "outCall",
       open: false,
       result: "Hourly rate has been updated ",
@@ -39,17 +39,16 @@ export default class UpdatePrice extends Component {
     });
   }
 
-
-  componentDidMount = async()=> {
-    const adminSetting = await getData("admin/get-all-options")
-    const duration=adminSetting.data.data.duration;
-console.log("delay",duration);
+  componentDidMount = async () => {
+    const adminSetting = await getData("admin/get-all-options");
+    const duration = adminSetting.data.data.duration;
+    console.log("delay", duration);
     this.setState({
-      duration:duration,
+      duration: duration,
       outCallRate: this.props.outCallRate,
       inCallRate: this.props.inCallRate || [],
     });
-  }
+  };
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.outCallRate !== this.props.outCallRate) {
       this.setState({ outCallRate: this.props.outCallRate });
@@ -69,11 +68,12 @@ console.log("delay",duration);
       const body = {
         id: this.props.userId,
         outCallRate: {
-          hours: this.state.duration,
+          hours: this.state.getHours,
           shots: this.state.getShots,
           rate: this.state.getRate,
         },
       };
+      console.log(body);
       const result = await postData("escort/out-call-rate", body);
       console.log("result: ", result);
       setTimeout(() => {
@@ -102,7 +102,7 @@ console.log("delay",duration);
       const body = {
         id: this.props.userId,
         inCallRate: {
-          hours:this.state.duration,
+          hours: this.state.getHours,
           shots: this.state.getShots,
           rate: this.state.getRate,
         },
@@ -295,8 +295,15 @@ console.log("delay",duration);
                     ))}
                   </>
                 ) : (
-                  <img src={noOutCallImage} alt="no memeber Yet"  style={{marginLeft:"40%", marginTop:40,marginBottom:40}}/>
-
+                  <img
+                    src={noOutCallImage}
+                    alt="no memeber Yet"
+                    style={{
+                      marginLeft: "40%",
+                      marginTop: 40,
+                      marginBottom: 40,
+                    }}
+                  />
                 )
               ) : this.state.inCallRate.length ? (
                 <>
@@ -338,11 +345,9 @@ console.log("delay",duration);
                             this.setState({ getHours: e.target.value })
                           }
                         >
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
+                          {this.state.duration.map((hour) => (
+                            <option value={`${hour}`}>{hour}</option>
+                          ))}
                         </Form.Control>
                       </Form.Group>
                     </Col>

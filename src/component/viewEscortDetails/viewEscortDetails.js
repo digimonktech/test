@@ -60,6 +60,7 @@ export default class ViewEscortDetails extends Component {
         chat: false,
         openSeeAll: false,
       },
+      allServices:[],
       imageList: [],
       allServices:[]
     };
@@ -467,7 +468,7 @@ export default class ViewEscortDetails extends Component {
                           starCount={5}
                           emptyStarColor={"#707070"}
                           value={
-                            escort.recivedStarts / escort.numOfUserRated || 0
+                            
                           }
                           starColor={"#DFD800"}
                           renderStarIcon={() => (

@@ -42,12 +42,12 @@ export default class PersonalInfo extends Component {
       button: "Update",
       lstyle: { display: "none" },
       escortId: "",
-      wordCount:0,
+      wordCount: 0,
       open: false,
       result: "Profile Update Successfully",
       allLanguage: ["English", "Hindi", "Japanese", "French"],
       allServices: [],
-      serviceObject:[],
+      serviceObject: [],
       allCountries: [],
       allCities: [],
 
@@ -59,7 +59,7 @@ export default class PersonalInfo extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (prevProps.escortDetail !== this.props.escortDetail) {
       const { escortDetail } = this.props;
-
+      console.log("escortDetailUpdate: ", escortDetail);
       this.setState({
         getName: escortDetail.name,
         getEmail: escortDetail.email,
@@ -89,22 +89,22 @@ export default class PersonalInfo extends Component {
   };
 
   componentDidMount = async () => {
-
     var check = await getData("admin/get-all-options");
-    console.log("check",check);
+    console.log("check", check);
     this.setState({
-       wordCount:check.data.data.escortDescriptionWordLimit,
-    })
+      wordCount: check.data.data.escortDescriptionWordLimit,
+    });
 
-    const { escortDetail } = this.props;
     const services = await getData("admin/get-all-services");
     if (!services.response) {
       console.log("services data", services.data.data);
       const service = services.data.data;
-      const servicesName = services.data.data.map(services => services.shortName)
+      const servicesName = services.data.data.map(
+        (services) => services.shortName
+      );
       this.setState({
         allServices: servicesName,
-        serviceObject:service,
+        serviceObject: service,
       });
     } else {
       console.log("services Data", services.response);
@@ -120,30 +120,37 @@ export default class PersonalInfo extends Component {
     } else {
       console.log("bodyType res Data", bodyType.response);
     }
-
-    this.setState({
-      getName: escortDetail.name,
-      getEmail: escortDetail.email,
-      getAge: escortDetail.age,
-      getContactNumber: escortDetail.contactNumber
-        ? escortDetail.countryCode + escortDetail.contactNumber.toString()
-        : "",
-      getBodyShape: escortDetail.bodyShape,
-      getCountry: escortDetail.country || "",
-      getCity: escortDetail.city,
-      getGender: escortDetail.gender,
-      getBust: escortDetail.measurement ? escortDetail.measurement.bust : "",
-      getWaist: escortDetail.measurement ? escortDetail.measurement.waist : "",
-      getHips: escortDetail.measurement ? escortDetail.measurement.hips : "",
-      getHeight: escortDetail.height,
-      getLanguages: escortDetail.languages,
-      getServices: escortDetail.services,
-      getAbout: escortDetail.about,
-      escortId: escortDetail._id,
-    });
-    const countries = await getData("admin/get-all-country");
+    const { escortDetail } = this.props;
+    console.log("escortDetail: ", escortDetail);
+    this.setState(
+      {
+        getName: escortDetail.name,
+        getEmail: escortDetail.email,
+        getAge: escortDetail.age,
+        getContactNumber: escortDetail.contactNumber
+          ? escortDetail.countryCode + escortDetail.contactNumber.toString()
+          : "",
+        getBodyShape: escortDetail.bodyShape,
+        getCountry: escortDetail.country || "",
+        getCity: escortDetail.city,
+        getGender: escortDetail.gender,
+        getBust: escortDetail.measurement ? escortDetail.measurement.bust : "",
+        getWaist: escortDetail.measurement
+          ? escortDetail.measurement.waist
+          : "",
+        getHips: escortDetail.measurement ? escortDetail.measurement.hips : "",
+        getHeight: escortDetail.height,
+        getLanguages: escortDetail.languages,
+        getServices: escortDetail.services,
+        getAbout: escortDetail.about,
+        escortId: escortDetail._id,
+      },
+      () => console.log("state: ", this.state)
+    );
+    const countries = await getData("admin/get-all-avaliable-country");
     if (!countries.response) {
       const data = countries.data.data;
+      console.log("country: ", data);
       this.setState({ allCountries: data });
     }
   };
@@ -224,37 +231,35 @@ export default class PersonalInfo extends Component {
     });
   };
 
-  handleWordLimit = (e) =>{
+  handleWordLimit = (e) => {
     console.log(e.target.value);
-  
-     var text = e.target.value;
-     let wordLimit = this.state.wordCount;
-   for (var i = 0; i <= text.length; i++) {
-     if (text.charAt(i) == ' ') {
-       if(this.state.wordCount > 0)
-       {
-        console.log(i);
-        wordLimit=wordLimit - 1;
-        console.log(wordLimit);
-        this.setState({
-          getAbout:e.target.value,
-        })
-       }
-       
-  }
-   }
-   this.setState({
-        wordCount:wordLimit,
-       })
-   console.log('wordl',wordLimit);
-  console.log(this.state.wordCount);
-  }
+
+    var text = e.target.value;
+    let wordLimit = this.state.wordCount;
+    for (var i = 0; i <= text.length; i++) {
+      if (text.charAt(i) === " ") {
+        if (this.state.wordCount > 0) {
+          console.log(i);
+          wordLimit = wordLimit - 1;
+          console.log(wordLimit);
+          this.setState({
+            getAbout: e.target.value,
+          });
+        }
+      }
+    }
+    this.setState({
+      wordCount: wordLimit,
+    });
+    console.log("wordl", wordLimit);
+    console.log(this.state.wordCount);
+  };
 
   handleCountryChange = async () => {
     const cities = await getData(
       `admin/get-all-city-by-country/${this.state.getCountry || "THA"}`
     );
-    console.log('city',cities);
+    console.log("city", cities);
     if (!cities.response) {
       this.setState({ allCities: cities.data.data });
     }
@@ -275,9 +280,6 @@ export default class PersonalInfo extends Component {
   };
 
   render() {
-    const Transition = React.forwardRef(function Transition(props, ref) {
-      return <Slide direction="up" ref={ref} {...props} />;
-    });
     return (
       <>
         <div className="edit-profilebox">
@@ -625,7 +627,7 @@ export default class PersonalInfo extends Component {
                 as="textarea"
                 placeholder="Tell us about yourself"
                 // onKeyUp={(e) => this.handleWordLimit(e)}
-                onChange={(e)=>this.handleWordLimit(e)}
+                onChange={(e) => this.handleWordLimit(e)}
                 value={this.state.getAbout}
               />
             </Form.Group>

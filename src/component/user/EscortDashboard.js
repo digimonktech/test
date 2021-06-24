@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -109,11 +110,10 @@ export default class EscortDashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown>
               <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                <a onClick={() => this.ChangeTab("updateprice")}>
+                  Update Rate or Price
+                </a>
+              </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
@@ -240,11 +240,10 @@ Update Rate or Price
                   </Dropdown.Menu>
                 </Dropdown>
                 <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                  <a onClick={() => this.ChangeTab("updateprice")}>
+                    Update Rate or Price
+                  </a>
+                </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
@@ -371,11 +370,10 @@ Update Rate or Price
                 </Dropdown>
 
                 <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                  <a onClick={() => this.ChangeTab("updateprice")}>
+                    Update Rate or Price
+                  </a>
+                </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
@@ -487,7 +485,7 @@ Update Rate or Price
                         Change Password
                       </NavLink>
                     </li>
-                     <li>
+                    <li>
                       <NavLink
                         to="#"
                         onClick={() => this.ChangeTab("getverified")}
@@ -501,11 +499,10 @@ Update Rate or Price
                   </Dropdown.Menu>
                 </Dropdown>
                 <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                  <a onClick={() => this.ChangeTab("updateprice")}>
+                    Update Rate or Price
+                  </a>
+                </li>
 
                 <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
@@ -617,7 +614,7 @@ Update Rate or Price
                         Change Password
                       </NavLink>
                     </li>
-                     <li>
+                    <li>
                       <NavLink
                         to="#"
                         onClick={() => this.ChangeTab("getverified")}
@@ -630,13 +627,12 @@ Update Rate or Price
                     </li>
                   </Dropdown.Menu>
                 </Dropdown>
-<li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
-                        {/* onClick={() => this.ChangeTab("updateprice")}
+                <li>
+                  <a onClick={() => this.ChangeTab("updateprice")}>
+                    Update Rate or Price
+                  </a>
+                </li>
+                {/* onClick={() => this.ChangeTab("updateprice")}
                         activeClassName={
                           this.state.type === "updateprice" ? "active" : ""
                         }
@@ -753,7 +749,7 @@ Update Rate or Price
                       Change Password
                     </NavLink>
                   </li>
-                   <li>
+                  <li>
                     <NavLink
                       to="#"
                       onClick={() => this.ChangeTab("getverified")}
@@ -767,11 +763,10 @@ Update Rate or Price
                 </Dropdown.Menu>
               </Dropdown>
               <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                <a onClick={() => this.ChangeTab("updateprice")}>
+                  Update Rate or Price
+                </a>
+              </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
@@ -894,11 +889,10 @@ Update Rate or Price
                 </Dropdown.Menu>
               </Dropdown>
               <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                <a onClick={() => this.ChangeTab("updateprice")}>
+                  Update Rate or Price
+                </a>
+              </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
@@ -1021,11 +1015,10 @@ Update Rate or Price
                 </Dropdown.Menu>
               </Dropdown>
               <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                <a onClick={() => this.ChangeTab("updateprice")}>
+                  Update Rate or Price
+                </a>
+              </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
@@ -1134,7 +1127,7 @@ Update Rate or Price
                       Change Password
                     </NavLink>
                   </li>
-                   <li>
+                  <li>
                     <NavLink
                       to="#"
                       onClick={() => this.ChangeTab("getverified")}
@@ -1148,11 +1141,10 @@ Update Rate or Price
                 </Dropdown.Menu>
               </Dropdown>
               <li>
-<a onClick={() => this.ChangeTab("updateprice")}>
-Update Rate or Price
-</a>
-
-  </li>
+                <a onClick={() => this.ChangeTab("updateprice")}>
+                  Update Rate or Price
+                </a>
+              </li>
 
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
@@ -1263,6 +1255,7 @@ Update Rate or Price
         `review/get-review-by-escort/${this.props.match.params.id}`
       );
       if (!review.response) {
+        console.log("escortDeatilsFromDashboard: ", result.data.data);
         this.setState({ reviews: review.data.data });
       } else {
         console.log("err: ", review.response);
@@ -1527,13 +1520,13 @@ Update Rate or Price
                   ) : (
                     ""
                   )}
-                  {this.state.type === "getverified" ? <GetVerified
-                  userId={this.state.escortDetails._id}
-                  /> : ""}
+                  {this.state.type === "getverified" ? (
+                    <GetVerified userId={this.state.escortDetails._id} />
+                  ) : (
+                    ""
+                  )}
                   {this.state.type === "booking" ? (
-                    <Booking 
-                    booking={this.state.booking}
-                    />
+                    <Booking booking={this.state.booking} />
                   ) : (
                     ""
                   )}
