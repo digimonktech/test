@@ -3,10 +3,30 @@ import Header from "../Header";
 import Footer from "../Footer";
 import InnerBanner from "./InnerBanner";
 import { Container } from 'react-bootstrap';
+import {getData} from "../FetchNodeServices"
+
 export default class TermUse extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
+
+  constructor(){
+    super();
+    this.state={
+termUse:[],
+    }
   }
+  componentDidMount =async()=> {
+    window.scrollTo(0, 0);
+    const result = await getData("admin/get-all-term");
+    if(result){
+      console.log(result);
+      this.setState({
+        termUse:result.data.data
+      })
+    }
+    else{
+      console.log(result.response);
+    }
+  }    
+
   render() {
     return (
       <>
@@ -15,26 +35,12 @@ export default class TermUse extends Component {
         <div className="about-content pt-5 pb-5">
           <Container>
             <div className="abouttext">
-              <h2>Lorem Ipsum</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras
-                sed felis eget velit aliquet sagittis. Vitae purus faucibus
-                ornare suspendisse sed nisi lacus sed viverra. Dolor sit amet
-                consectetur adipiscing elit ut aliquam purus. Vivamus arcu felis
-                bibendum ut. Curabitur gravida arcu ac tortor dignissim
-                convallis aenean et. Maecenas sed enim ut sem viverra aliquet
-                eget sit. Non diam phasellus vestibulum lorem sed risus. Mauris
-                rhoncus aenean vel elit scelerisque. Tincidunt nunc pulvinar
-                sapien et ligula. Purus non enim praesent elementum facilisis.
-                Elit ut aliquam purus sit amet luctus. Sed egestas egestas
-                fringilla phasellus faucibus scelerisque eleifend. Ipsum dolor
-                sit amet consectetur. Sed euismod nisi porta lorem mollis
-                aliquam ut porttitor. Ultricies mi eget mauris pharetra et
-                ultrices neque ornare. Elementum eu facilisis sed odio morbi
-                quis commodo odio aenean. Neque laoreet suspendisse interdum
-                consectetur libero id faucibus nisl tincidunt.
-              </p>
+            <ol type="1">
+              { this.state.termUse.map((term,idx)=>(
+              <li >{term.termContent}
+                </li>
+              ))}
+              </ol>
             </div>
           </Container>
         </div>

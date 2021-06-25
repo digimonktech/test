@@ -3,11 +3,31 @@ import Header from "../Header";
 import Footer from "../Footer";
 import InnerBanner from "./InnerBanner";
 import { Container, Button, Card, Accordion } from "react-bootstrap";
+import {getData} from "../FetchNodeServices"
 export default class Faq extends Component {
-  componentDidMount() {
+
+  constructor(){
+    super();
+    this.state={
+faq:[]
+    }
+  }
+
+  componentDidMount =async()=> {
     window.scrollTo(0, 0);
+const result = await getData("admin/get-all-faq");
+if(result){
+  console.log(result);
+  this.setState({
+faq:result.data.data
+  })
+}
+else{
+  console.log(result.response);
+}
   }
   render() {
+    console.log('this',this.state.faq);
     return (
       <>
         <Header />
@@ -15,61 +35,25 @@ export default class Faq extends Component {
         <div className="about-content pt-5 pb-5">
           <Container>
             <div className="abouttext">
-              <h2>Lorem Ipsum</h2>
+              <h2>FAQ's</h2>
               <div className="faq-toggle">
                 <Accordion defaultActiveKey="0">
-                  <Card>
+                  {this.state.faq.map((faq,idx)=>(
+   <Card key={idx}>
                     <Card.Header>
-                      <Accordion.Toggle as="a" eventKey="0">
-                        <i className="fas fa-long-arrow-alt-left"></i> Lorem
-                        ipsum dolor sit amet, consetetur?
+                      <Accordion.Toggle as="a" eventKey={idx.toString()} >
+                        <i className="fas fa-long-arrow-alt-right"></i> {faq.question} 
                       </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                       <Card.Body>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita
+                       {faq.answer}
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
-                  <Card>
-                    <Card.Header>
-                      <Accordion.Toggle as="a" eventKey="1">
-                        <i className="fas fa-long-arrow-alt-left"></i> Lorem
-                        ipsum dolor sit amet, consetetur?
-                      </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="1">
-                      <Card.Body>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita
-                      </Card.Body>
-                    </Accordion.Collapse>
-                  </Card>
-
-                  <Card>
-                    <Card.Header>
-                      <Accordion.Toggle as="a" eventKey="2">
-                        <i className="fas fa-long-arrow-alt-left"></i> Lorem
-                        ipsum dolor sit amet, consetetur?
-                      </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="2">
-                      <Card.Body>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita
-                      </Card.Body>
-                    </Accordion.Collapse>
-                  </Card>
+                 
+                  ))}
+               
                 </Accordion>
               </div>
             </div>

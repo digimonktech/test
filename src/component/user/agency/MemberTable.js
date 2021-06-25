@@ -162,8 +162,10 @@ export default class MemberTable extends React.Component {
               />
             </div>
           ) : (
-            <img src={noMemberImage} alt="no memeber Yet"  style={{marginLeft:"35%", marginTop:40,marginBottom:40}}/>
-       
+            <div>
+                <img src={noMemberImage} alt="no memeber Yet"  style={{marginLeft:"42%", marginTop:20,marginBottom:0}}/>
+                <p style={{color:"#E100FF",textAlign:"center"}}><h2>No Members Yet</h2>You haven't added any memeber with your agency please add members</p>
+              </div>
           )
         ) : (
           <Edit

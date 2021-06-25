@@ -174,8 +174,10 @@ export default class NewRequest extends React.Component {
               data={{ columns: this.state.columns, rows: this.state.rows }}
             />
           ) : (
+            <div>
             <img src={noRequestImage} alt="no memeber Yet"  style={{marginLeft:"35%", marginTop:40,marginBottom:40}}/>
-        
+            <p style={{color:"#E100FF",textAlign:"center"}}><h2>No New Request</h2>Please make a request to be a member</p>
+              </div>
           )}
         </div>
       </>

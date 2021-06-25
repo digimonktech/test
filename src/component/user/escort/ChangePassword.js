@@ -85,7 +85,7 @@ export default class ChangePassword extends Component {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description" style={{position:"relative", textAlign:"center", minWidth:620,minHeight:50,marginTop:20}}>
-            <h3>    {this.state.result} </h3>
+            <h4>    {this.state.result} </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>

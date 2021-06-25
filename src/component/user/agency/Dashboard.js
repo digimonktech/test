@@ -57,7 +57,10 @@ export default class Dashboard extends Component {
                 {this.props.escortList.length ? (
                   <Datatables escortList={this.props.escortList} />
                 ) : (
-                <img src={noMemberImage} alt="no memeber Yet"  style={{marginLeft:"25%", marginTop:20,marginBottom:20}}/>
+                  <div>
+                <img src={noMemberImage} alt="no memeber Yet"  style={{marginLeft:"42%", marginTop:20,marginBottom:0}}/>
+                <p style={{color:"#E100FF",textAlign:"center"}}><h2>No Members Yet</h2>You haven't added any memeber with your agency please add members</p>
+              </div>
                 )}
               </div>
             </Col>

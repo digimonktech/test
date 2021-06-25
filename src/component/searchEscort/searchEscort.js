@@ -468,15 +468,17 @@ export default class SearchEscort extends Component {
                     style={{
                       position: "relative",
                       textAlign: "center",
-                      marginLeft: "37%",
+                      marginLeft: "39%",
                       marginTop: 35,
-                      marginBottom: 35,
+                  
                     }}
                     width="250"
                     height="220"
                     src={noReviewImage}
                     alt=""
                   />
+                  <p style={{color:"#E100FF",textAlign:"center"}}><h2>Have Not Posted Any Review</h2></p>
+                  
                 </>
               )
             }

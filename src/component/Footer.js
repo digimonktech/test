@@ -138,6 +138,9 @@ export default class Footer extends Component {
                       <li>
                         <NavLink href="/contact-us"> Contact Us</NavLink>
                       </li>
+                      <li>
+                        <NavLink href="/faq"> FAQ</NavLink>
+                      </li>
                     </ul>
                   ) : null}
                 </div>

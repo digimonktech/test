@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Alert, Button } from "react-bootstrap";
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,15 +8,18 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { postData } from "../../FetchNodeServices";
+import kookyLogo from "../../../images/logo.png";
 
 export default class GetVerified extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      result: "Password Update Successfully",
+      result: "Request send Successfully",
       file: "",
       uploadedImage: "",
+      button:"Add",
+      open: false,
+      lstyle:{display:'none'},
     };
   }
   handleClose = async () => {
@@ -42,14 +45,31 @@ export default class GetVerified extends Component {
   };
 
   uploadFiles = async () => {
+    this.setState({
+      button:"",
+      lstyle:{display:'block'},
+    })
+
+
     const body = {
       verificationImage: this.state.uploadedImage,
     };
     const uploadImg = await postData("escort/send-verification-request", body);
     if (!uploadImg.response) {
       console.log("res: ", uploadImg);
+      this.setState({
+        button:"Add",
+        open:true,
+        lstyle:{display:'none'},
+        uploadedImage:""
+      })
     } else {
       console.log("err: ", uploadImg.response);
+      this.setState({
+        button:"Add",
+        lstyle:{display:'none'},
+
+      })
     }
   };
 
@@ -68,17 +88,17 @@ export default class GetVerified extends Component {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle id="alert-dialog-slide-title">
-              {"Alert Notification"}
+            <DialogTitle id="alert-dialog-slide-title" style={{textAlign:"center"}}>
+            <img src={kookyLogo} alt="" />
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                {this.state.result}
+              <DialogContentText id="alert-dialog-slide-description" style={{position:"relative", textAlign:"center", minWidth:620,minHeight:50,marginTop:20}}>
+            <h4>   {this.state.result} </h4>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={() => this.handleClose()} color="primary">
-                Done
+                Close
               </Button>
             </DialogActions>
           </Dialog>
@@ -116,7 +136,7 @@ export default class GetVerified extends Component {
                 className="uppercase"
                 onClick={() => this.uploadFiles()}
               >
-                Add
+              {this. state.button} <CircularProgress style={this.state.lstyle} color="white" />
               </Button>
             </Form.Group>
           </div>
