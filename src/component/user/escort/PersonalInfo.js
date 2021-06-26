@@ -627,15 +627,15 @@ export default class PersonalInfo extends Component {
                 placeholder="Tell us about yourself"
                 // onKeyUp={(e) => this.handleWordLimit(e)}
                 value={this.state.getAbout}
-                        maxlength={this.state.wordCount}
-                        onChange={(e) => {
-                          this.setState({ getAbout: e.target.value });
-                        }}
+                maxlength={this.state.wordCount}
+                onChange={(e) => {
+                  this.setState({ getAbout: e.target.value });
+                }}
               />
-               <Form.Text style={{ textAlign: "end" }}>
-                        {this.state.getAbout.length}/{this.state.wordCount}
-                      </Form.Text>
-
+              <Form.Text style={{ textAlign: "end" }}>
+                {this.state.getAbout ? this.state.getAbout.length : 0}/
+                {this.state.wordCount}
+              </Form.Text>
             </Form.Group>
             <Form.Group className="text-right">
               <Button
