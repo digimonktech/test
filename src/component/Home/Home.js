@@ -57,7 +57,6 @@ export default class Home extends Component {
       //  console.log("getFrashEscort: ", getFrashEscort.data.data.slice(0, 2));
       this.setState({ getFrashEscort: getFrashEscort.data.data.slice(0, 10) });
     }
-  
 
     const cities = await getData(`admin/get-all-city-by-country/${"THA"}`);
     if (!cities.response) {
@@ -83,7 +82,7 @@ export default class Home extends Component {
     const escortDetails = await getData(`escort/get-escort-details/${id}`);
     if (!escortDetails.response) {
       // console.log(escortDetails.data.data.profileImg);
-      return escortDetails.data.data.profileImg;
+      return escortDetails.data.data ? escortDetails.data.data.profileImg : "";
     }
   };
   render() {
@@ -222,16 +221,17 @@ export default class Home extends Component {
                           />
                         </Link>
                         <div className="avatar-text">
-                        <Link to={`/viewEscort/${escort.escortId}`}>
-                          <h3
-                            style={{
-                              textAlign: "left",
-                              marginTop: 20,
-                              marginLeft: "1vw",
-                            }}
-                          >
-                           {escort.escortName} has just recieved a {escort.rating} star rating .
-                          </h3>
+                          <Link to={`/viewEscort/${escort.escortId}`}>
+                            <h3
+                              style={{
+                                textAlign: "left",
+                                marginTop: 20,
+                                marginLeft: "1vw",
+                              }}
+                            >
+                              {escort.escortName} has just recieved a{" "}
+                              {escort.rating} star rating .
+                            </h3>
                           </Link>
                         </div>
                       </div>
@@ -246,7 +246,6 @@ export default class Home extends Component {
                     alt="No favorite Escort available"
                     height="270vh"
                     width="330vw"
-                    
                   />
                 </div>
               )}
@@ -408,8 +407,7 @@ export default class Home extends Component {
             <h2 className="reviews mb-5">Fresh Escorts</h2>
 
             <Slider {...featured}>
-              {
-              this.state.getFrashEscort.map((escort, idx) => {
+              {this.state.getFrashEscort.map((escort, idx) => {
                 return (
                   <Link to={`/viewEscort/${escort._id}`}>
                     <div className="featured-box">
