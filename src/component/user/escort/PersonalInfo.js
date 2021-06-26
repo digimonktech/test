@@ -50,7 +50,6 @@ export default class PersonalInfo extends Component {
       serviceObject: [],
       allCountries: [],
       allCities: [],
-
       bodyType: [],
       errors: {},
     };
@@ -627,9 +626,16 @@ export default class PersonalInfo extends Component {
                 as="textarea"
                 placeholder="Tell us about yourself"
                 // onKeyUp={(e) => this.handleWordLimit(e)}
-                onChange={(e) => this.handleWordLimit(e)}
                 value={this.state.getAbout}
+                        maxlength={this.state.wordCount}
+                        onChange={(e) => {
+                          this.setState({ getAbout: e.target.value });
+                        }}
               />
+               <Form.Text style={{ textAlign: "end" }}>
+                        {this.state.getAbout.length}/{this.state.wordCount}
+                      </Form.Text>
+
             </Form.Group>
             <Form.Group className="text-right">
               <Button

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import StarRatingComponent from "react-star-rating-component";
 import { Link } from "react-router-dom";
-
 import Avatar from "../../../../images/avatar1.png";
 
 import Report from "../report/report";
@@ -34,7 +33,7 @@ export default class EscortCard extends Component {
       lowOutCallPrice: list[0],
     });
   }
-
+  
   openReport = () => {
     this.setState({ report: true });
   };
@@ -171,7 +170,7 @@ export default class EscortCard extends Component {
             </div>
           </div>
         </Col>
-        <Report show={this.state.report} close={this.closeReport} />
+        <Report show={this.state.report}  escort={escort}  send={this.sendReport} close={this.closeReport} />
         {/* <Popup /> */}
       </>
     );

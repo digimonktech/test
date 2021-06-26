@@ -286,6 +286,7 @@ export default class Booking extends Component {
               );
             })
           ) : (
+            <div>
             <img
               style={{
                 position: "relative",
@@ -298,6 +299,8 @@ export default class Booking extends Component {
               src={noBookingImage}
               alt=""
             />
+             <p style={{color:"#E100FF",textAlign:"center"}}><h2>No Booking Available</h2>Please make a booking to get our services </p>
+              </div>
           )}
         </div>
       </>

@@ -60,7 +60,9 @@ export default class ViewEscortDetails extends Component {
         chat: false,
         openSeeAll: false,
       },
+      allServices:[],
       imageList: [],
+      allServices:[]
     };
   }
   componentDidMount = async () => {
@@ -103,6 +105,13 @@ export default class ViewEscortDetails extends Component {
         imageList,
         reviews: review.data.data,
       });
+      const services = await getData("admin/get-all-services");
+      if (!services.response) {
+      const service = services.data.data;
+      this.setState({
+        allServices: service
+      });
+    }
     } else {
       this.props.history.push(`/page-not-found`);
     }
@@ -228,18 +237,20 @@ export default class ViewEscortDetails extends Component {
                 ) : (
                   <>
                     <img
-                      style={{
-                        position: "relative",
-                        textAlign: "center",
-                        marginLeft: "37%",
-                        marginTop: 35,
-                        marginBottom: 35,
-                      }}
-                      width="250"
-                      height="220"
-                      src={noReviewImage}
-                      alt=""
-                    />
+                    style={{
+                      position: "relative",
+                      textAlign: "center",
+                      marginLeft: "39%",
+                      marginTop: 35,
+                  
+                    }}
+                    width="250"
+                    height="220"
+                    src={noReviewImage}
+                    alt=""
+                  />
+                  <p style={{color:"#E100FF",textAlign:"center"}}><h2>Have Not Posted Any Review</h2></p>
+                  
                   </>
                 )
               }
@@ -453,19 +464,19 @@ export default class ViewEscortDetails extends Component {
                     </li>
                     <li>
                       Ratings
-                      <span>
-                        <StarRatingComponent
+                      <span>  {escort.recivedStarts / escort.numOfUserRated} <i className="fas fa-star" style={{color: "#E100FF" }}></i>
+                        {/* <StarRatingComponent
                           name="rate1"
                           starCount={5}
                           emptyStarColor={"#707070"}
                           value={
-                            escort.recivedStarts / escort.numOfUserRated || 0
+                            
                           }
                           starColor={"#DFD800"}
                           renderStarIcon={() => (
                             <span className="flaticon-star"></span>
                           )}
-                        />
+                        /> */}
                       </span>
                     </li>
                     <li>
@@ -504,6 +515,16 @@ export default class ViewEscortDetails extends Component {
                         {escort.services.length
                           ? escort.services.map((serv, idx) => {
                               return <small key={idx}>{serv}</small>;
+                              // <div>
+                              //        { this.state.allServices.map((alserv, idx) => {
+                              //        alserv.shortName===serv?  
+                              //   <span className="tooltiptext">{alserv.fullName}</span>
+                              //        : 
+                              //        ""
+                              //        })
+                              //       }
+                              // <small className="tooltip"  key={idx}>{serv}</small>
+                              // </div>
                             })
                           : "N/A"}
                       </span>

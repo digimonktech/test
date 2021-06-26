@@ -197,7 +197,8 @@ export default class MyReview extends Component {
             </div>
           ))}
           
-          {this.state.reviews.length === 0 ? <img  style={{position:'relative', textAlign:'center',marginLeft:"35%",marginTop:40}} width="270" height="230"src={noReviewImage} alt="" />  : ""}
+          {this.state.reviews.length === 0 ? <div><img  style={{position:'relative', textAlign:'center',marginLeft:"35%",marginTop:40}} width="270" height="230"src={noReviewImage} alt="" /><p style={{color:"#E100FF",textAlign:"center"}}><h2>Have Not Posted Any Review</h2></p>
+              </div>  : ""}
         </div>
       </>
     );

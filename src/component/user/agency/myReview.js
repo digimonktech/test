@@ -79,6 +79,7 @@ export default class Review extends Component {
               </div>
             ))
           ) : (
+            <div>
             <img
               style={{
                 position: "relative",
@@ -91,6 +92,8 @@ export default class Review extends Component {
               src={noReviewImage}
               alt=""
             />
+            <p style={{color:"#E100FF",textAlign:"center"}}><h2>Have Not Posted Any Review</h2></p>
+              </div>
           )}
         </div>
       </>

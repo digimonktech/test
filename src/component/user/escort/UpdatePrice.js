@@ -11,6 +11,8 @@ import Slide from "@material-ui/core/Slide";
 import kookyLogo from "../../../images/logo.png";
 import { postData, getData } from "../../FetchNodeServices";
 import noOutCallImage from "../../../images/Group 4112@2x.png";
+import noInCallImage from "../../../images/inCall.png";
+
 
 export default class UpdatePrice extends Component {
   constructor() {
@@ -329,7 +331,18 @@ export default class UpdatePrice extends Component {
                   ))}
                 </>
               ) : (
-                "NO IN CALL RATE avaliable"
+                <div>
+                <img
+                    src={noInCallImage}
+                    alt="no In call rate"
+                    style={{
+                      marginLeft: "40%",
+                      marginTop: 40,
+                   
+                    }}
+                  />
+                  <p style={{color:"#E100FF",textAlign:"center",fontSize:22,marginTop:10, fontWeight:"bold"}}>No InCall</p>
+                  </div>
               )}
             </div>
             {this.state.show ? (
