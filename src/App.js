@@ -28,16 +28,24 @@ import ViewEscortDetails from "./component/viewEscortDetails/viewEscortDetails";
 import BookingEscort from "./component/bookingEscort/bookingEscort";
 import SearchEscort from "./component/searchEscort/searchEscort";
 
+// test
+import Test from "./component/test";
+
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
+          <Route path="/test" exact component={Test} />
           <Route path="/" exact component={Home} />
           <Route path="/login" exact component={Login} />
           <Route path="/forgot-password" exact component={ForgotPassword} />
           <Route path="/submit-otp/:email" exact component={SubmitOtp} />
-          <Route path="/reset-password/:token" exact component={ResetPassword} />
+          <Route
+            path="/reset-password/:token"
+            exact
+            component={ResetPassword}
+          />
           <Route path="/sign-up" exact component={Account} />
           <Route path="/booking" exact component={Booking} />
           <Route path="/user/dashboard/:id" exact component={Dashboard} />
