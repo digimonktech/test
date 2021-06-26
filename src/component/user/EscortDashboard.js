@@ -10,7 +10,6 @@ import {
   Form,
   Dropdown,
 } from "react-bootstrap";
-
 import UploadProfile from "./escort/escortProfileImage.component";
 import { NavLink } from "react-router-dom";
 import PersonalInfo from "./escort/PersonalInfo";
