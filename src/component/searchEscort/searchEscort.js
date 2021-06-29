@@ -15,6 +15,7 @@ import man from "../../images/man.png";
 import StarRatingComponent from "react-star-rating-component";
 // import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
+import { AllCountries } from "../../utils/country.utils";
 // import SearchUser from "./SearchUser";
 // import Favorite from "./Favorite";
 export default class SearchEscort extends Component {
@@ -205,7 +206,7 @@ export default class SearchEscort extends Component {
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Country : {filter ? filter.country : ""}
+              Country : {filter ? AllCountries[filter.country] : ""}
             </Typography>
             <Typography
               color="textPrimary"
