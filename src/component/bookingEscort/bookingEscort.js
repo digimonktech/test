@@ -179,7 +179,11 @@ export default class BookingEscort extends Component {
   };
   handleClose = () => {
     this.setState({ isOpen: false });
-    this.props.history.push("/");
+    if (this.props.location.state.details.date) {
+      this.props.history.go(-2);
+    } else {
+      this.props.history.goBack();
+    }
   };
   callIcon = () => {
     this.props.history.goBack();
@@ -309,8 +313,15 @@ export default class BookingEscort extends Component {
                       placeholder="type here"
                       value={this.state.date}
                       min={new Date().toISOString().split("T")[0]}
+                      max={
+                        new Date(new Date().setDate(new Date().getDate() + 1))
+                          .toISOString()
+                          .split("T")[0]
+                      }
                       onChange={(e) => this.setState({ date: e.target.value })}
-                      //+  disabled={this.state.date ? true : false}
+                      disabled={
+                        this.props.location.state.details.date ? true : false
+                      }
                     ></Form.Control>
                     <label
                       style={{
@@ -336,7 +347,9 @@ export default class BookingEscort extends Component {
                         console.log(e.target.value.toISOString());
                         this.setState({ time: e.target.value });
                       }}
-                      disabled={this.state.time ? true : false}
+                      disabled={
+                        this.props.location.state.details.time ? true : false
+                      }
                     />
 
                     {/* <Form.Control
@@ -468,12 +481,12 @@ export default class BookingEscort extends Component {
 
                 <p className="confirm">
                   By confirming this booking you are agreeing to our{" "}
-                  <a
+                  <span
                     onClick={() => this.openTermOfUse()}
-                    style={{ color: "#E100FF" }}
+                    style={{ color: "#E100FF", cursor: "pointer" }}
                   >
                     <u>terms & conditions.</u>
-                  </a>
+                  </span>
                 </p>
                 <Form.Group className="text-right">
                   {/* <Button

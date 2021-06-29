@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { getData } from "../../../FetchNodeServices";
 import { Multiselect } from "multiselect-react-dropdown";
 import Slider from "react-rangeslider";
@@ -13,9 +13,24 @@ export default class Filter extends Component {
       services: [],
       bodyType: [],
       allServices: [],
+      minAge: 18,
+      maxAge: 60,
+      minHeight: 50,
+      maxHeight: 250,
     };
   }
   componentDidMount = async () => {
+    var check = await getData("admin/get-all-options");
+    console.log("check", check);
+    if (!check.response) {
+      this.setState({
+        minAge: check.data.data.minAge,
+        maxAge: check.data.data.maxAge,
+        minHeight: check.data.data.minHeight,
+        maxHeight: check.data.data.maxHeight,
+      });
+    }
+
     console.log("comp", this.props.escorts);
     if (this.props.filter.filtredAgency.length !== 1) {
       this.setState({ selectedAgency: null });
@@ -81,8 +96,8 @@ export default class Filter extends Component {
           <Form.Group>
             <Form.Label>Minimum Age</Form.Label>
             <Slider
-              min={20}
-              max={60}
+              min={this.state.minAge}
+              max={this.state.maxAge}
               value={this.props.filter.minAge}
               handleLabel={this.props.filter.minAge}
               onChange={this.props.handleAgeChange}
@@ -91,8 +106,8 @@ export default class Filter extends Component {
           <Form.Group>
             <Form.Label>Minimum Height(in cm)</Form.Label>
             <Slider
-              min={50}
-              max={700}
+              min={this.state.minHeight}
+              max={this.state.maxHeight}
               value={this.props.filter.minHeight}
               handleLabel={this.props.filter.minHeight}
               onChange={this.props.handleHeightChange}

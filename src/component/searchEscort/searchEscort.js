@@ -205,25 +205,25 @@ export default class SearchEscort extends Component {
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Country : {filter.country}
+              Country : {filter ? filter.country : ""}
             </Typography>
             <Typography
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              City : {filter.city.city}
+              City : {filter ? filter.city.city : ""}
             </Typography>
             <Typography
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Gender : {filter.gender}
+              Gender : {filter ? filter.gender : ""}
             </Typography>
             <Typography
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Time : {filter.time}
+              Time : {filter ? filter.time : ""}
             </Typography>
           </Breadcrumbs>
 

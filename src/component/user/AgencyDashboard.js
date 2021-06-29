@@ -186,8 +186,8 @@ export default class AgencyDashboard extends Component {
                       <Col md="4">
                         <span>
                           <i className="flaticon-calendar"></i> Joined{" "}
-                          {this.state.agencyDetails.createAt
-                            ? this.state.agencyDetails.createAt.split("T")[0]
+                          {this.state.agencyDetails.createdAt
+                            ? this.state.agencyDetails.createdAt.split("T")[0]
                             : ""}
                         </span>
                       </Col>

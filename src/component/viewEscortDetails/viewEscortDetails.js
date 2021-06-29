@@ -20,9 +20,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import StarRatingComponent from "react-star-rating-component";
 import { getData } from "../FetchNodeServices";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import FacebookIcon from "@material-ui/icons/Facebook";
+// import InstagramIcon from "@material-ui/icons/Instagram";
+// import TwitterIcon from "@material-ui/icons/Twitter";
+// import FacebookIcon from "@material-ui/icons/Facebook";
 import Header from "../Header";
 import jwt_decode from "jwt-decode";
 import Footer from "../Footer";
@@ -38,6 +38,9 @@ import noReviewImage from "../../images/Group 4113@2x.png";
 import man from "../../images/man.png";
 import { Facebook, Twitter } from "react-sharingbuttons";
 import "react-sharingbuttons/dist/main.css";
+
+import { AllCountries } from "../../utils/country.utils";
+
 // import {useHistory} from  "react-router-dom";
 export default class ViewEscortDetails extends Component {
   constructor(props) {
@@ -447,10 +450,14 @@ export default class ViewEscortDetails extends Component {
                 <div className="citybox-view mt-4">
                   <ul>
                     <li>
+                      Status
+                      <span>{escort.isOnline ? "Online" : "Offline"}</span>
+                    </li>
+                    <li>
                       City <span>{escort.city}</span>
                     </li>
                     <li>
-                      Agency{" "}
+                      Agency
                       {escort.agencyId ? (
                         <Link to={`/user/agency/dashboard/${escort.agencyId}`}>
                           {escort.agencyName}
@@ -466,7 +473,7 @@ export default class ViewEscortDetails extends Component {
                       Ratings
                       <span>
                         {" "}
-                        {escort.recivedStarts / escort.numOfUserRated}{" "}
+                        {escort.recivedStarts / escort.numOfUserRated || 0}{" "}
                         <i
                           className="fas fa-star"
                           style={{ color: "#E100FF" }}
@@ -503,7 +510,8 @@ export default class ViewEscortDetails extends Component {
                       Body Type <span>{escort.bodyShape || "N/A"}</span>
                     </li>
                     <li>
-                      Nationality <span>{escort.country || "N/A"}</span>
+                      Nationality
+                      <span>{AllCountries[escort.country] || "N/A"}</span>
                     </li>
                     <li>
                       Languages{" "}
