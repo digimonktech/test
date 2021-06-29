@@ -15,53 +15,31 @@ class VerifyEmail extends React.Component {
 
   componentDidMount = async () => {
     console.log("id: ", window.location.pathname.split("/")[2]);
+    localStorage.clear();
     const token = window.location.pathname.split("/")[2];
     const result = await getData(`auth/verify-email-via-token/${token}`);
     console.log(result.data);
     if (!result.response) {
       this.setState({ isVerified: true });
-      if(localStorage.getItem("TOKEN")){
-        const decode = jwt_decode(localStorage.getItem("TOKEN"));
-      console.log('result',result)
-      console.log("check role",decode.role,decode.id);
-
-      switch (decode.role) {
-        case "escort":
-          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
-          break;
-        case "user":
-          this.props.history.push(`/user/dashboard/${decode._id}`);
-          break;
-        case "agency":
-          this.props.history.push(`/user/agency/dashboard/${decode._id}`);
-          break;
-        default:
-          break;
-      }
-
-      }
-      else {
-         
-      localStorage.setItem("TOKEN", result.data.token)
-      const decode = jwt_decode(result.token);
-      console.log('result',result)
-      console.log("check role",decode.role,decode.id);
-
-      switch (decode.role) {
-        case "escort":
-          this.props.history.push(`/user/escort/dashboard/${decode._id}`);
-          break;
-        case "user":
-          this.props.history.push(`/user/dashboard/${decode._id}`);
-          break;
-        case "agency":
-          this.props.history.push(`/user/agency/dashboard/${decode._id}`);
-          break;
-        default:
-          break;
-      }
-      }
-
+      localStorage.setItem("TOKEN", result.data.token);
+      const decode = jwt_decode(result.data.token);
+      console.log("result", result);
+      console.log("check role", decode.role, decode.id);
+      setTimeout(() => {
+        switch (decode.role) {
+          case "escort":
+            this.props.history.push(`/user/escort/dashboard/${decode._id}`);
+            break;
+          case "user":
+            this.props.history.push(`/user/dashboard/${decode._id}`);
+            break;
+          case "agency":
+            this.props.history.push(`/user/agency/dashboard/${decode._id}`);
+            break;
+          default:
+            break;
+        }
+      }, 5000);
     } else {
       this.setState({ isVerified: false });
     }
@@ -85,7 +63,8 @@ class VerifyEmail extends React.Component {
             <>
               <h1>Your Email is Verified you can login now.</h1>
               <p>
-                <Link to="/login">Click here</Link> to login
+                You will be redirected to your dashboard in 5 second or{" "}
+                <Link to="/login">Click here</Link> to Go to your dashboard
               </p>
             </>
           ) : (

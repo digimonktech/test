@@ -499,27 +499,6 @@ export default class Booking extends Component {
                               changeTab={this.changeNewTab}
                               handleFilter={this.handleFilter}
                             />
-                            <Row style={{ marginTop: 70 }}>
-                              <Col md="6">
-                                <div className="text-left">
-                                  <a href="./">
-                                    <button className="btn btn-outline-dark mr-2">
-                                      Back
-                                    </button>
-                                  </a>
-                                </div>
-                              </Col>
-                              <Col md="6">
-                                <div className="text-right">
-                                  <button
-                                    className="btn btn-primary"
-                                    onClick={() => this.stepper.next()}
-                                  >
-                                    Next
-                                  </button>
-                                </div>
-                              </Col>
-                            </Row>
                           </>
                         ) : (
                           ""
@@ -542,14 +521,14 @@ export default class Booking extends Component {
                                 </div>
                               </Col>
                               <Col md="6">
-                                <div className="text-right">
+                                {/* <div className="text-right">
                                   <button
                                     className="btn btn-primary"
                                     onClick={() => this.stepper.next()}
                                   >
                                     Next
                                   </button>
-                                </div>
+                                </div> */}
                               </Col>
                             </Row>
                           </>

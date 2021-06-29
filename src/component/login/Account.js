@@ -207,6 +207,7 @@ export default class Account extends Component {
               lstyle: { display: "none" },
               button: "Continue",
             });
+            this.props.history.push(`/verification-email-sent/${body.email}`);
           } else {
             this.setState({
               getMsg: result.message,

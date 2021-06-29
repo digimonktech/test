@@ -61,25 +61,25 @@ export default class BookingEscort extends Component {
       //   time.split(":")[1].split(" ")[0],
       //   time.split(":")[1].split(" ")[1]
       // );
-   if(time){
-      let amOrPm = time.split(":")[1].split(" ")[1];
-      let hours =
-        amOrPm === "pm"
-          ? Number(time.split(":")[0]) + 12
-          : Number(time.split(":")[0]);
-      let minuit = Number(time.split(":")[1].split(" ")[0]);
-      let time2 = new Date(2011, 0, 1, hours, minuit, 0, 0);
-      console.log(time2);
-      this.setState({ time: time2 });
-      // let time = this.props.location.state.details.date.split(" ")[1];
-      // if (time.split(":")[0].length < 2) {
-      //   time = "0" + time;
-      // }
-      // this.setState({
-      //   date: this.props.location.state.details.date.split(" ")[0],
-      //   time: time,
-      // });
-    }
+      if (time) {
+        let amOrPm = time.split(":")[1].split(" ")[1];
+        let hours =
+          amOrPm === "pm"
+            ? Number(time.split(":")[0]) + 12
+            : Number(time.split(":")[0]);
+        let minuit = Number(time.split(":")[1].split(" ")[0]);
+        let time2 = new Date(2011, 0, 1, hours, minuit, 0, 0);
+        console.log(time2);
+        this.setState({ time: time2 });
+        // let time = this.props.location.state.details.date.split(" ")[1];
+        // if (time.split(":")[0].length < 2) {
+        //   time = "0" + time;
+        // }
+        // this.setState({
+        //   date: this.props.location.state.details.date.split(" ")[0],
+        //   time: time,
+        // });
+      }
     }
     if (!token) {
       // window.location.replace(`/sign-up`)
@@ -91,10 +91,10 @@ export default class BookingEscort extends Component {
     }
   }
 
-  openTermOfUse = () =>{
+  openTermOfUse = () => {
     console.log("londiya");
     window.open("./term-of-use");
-  }
+  };
   handleBooking = async () => {
     this.setState({
       lstyle: { display: "block" },
@@ -162,7 +162,7 @@ export default class BookingEscort extends Component {
       if (result.response) {
         console.log(result.response.data);
         this.setState({
-          errors: { ...result.response.data.errors, ...this.state.errors, },
+          errors: { ...result.response.data.errors, ...this.state.errors },
           lstyle: { display: "none" },
           button: "CONFIRM BOOKING",
         });
@@ -181,9 +181,9 @@ export default class BookingEscort extends Component {
     this.setState({ isOpen: false });
     this.props.history.push("/");
   };
-  callIcon =()=>{
-    this.props.history.push("../");
-  }
+  callIcon = () => {
+    this.props.history.goBack();
+  };
   render() {
     if (!this.props.location.state) {
       // this.props.history.push(`/viewEscort/${this.props.match.id}`);
@@ -215,7 +215,7 @@ export default class BookingEscort extends Component {
                   minWidth: 620,
                   minHeight: 50,
                   marginTop: 20,
-                  textAlign:"center",
+                  textAlign: "center",
                 }}
               >
                 <h4> Your Booking Request is successfully sent to escort</h4>
@@ -231,13 +231,15 @@ export default class BookingEscort extends Component {
             <Row>
               <Col md="12">
                 <div className="view-title mb-4">
-                  
-                  <h2> <i
-                      onClick={()=>this.callIcon()}
-                        style={{ color: "#E100FF" }}
-                        className="fa fa-arrow-circle-left"
-                      ></i>
-Booking Details</h2>
+                  <h2>
+                    {" "}
+                    <i
+                      onClick={() => this.callIcon()}
+                      style={{ color: "#E100FF" }}
+                      className="fa fa-arrow-circle-left"
+                    ></i>
+                    Booking Details
+                  </h2>
                 </div>
               </Col>
               <Col md="12">
@@ -308,7 +310,7 @@ Booking Details</h2>
                       value={this.state.date}
                       min={new Date().toISOString().split("T")[0]}
                       onChange={(e) => this.setState({ date: e.target.value })}
-                  //+  disabled={this.state.date ? true : false}
+                      //+  disabled={this.state.date ? true : false}
                     ></Form.Control>
                     <label
                       style={{
@@ -334,7 +336,7 @@ Booking Details</h2>
                         console.log(e.target.value.toISOString());
                         this.setState({ time: e.target.value });
                       }}
-                    disabled={this.state.time ? true : false}
+                      disabled={this.state.time ? true : false}
                     />
 
                     {/* <Form.Control
@@ -466,18 +468,21 @@ Booking Details</h2>
 
                 <p className="confirm">
                   By confirming this booking you are agreeing to our{" "}
-                  <a onClick={()=>this.openTermOfUse()} style={{color: "#E100FF"}}><u>terms & conditions.</u></a>
-              
+                  <a
+                    onClick={() => this.openTermOfUse()}
+                    style={{ color: "#E100FF" }}
+                  >
+                    <u>terms & conditions.</u>
+                  </a>
                 </p>
                 <Form.Group className="text-right">
-               
-                {/* <Button
+                  {/* <Button
                     className="btn btn-primary"
                     // onClick={this.handleBooking}
                   >
                   Cancel{" "}
                   </Button> */}
-                  <Button 
+                  <Button
                     className="btn btn-primary"
                     onClick={this.handleBooking}
                   >
