@@ -17,7 +17,7 @@ export default class Booking extends Component {
       rating: 5,
       bookingList: [],
       review: "",
-
+      escortName: "the",
       errors: {},
     };
   }
@@ -86,6 +86,10 @@ export default class Booking extends Component {
           {this.state.bookingList.length ? (
             this.state.bookingList.map((u, index) => {
               console.log(u);
+              const time =
+                Number(u.time.split("T")[1].split(":")[0]) > 12
+                  ? [Number(u.time.split("T")[1].split(":")[0]) - 12,"PM"]
+                  : [u.time.split("T")[1].split(":")[0],"AM"];
               return (
                 <div className="cardbox mb-4" key={index}>
                   <Row>
@@ -108,7 +112,10 @@ export default class Booking extends Component {
                             <ul>
                               <li>
                                 <i className="flaticon-clock"></i>{" "}
-                                {u.date.split(" ")[1]} PM
+                                {time[0].toString() +
+                                  ":" +
+                                  u.time.split("T")[1].split(":")[1]}{" "}
+                                {time[1]}
                               </li>
                               <li>
                                 <i className="flaticon-alarm-clock"></i>{" "}
@@ -143,8 +150,11 @@ export default class Booking extends Component {
                                     className="mb-2 btn-block"
                                     variant={!u.isReviewed ? "dark" : "success"}
                                     disabled={!u.isCompleted}
-                                    onClick={() =>
-                                      this.setState({ popup: true })
+                                    onClick={(u) =>
+                                      this.setState({
+                                        popup: true,
+                                        escortName: u.escortName,
+                                      })
                                     }
                                   >
                                     Rate Escort
@@ -216,7 +226,7 @@ export default class Booking extends Component {
                         content={
                           <>
                             <div style={{ textAlign: "center" }}>
-                              <img src={kookyLogo} alt="" />
+                              {this.state.escortName}
                             </div>
                             <div style={{ textAlign: "center", marginTop: 20 }}>
                               <span style={{ fontSize: "5vh" }}>
@@ -243,12 +253,12 @@ export default class Booking extends Component {
                                 <textarea
                                   name="review"
                                   style={{
-                                    width: "900px",
+                                    width: "700px",
                                     height: "100px",
                                     paddingLeft: 30,
                                     paddingTop: 20,
                                     marginLeft: 40,
-                                    borderRadius: 50,
+
                                     marginBottom: 40,
                                   }}
                                   value={this.state.review}
