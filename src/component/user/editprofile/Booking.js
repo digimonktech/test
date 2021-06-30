@@ -56,6 +56,7 @@ export default class Booking extends Component {
     const result = await postData("review/review-escort", body);
     if (!result.response) {
       this.setState({ popup: false });
+      this.props.handleUpdateProfile();
     } else {
       console.log(result.response);
       this.setState({ errors: result.response.data.errors });
@@ -75,6 +76,7 @@ export default class Booking extends Component {
       newBooking.push(complete.data);
       this.setState({ bookingList: newBooking });
     }
+    this.props.handleUpdateProfile();
   };
 
   render() {
@@ -287,20 +289,23 @@ export default class Booking extends Component {
             })
           ) : (
             <div>
-            <img
-              style={{
-                position: "relative",
-                textAlign: "center",
-                marginLeft: 290,
-                marginTop: 40,
-              }}
-              width="220"
-              height="240"
-              src={noBookingImage}
-              alt=""
-            />
-             <p style={{color:"#E100FF",textAlign:"center"}}><h2>No Booking Available</h2>Please make a booking to get our services </p>
-              </div>
+              <img
+                style={{
+                  position: "relative",
+                  textAlign: "center",
+                  marginLeft: 290,
+                  marginTop: 40,
+                }}
+                width="220"
+                height="240"
+                src={noBookingImage}
+                alt=""
+              />
+              <p style={{ color: "#E100FF", textAlign: "center" }}>
+                <h2>No Booking Available</h2>Please make a booking to get our
+                services{" "}
+              </p>
+            </div>
           )}
         </div>
       </>

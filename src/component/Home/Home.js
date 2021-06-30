@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import Header from "../Header";
-import { Container, Row, Col, Dropdown, Form } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import noFeatureEscortImage from "../../images/Group 4111@2x.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Avatar from "../../images/avatar.jpg";
+// import Avatar from "../../images/avatar.jpg";
 import Logo from "../../images/logo.png";
 import Find from "../../images/find.jpg";
 import Find2 from "../../images/find-2.jpg";
 import Find3 from "../../images/find-3.jpg";
-import Featured from "../../images/feature-1.jpg";
-import Featured2 from "../../images/feature-2.jpg";
-import Featured3 from "../../images/feature-3.jpg";
+// import Featured from "../../images/feature-1.jpg";
+// import Featured2 from "../../images/feature-2.jpg";
+// import Featured3 from "../../images/feature-3.jpg";
 import Footer from "../Footer";
 import Avatar1 from "../../images/avatar1.png";
 import noResultImage from "../../images/Group 4078.png";
@@ -209,17 +209,22 @@ export default class Home extends Component {
             <Slider {...settings}>
               {this.state.escortReview.length ? (
                 this.state.escortReview.map((escort, idx) => {
+                  const escortReview =
+                    escort.review.length > 150
+                      ? escort.review.slice(0, 150) + "..."
+                      : escort.review;
+
                   return (
                     <div className="pr-5 ">
                       <div className="avtar d-flex align-items-center mb-4">
-                        <Link to={`/viewEscort/${escort.escortId}`}>
+                        {/* <Link to={`/viewEscort/${escort.escortId}`}>
                           <img
                             src={escort.escortProfileImg}
                             alt="img"
                             height="120vh"
                             width="120vw"
                           />
-                        </Link>
+                        </Link> */}
                         <div className="avatar-text">
                           <Link to={`/viewEscort/${escort.escortId}`}>
                             <h3
@@ -233,9 +238,20 @@ export default class Home extends Component {
                               {escort.rating} star rating .
                             </h3>
                           </Link>
+                          <p>
+                            {escort.review.length > 150 ? (
+                              <>
+                                {escortReview}
+                                <Link to={`/viewEscort/${escort.escortId}`}>
+                                  (See More)
+                                </Link>
+                              </>
+                            ) : (
+                              escortReview
+                            )}
+                          </p>
                         </div>
                       </div>
-                      <p>{escort.review}</p>
                     </div>
                   );
                 })

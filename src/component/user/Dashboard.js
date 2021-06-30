@@ -111,6 +111,19 @@ export default class Dashboard extends Component {
       } else {
         console.log("updatedError: ", result.response);
       }
+
+      const userBooking = await getData(
+        `booking/get-booking-by-user/${this.props.match.params.id}`
+      );
+      if (!result.response && result.data.data !== null) {
+        console.log("get: ", result.data);
+        this.setState({
+          headerUserDetails: result.data.data,
+          userBooking: userBooking.data.data,
+        });
+      } else {
+        this.props.history.push(`/page-not-found`);
+      }
     }
   };
 
@@ -238,10 +251,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -332,7 +345,7 @@ export default class Dashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("chat")}>
-                  Chat <span>(0)</span>
+                    Chat <span>(0)</span>
                   </a>
                 </li>
                 {/* <Dropdown as="li">
@@ -472,10 +485,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -588,10 +601,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -704,10 +717,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -844,7 +857,10 @@ export default class Dashboard extends Component {
                   )}
                   {this.state.type === "booking" ? (
                     this.state.booking === "inProcessBooking" ? (
-                      <Booking bookingList={this.state.filteredBooking} />
+                      <Booking
+                        bookingList={this.state.filteredBooking}
+                        handleUpdateProfile={this.handleUpdateProfile}
+                      />
                     ) : (
                       ""
                     )
@@ -853,7 +869,10 @@ export default class Dashboard extends Component {
                   )}
                   {this.state.type === "booking" ? (
                     this.state.booking === "completedBooking" ? (
-                      <Booking bookingList={this.state.filteredBooking} />
+                      <Booking
+                        bookingList={this.state.filteredBooking}
+                        handleUpdateProfile={this.handleUpdateProfile}
+                      />
                     ) : (
                       ""
                     )
