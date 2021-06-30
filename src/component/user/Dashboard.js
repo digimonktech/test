@@ -238,10 +238,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -332,7 +332,7 @@ export default class Dashboard extends Component {
 
                 <li>
                   <a onClick={() => this.ChangeTab("chat")}>
-                  Chat <span>(0)</span>
+                    Chat <span>(0)</span>
                   </a>
                 </li>
                 {/* <Dropdown as="li">
@@ -472,10 +472,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -588,10 +588,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
@@ -704,10 +704,10 @@ export default class Dashboard extends Component {
                 </Dropdown.Menu>
               </Dropdown> */}
               <li>
-                  <a onClick={() => this.ChangeTab("chat")}>
+                <a onClick={() => this.ChangeTab("chat")}>
                   Chat <span>(0)</span>
-                  </a>
-                </li>
+                </a>
+              </li>
             </ul>
           </div>
         );
