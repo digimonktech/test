@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Multiselect } from "multiselect-react-dropdown";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { postData, getData } from "../../FetchNodeServices";
 
 import Slider from "react-rangeslider";
@@ -285,8 +285,7 @@ export default class PersonalInfo extends Component {
     return (
       <>
         <div className="edit-profilebox">
-        
-                <Form>
+          <Form>
             <Form.Group>
               <Form.Label htmlFor="name">Name</Form.Label>
               <Form.Control
@@ -596,11 +595,15 @@ export default class PersonalInfo extends Component {
               </Form.Text>
             </Form.Group>
 
-            <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:40}} onClose={()=>this.handleClose()}>
-        <MuiAlert onClose={()=>this.handleClose()} severity="success">
-          {this.state.result}
-        </MuiAlert>
-</Snackbar>
+            <Snackbar
+              open={this.state.open}
+              style={{ position: "relative", width: 350, marginTop: 40 }}
+              onClose={() => this.handleClose()}
+            >
+              <MuiAlert onClose={() => this.handleClose()} severity="success">
+                {this.state.result}
+              </MuiAlert>
+            </Snackbar>
 
             <Form.Group className="text-right">
               <Button
