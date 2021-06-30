@@ -11,6 +11,7 @@ import SearchTabs from "./search/SearchTabs";
 import kookyLogo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { getData } from "../FetchNodeServices";
+import { AllCountries } from "../../utils/country.utils";
 
 export default class Booking extends Component {
   constructor() {
@@ -55,14 +56,14 @@ export default class Booking extends Component {
 
   handleFilter = (field, value) => {
     let newFilter = { ...this.state.filter };
-    newFilter[field] = value;
-    if (newFilter.outCall) {
+    if (field === "inCall") {
+      newFilter.outCall = false;
+    } else if (field === "outCall") {
       newFilter.inCall = false;
-    } else if (newFilter.inCall) {
-      newFilter.outCall = true;
     }
+    newFilter[field] = value;
     this.setState({ filter: newFilter });
-    console.log(newFilter);
+    console.log(newFilter, field, value);
   };
 
   componentDidMount = async () => {
@@ -73,6 +74,12 @@ export default class Booking extends Component {
       linear: false,
       animation: true,
     });
+    if (this.props.location.state) {
+      console.log("props: ", this.props.location.state.city);
+      this.handleFilter("country", this.props.location.state.city.country);
+      this.handleFilter("city", this.props.location.state.city);
+      this.stepper.next();
+    }
     const date = new Date();
     const currentHour = date.getHours();
     // console.log("currentHour", currentHour);
@@ -98,16 +105,11 @@ export default class Booking extends Component {
       this.setState({ Bookingdate: date.getDate() });
     }
     var hour = 0;
-    if (currentHour != 23) {
+    if (currentHour !== 23) {
       hour = currentHour <= 10 ? currentHour + delayTime : currentHour - 10;
     } else {
       hour = delayTime - 1;
     }
-    console.log(hour24, hour);
-
-    // console.log('diff',adminSetting.data.data.bookingDelay);
-
-    //  console.log("currenthours, hours , hour24 ", currentHour,hour,hour24);
     this.setState({
       //for delay of 2 hours we add 2
       hours: minit === 0 ? hour + 1 : hour,
@@ -120,7 +122,6 @@ export default class Booking extends Component {
       date: new Date().toISOString().split("T")[0],
       bookingDelay: adminSetting.data.data.bookingDelay,
     });
-    // console.log(this.state.hours)
   };
 
   onSubmit(e) {
@@ -434,6 +435,13 @@ export default class Booking extends Component {
                         </span>
                         <span className="bs-stepper-label">
                           <small>STEP 1</small> Country/City
+                          <br />
+                          {this.state.filter.country
+                            ? AllCountries[this.state.filter.country] + "/"
+                            : ""}
+                          {this.state.filter.city
+                            ? this.state.filter.city.city
+                            : ""}
                         </span>
                       </button>
                     </div>
@@ -446,6 +454,16 @@ export default class Booking extends Component {
                         <span className="bs-stepper-label">
                           <small>STEP 2</small>
                           Gender
+                          <br />
+                          {this.state.filter.gender &&
+                          (this.state.filter.inCall ||
+                            this.state.filter.outCall)
+                            ? this.state.filter.gender +
+                              "/" +
+                              (this.state.filter.outCall
+                                ? "Out Call"
+                                : "In Call")
+                            : ""}
                         </span>
                       </button>
                     </div>
@@ -458,6 +476,8 @@ export default class Booking extends Component {
                         <span className="bs-stepper-label">
                           <small>STEP 3</small>
                           Time
+                          <br />
+                          {this.state.filter.time}
                         </span>
                       </button>
                     </div>
@@ -499,27 +519,6 @@ export default class Booking extends Component {
                               changeTab={this.changeNewTab}
                               handleFilter={this.handleFilter}
                             />
-                            <Row style={{ marginTop: 70 }}>
-                              <Col md="6">
-                                <div className="text-left">
-                                  <a href="./">
-                                    <button className="btn btn-outline-dark mr-2">
-                                      Back
-                                    </button>
-                                  </a>
-                                </div>
-                              </Col>
-                              <Col md="6">
-                                <div className="text-right">
-                                  <button
-                                    className="btn btn-primary"
-                                    onClick={() => this.stepper.next()}
-                                  >
-                                    Next
-                                  </button>
-                                </div>
-                              </Col>
-                            </Row>
                           </>
                         ) : (
                           ""
@@ -542,14 +541,14 @@ export default class Booking extends Component {
                                 </div>
                               </Col>
                               <Col md="6">
-                                <div className="text-right">
+                                {/* <div className="text-right">
                                   <button
                                     className="btn btn-primary"
                                     onClick={() => this.stepper.next()}
                                   >
                                     Next
                                   </button>
-                                </div>
+                                </div> */}
                               </Col>
                             </Row>
                           </>

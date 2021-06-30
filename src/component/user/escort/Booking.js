@@ -14,7 +14,6 @@ export default class Booking extends Component {
   }
 
   componentDidMount() {
-    console.log("check booking",this.props.booking)
     const newBooking = this.props.booking
       ? this.props.booking.filter((booking) => !booking.isCompleted)
       : [];
@@ -166,7 +165,8 @@ export default class Booking extends Component {
                               <p>{u.specialRequest}</p>
                             </div>
                             <div className="btn-fem text-right">
-                              {new Date(u.bookingValidTill) < Date.now() &&
+                              {this.convertTZ(u.bookingValidTill) <
+                                this.convertTZ(new Date().toISOString()) &&
                               !u.isAccepted &&
                               !u.isRejected ? (
                                 <Button className="" disabled>
@@ -174,7 +174,8 @@ export default class Booking extends Component {
                                 </Button>
                               ) : !u.isAccepted &&
                                 !u.isRejected &&
-                                new Date(u.bookingValidTill) > Date.now() ? (
+                                this.convertTZ(u.bookingValidTill) >
+                                  this.convertTZ(new Date().toISOString()) ? (
                                 <>
                                   <Button
                                     onClick={() =>
@@ -231,21 +232,24 @@ export default class Booking extends Component {
             })
           ) : (
             <div>
-            <img
-              style={{
-                position: "relative",
-                textAlign: "center",
-                marginLeft: 290,
-                marginTop: 20,
-              }}
-              width="250"
-              height="220"
-              src={noBookingImage}
-              alt=""
-            />
-            
-            <p style={{color:"#E100FF",textAlign:"center"}}><h2>No Booking Available</h2>Please make a booking to get our services </p>
-              </div>
+              <img
+                style={{
+                  position: "relative",
+                  textAlign: "center",
+                  marginLeft: 290,
+                  marginTop: 20,
+                }}
+                width="250"
+                height="220"
+                src={noBookingImage}
+                alt=""
+              />
+
+              <p style={{ color: "#E100FF", textAlign: "center" }}>
+                <h2>No Booking Available</h2>Please make a booking to get our
+                services{" "}
+              </p>
+            </div>
           )}
         </div>
       </>

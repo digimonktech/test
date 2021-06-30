@@ -447,6 +447,7 @@ img {
 }
 .login-bg {
   background: url("./images/login-new.jpg") no-repeat center top;
+  /* background: url("./images/login-bg.png") no-repeat center top; */
   background-size: cover;
   padding: 150px 0px;
   background-attachment: fixed;

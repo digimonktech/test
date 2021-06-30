@@ -1439,8 +1439,8 @@ export default class EscortDashboard extends Component {
                       <Col md="3">
                         <span>
                           <i className="flaticon-calendar"></i> Joined{" "}
-                          {this.state.escortDetails.createAt
-                            ? this.state.escortDetails.createAt.split("T")[0]
+                          {this.state.escortDetails.createdAt
+                            ? this.state.escortDetails.createdAt.split("T")[0]
                             : ""}
                         </span>
                       </Col>

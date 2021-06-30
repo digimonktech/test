@@ -207,6 +207,9 @@ export default class Account extends Component {
               lstyle: { display: "none" },
               button: "Continue",
             });
+            localStorage.setItem("TOKEN", result.token);
+            console.log("TOKEN: ", result.token);
+            this.props.history.push(`/verification-email-sent/${body.email}`);
           } else {
             this.setState({
               getMsg: result.message,
@@ -219,8 +222,7 @@ export default class Account extends Component {
           // this.props.history.push("/login");
         }
         if (result) {
-          console.log("Signup:", result.data);
-
+          console.log("Signup:", result);
           // this.props.history.push("/login");
           // if (body.role == "User") {
           //   this.props.history.push("/user/dashboard");

@@ -15,6 +15,7 @@ import man from "../../images/man.png";
 import StarRatingComponent from "react-star-rating-component";
 // import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
+import { AllCountries } from "../../utils/country.utils";
 // import SearchUser from "./SearchUser";
 // import Favorite from "./Favorite";
 export default class SearchEscort extends Component {
@@ -218,25 +219,25 @@ export default class SearchEscort extends Component {
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Country : {filter.country}
+              Country : {filter ? AllCountries[filter.country] : ""}
             </Typography>
             <Typography
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              City : {filter.city.city}
+              City : {filter ? filter.city.city : ""}
             </Typography>
             <Typography
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Gender : {filter.gender}
+              Gender : {filter ? filter.gender : ""}
             </Typography>
             <Typography
               color="textPrimary"
               style={{ display: "flex", fontSize: 18, color: "#E100FF" }}
             >
-              Time : {filter.time}
+              Time : {filter ? filter.time : ""}
             </Typography>
           </Breadcrumbs>
 
@@ -483,15 +484,15 @@ export default class SearchEscort extends Component {
                       textAlign: "center",
                       marginLeft: "39%",
                       marginTop: 35,
-                  
                     }}
                     width="250"
                     height="220"
                     src={noReviewImage}
                     alt=""
                   />
-                  <p style={{color:"#E100FF",textAlign:"center"}}><h2>Have Not Posted Any Review</h2></p>
-                  
+                  <p style={{ color: "#E100FF", textAlign: "center" }}>
+                    <h2>Have Not Posted Any Review</h2>
+                  </p>
                 </>
               )
             }

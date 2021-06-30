@@ -20,9 +20,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import StarRatingComponent from "react-star-rating-component";
 import { getData } from "../FetchNodeServices";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import FacebookIcon from "@material-ui/icons/Facebook";
+// import InstagramIcon from "@material-ui/icons/Instagram";
+// import TwitterIcon from "@material-ui/icons/Twitter";
+// import FacebookIcon from "@material-ui/icons/Facebook";
 import Header from "../Header";
 import jwt_decode from "jwt-decode";
 import Footer from "../Footer";
@@ -38,6 +38,9 @@ import noReviewImage from "../../images/Group 4113@2x.png";
 import man from "../../images/man.png";
 import { Facebook, Twitter } from "react-sharingbuttons";
 import "react-sharingbuttons/dist/main.css";
+
+import { AllCountries } from "../../utils/country.utils";
+
 // import {useHistory} from  "react-router-dom";
 export default class ViewEscortDetails extends Component {
   constructor(props) {
@@ -60,9 +63,8 @@ export default class ViewEscortDetails extends Component {
         chat: false,
         openSeeAll: false,
       },
-      allServices:[],
+      allServices: [],
       imageList: [],
-      allServices:[]
     };
   }
   componentDidMount = async () => {
@@ -107,11 +109,11 @@ export default class ViewEscortDetails extends Component {
       });
       const services = await getData("admin/get-all-services");
       if (!services.response) {
-      const service = services.data.data;
-      this.setState({
-        allServices: service
-      });
-    }
+        const service = services.data.data;
+        this.setState({
+          allServices: service,
+        });
+      }
     } else {
       this.props.history.push(`/page-not-found`);
     }
@@ -154,9 +156,10 @@ export default class ViewEscortDetails extends Component {
   //   }
   // };
 
-  callIcon =()=>{
-    this.props.history.push("../");
-  }
+  callIcon = () => {
+    // this.props.history.push("../");
+    this.props.history.goBack();
+  };
   render() {
     const { escort } = this.state;
     const url = window.location.href;
@@ -237,20 +240,20 @@ export default class ViewEscortDetails extends Component {
                 ) : (
                   <>
                     <img
-                    style={{
-                      position: "relative",
-                      textAlign: "center",
-                      marginLeft: "39%",
-                      marginTop: 35,
-                  
-                    }}
-                    width="250"
-                    height="220"
-                    src={noReviewImage}
-                    alt=""
-                  />
-                  <p style={{color:"#E100FF",textAlign:"center"}}><h2>Have Not Posted Any Review</h2></p>
-                  
+                      style={{
+                        position: "relative",
+                        textAlign: "center",
+                        marginLeft: "39%",
+                        marginTop: 35,
+                      }}
+                      width="250"
+                      height="220"
+                      src={noReviewImage}
+                      alt=""
+                    />
+                    <p style={{ color: "#E100FF", textAlign: "center" }}>
+                      <h2>Have Not Posted Any Review</h2>
+                    </p>
                   </>
                 )
               }
@@ -312,11 +315,11 @@ export default class ViewEscortDetails extends Component {
                   <h2>
                     {" "}
                     {/* <a href="../"> */}
-                      <i
-                      onClick={()=>this.callIcon()}
-                        style={{ color: "#E100FF" }}
-                        className="fa fa-arrow-circle-left"
-                      ></i>
+                    <i
+                      onClick={() => this.callIcon()}
+                      style={{ color: "#E100FF" }}
+                      className="fa fa-arrow-circle-left"
+                    ></i>
                     {/* </a> */}
                     {escort.name}{" "}
                     <span>
@@ -447,10 +450,14 @@ export default class ViewEscortDetails extends Component {
                 <div className="citybox-view mt-4">
                   <ul>
                     <li>
+                      Status
+                      <span>{escort.isOnline ? "Online" : "Offline"}</span>
+                    </li>
+                    <li>
                       City <span>{escort.city}</span>
                     </li>
                     <li>
-                      Agency{" "}
+                      Agency
                       {escort.agencyId ? (
                         <Link to={`/user/agency/dashboard/${escort.agencyId}`}>
                           {escort.agencyName}
@@ -499,7 +506,8 @@ export default class ViewEscortDetails extends Component {
                       Body Type <span>{escort.bodyShape || "N/A"}</span>
                     </li>
                     <li>
-                      Nationality <span>{escort.country || "N/A"}</span>
+                      Nationality
+                      <span>{AllCountries[escort.country] || "N/A"}</span>
                     </li>
                     <li>
                       Languages{" "}
@@ -519,9 +527,9 @@ export default class ViewEscortDetails extends Component {
                               return <small key={idx}>{serv}</small>;
                               // <div>
                               //        { this.state.allServices.map((alserv, idx) => {
-                              //        alserv.shortName===serv?  
+                              //        alserv.shortName===serv?
                               //   <span className="tooltiptext">{alserv.fullName}</span>
-                              //        : 
+                              //        :
                               //        ""
                               //        })
                               //       }
@@ -591,11 +599,18 @@ export default class ViewEscortDetails extends Component {
                                   <td>{rate.hours} Hour</td>
                                   <td>{`$${rate.rate}`}</td>
                                   <td>{rate.shots}</td>
-                                  <td    className="text-right">
-                                    <span style={{
-                                            backgroundColor: this.state.selectedPlanOut===idx ?"#E100FF":"white",
-                                            color: this.state.selectedPlanOut===idx ?"white":"#E100FF",
-                                          }}
+                                  <td className="text-right">
+                                    <span
+                                      style={{
+                                        backgroundColor:
+                                          this.state.selectedPlanOut === idx
+                                            ? "#E100FF"
+                                            : "white",
+                                        color:
+                                          this.state.selectedPlanOut === idx
+                                            ? "white"
+                                            : "#E100FF",
+                                      }}
                                       className={`selected ${
                                         idx === this.state.selectedPlanOut
                                           ? "active"
@@ -608,13 +623,9 @@ export default class ViewEscortDetails extends Component {
                                         })
                                       }
                                     >
-                                      {idx === this.state.selectedPlanOut ? (
-                                       
-                                          "Selected"
-                                    
-                                      ) : (
-                                        "Select"
-                                      )}
+                                      {idx === this.state.selectedPlanOut
+                                        ? "Selected"
+                                        : "Select"}
                                     </span>
                                   </td>
                                 </tr>
@@ -642,9 +653,16 @@ export default class ViewEscortDetails extends Component {
                                   <td>{rate.shots}</td>
                                   <td className="text-right">
                                     <span
-                                    style={{ backgroundColor: this.state.selectedPlanIn===idx ?"#E100FF":"white",
-                                            color: this.state.selectedPlanIn===idx ?"white":"#E100FF",
-}}
+                                      style={{
+                                        backgroundColor:
+                                          this.state.selectedPlanIn === idx
+                                            ? "#E100FF"
+                                            : "white",
+                                        color:
+                                          this.state.selectedPlanIn === idx
+                                            ? "white"
+                                            : "#E100FF",
+                                      }}
                                       className={`selected ${
                                         idx === this.state.selectedPlanIn
                                           ? "active"

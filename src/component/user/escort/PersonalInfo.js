@@ -6,14 +6,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { postData, getData } from "../../FetchNodeServices";
 
+import Slider from "react-rangeslider";
+
 import kookyLogo from "../../../images/logo.png";
 
-import PhoneInput, {
-  formatPhoneNumberIntl,
-  isValidPhoneNumber,
-  parsePhoneNumber,
-} from "react-phone-number-input";
-import countryListAllIsoData from "../../../utils/country.utils";
+import PhoneInput, { parsePhoneNumber } from "react-phone-number-input";
 
 export default class PersonalInfo extends Component {
   constructor(props) {
@@ -21,7 +18,7 @@ export default class PersonalInfo extends Component {
     this.state = {
       getName: "",
       getEmail: "",
-      getAge: "",
+      getAge: "18",
       getContactNumber: "",
       getBodyShape: "",
       getCountry: "",
@@ -47,6 +44,10 @@ export default class PersonalInfo extends Component {
       allCountries: [],
       allCities: [],
       bodyType: [],
+      minAge: 18,
+      maxAge: 60,
+      minHeight: 50,
+      maxHeight: 250,
       errors: {},
     };
   }
@@ -58,7 +59,7 @@ export default class PersonalInfo extends Component {
       this.setState({
         getName: escortDetail.name,
         getEmail: escortDetail.email,
-        getAge: escortDetail.age,
+        getAge: escortDetail.age || 20,
         getContactNumber: escortDetail.contactNumber
           ? escortDetail.countryCode + escortDetail.contactNumber.toString()
           : "",
@@ -86,9 +87,15 @@ export default class PersonalInfo extends Component {
   componentDidMount = async () => {
     var check = await getData("admin/get-all-options");
     console.log("check", check);
-    this.setState({
-      wordCount: check.data.data.escortDescriptionWordLimit,
-    });
+    if (!check.response) {
+      this.setState({
+        wordCount: check.data.data.escortDescriptionWordLimit,
+        minAge: check.data.data.minAge,
+        maxAge: check.data.data.maxAge,
+        minHeight: check.data.data.minHeight,
+        maxHeight: check.data.data.maxHeight,
+      });
+    }
 
     const services = await getData("admin/get-all-services");
     if (!services.response) {
@@ -121,7 +128,7 @@ export default class PersonalInfo extends Component {
       {
         getName: escortDetail.name,
         getEmail: escortDetail.email,
-        getAge: escortDetail.age,
+        getAge: escortDetail.age || 20,
         getContactNumber: escortDetail.contactNumber
           ? escortDetail.countryCode + escortDetail.contactNumber.toString()
           : "",
@@ -336,20 +343,13 @@ export default class PersonalInfo extends Component {
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor="age">Age (in Years)</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your age here"
+              <Slider
+                min={this.state.minAge}
+                max={this.state.maxAge}
                 value={this.state.getAge}
-                onChange={(e) => {
-                  const re = /^[0-9\b]+$/;
-                  if (
-                    (e.target.value === "" || re.test(e.target.value)) &&
-                    e.target.value.length <= 2
-                  ) {
-                    this.setState({ getAge: e.target.value });
-                  }
-                }}
-              ></Form.Control>
+                handleLabel={this.state.getAge}
+                onChange={(e) => this.setState({ getAge: e })}
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor="bodyshape">Body Shape</Form.Label>
@@ -547,16 +547,12 @@ export default class PersonalInfo extends Component {
             </Form.Group>
             <Form.Group>
               <Form.Label>Height (Enter in cm)</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your Height (Enter in cm)"
-                onChange={(e) => {
-                  // const re = /^[0-9\b]+$/;
-                  // if (e.target.value === "" || re.test(e.target.value)) {
-                  this.setState({ getHeight: e.target.value });
-                  // }
-                }}
+              <Slider
+                min={this.state.minHeight}
+                max={this.state.maxHeight}
                 value={this.state.getHeight}
+                handleLabel={this.state.getHeight}
+                onChange={(e) => this.setState({ getHeight: e })}
               />
             </Form.Group>
             <Form.Group>

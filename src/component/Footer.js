@@ -5,10 +5,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Link } from "react-router-dom";
 import kookyLogo from "../images/logo.png";
+import { getData } from "./FetchNodeServices";
 
 export default class Footer extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ export default class Footer extends Component {
       isOpen: false,
       footerlink: true,
       citie: true,
+      avaliableCity: [],
       contacticon: true,
     };
   }
@@ -43,6 +44,21 @@ export default class Footer extends Component {
   handleClose = () => {
     this.setState({ isOpen: false });
   };
+
+  componentDidMount = async () => {
+    const cities = await getData("admin/get-all-city");
+    if (!cities.response) {
+      let newCities = [];
+      for (let i in cities.data.data) {
+        if (cities.data.data[i].isActive) {
+          newCities.push(cities.data.data[i]);
+        }
+      }
+      this.setState({ avaliableCity: newCities });
+      console.log("ciites: ", newCities);
+    }
+  };
+
   render() {
     return (
       <>
@@ -90,26 +106,25 @@ export default class Footer extends Component {
                     <img src={FooterLogo} alt="" />
                   </Link>
                   <div className="footer-text">
-                  {/* <h5>Contact</h5> */}
-                  <ul className="contact-icon">
-                    <li>
-                      <NavLink>
-                        <i className="fab fa-facebook-f"></i>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink>
-                        <i className="fab fa-twitter"></i>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink>
-                        <i className="fab fa-instagram"></i>
-                      </NavLink>
-                    </li>
-                  </ul>
-                </div>
-
+                    {/* <h5>Contact</h5> */}
+                    <ul className="contact-icon">
+                      <li>
+                        <NavLink>
+                          <i className="fab fa-facebook-f"></i>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink>
+                          <i className="fab fa-twitter"></i>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink>
+                          <i className="fab fa-instagram"></i>
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </Col>
 
@@ -128,7 +143,7 @@ export default class Footer extends Component {
                         <NavLink href="/">Home</NavLink>
                       </li>
                       <li>
-                        <NavLink href="/booking">Find a Escort </NavLink>
+                        <NavLink href="/booking">Find an Escort </NavLink>
                       </li>
                       {/* <li>
                         <NavLink href="#" onClick={() => this.handleOpen()}>
@@ -157,24 +172,25 @@ export default class Footer extends Component {
                   </h5>
                   {this.state.citie ? (
                     <ul>
-                      <li>
-                        <NavLink>Bangkok</NavLink>
-                      </li>
-                      <li>
-                        <NavLink>Singapore </NavLink>
-                      </li>
-                      <li>
-                        <NavLink>Manila</NavLink>
-                      </li>
-                      <li>
-                        <NavLink> Angeles City</NavLink>
-                      </li>
-                      <li>
-                        <NavLink> Cebu</NavLink>
-                      </li>
-                      <li>
-                        <NavLink href="/booking"> View All</NavLink>
-                      </li>
+                      {this.state.avaliableCity.slice(0, 4).map((city) => (
+                        <li>
+                          <Link
+                            to={{
+                              pathname: "/booking",
+                              state: { city: city },
+                            }}
+                          >
+                            {city.city}
+                          </Link>
+                        </li>
+                      ))}
+                      {this.state.avaliableCity.length <= 4 ? (
+                        <li>
+                          <NavLink href="/booking"> View All</NavLink>
+                        </li>
+                      ) : (
+                        ""
+                      )}
                     </ul>
                   ) : null}
                 </div>
@@ -182,34 +198,31 @@ export default class Footer extends Component {
 
               <Col>
                 <div className="footer-text">
-                  <h5>
-                    Contact{" "}
-                    <i
-                      className="fa fa-angle-down"
-                      onClick={() => this.contactLink()}
-                    ></i>
-                  </h5>
-                  {this.state.contacticon ? (
-                    <ul className="contact-icon">
-                      <li>
-                        <NavLink>
-                          <i className="fab fa-facebook-f"></i>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink>
-                          <i className="fab fa-twitter"></i>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink>
-                          <i className="fab fa-instagram"></i>
-                        </NavLink>
-                      </li>
+                  {this.state.citie ? (
+                    <ul>
+                      {this.state.avaliableCity.slice(4).map((city) => (
+                        <li>
+                          <Link
+                            to={{
+                              pathname: "/booking",
+                              state: { city: city },
+                            }}
+                          >
+                            {city.city}
+                          </Link>
+                        </li>
+                      ))}
+                      {this.state.avaliableCity.length > 4 ? (
+                        <li>
+                          <NavLink href="/booking"> View All</NavLink>
+                        </li>
+                      ) : (
+                        ""
+                      )}
                     </ul>
                   ) : null}
                 </div>
-                           </Col>
+              </Col>
             </Row>
           </Container>
         </footer>

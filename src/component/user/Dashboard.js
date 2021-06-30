@@ -135,7 +135,7 @@ export default class Dashboard extends Component {
             <ul>
               <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
-            My Profile
+                  My Profile
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as="ul">
@@ -746,8 +746,8 @@ export default class Dashboard extends Component {
                       <Col md="3">
                         <span>
                           <i className="flaticon-calendar"></i> Joined{" "}
-                          {this.state.headerUserDetails.createAt
-                            ? this.state.headerUserDetails.createAt.split(
+                          {this.state.headerUserDetails.createdAt
+                            ? this.state.headerUserDetails.createdAt.split(
                                 "T"
                               )[0]
                             : ""}

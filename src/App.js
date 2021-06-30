@@ -30,6 +30,7 @@ import SearchEscort from "./component/searchEscort/searchEscort";
 
 // test
 import Test from "./component/test";
+import VerificationEmailSent from "./component/verifyEmail/verificatonEmailSent.component";
 
 function App() {
   return (
@@ -70,6 +71,10 @@ function App() {
           <Route path="/viewEscort/:id" component={ViewEscortDetails} />
           <Route path="/book-escort/:id" component={BookingEscort} />
           <Route path="/search-escort" component={SearchEscort} />
+          <Route
+            path="/verification-email-sent/:email"
+            component={VerificationEmailSent}
+          />
         </Switch>
       </BrowserRouter>
     </div>
