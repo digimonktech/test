@@ -5,11 +5,8 @@ import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import Slide from "@material-ui/core/Slide";
 import jwt_decode from "jwt-decode";
 
@@ -111,32 +108,17 @@ export default class ResetPassword extends Component {
     return (
       <>
         <Header />
-        <Dialog
-          open={this.state.open}
-          // TransitionComponent={Transition}
-          keepMounted
-          onClose={() => this.handleClose()}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle id="alert-dialog-slide-title">
-            {"Alert Notification"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              {this.state.result}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.handleClose()} color="primary">
-              Done
-            </Button>
-          </DialogActions>
-        </Dialog>
+      
         <div className="login-bg">
           <div className="col-md-4 mx-auto">
             <div className="login-color">
               <h1 className="mb-3">Reset Password</h1>
+               <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:10}} onClose={()=>this.handleClose()}>
+        <MuiAlert onClose={()=>this.handleClose()} severity="success">
+          Password Updated Successfully
+        </MuiAlert>
+      
+      </Snackbar>
               <div className="col-md-9 mx-auto">
               <Form.Group className="mb-4 login-icon">
                 <Form.Control

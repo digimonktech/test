@@ -16,10 +16,10 @@ export default class Chat extends Component {
               </div>
             </div> */}
 
-            <div className="leftside-chat mb-4">
+            <div className="leftside-chat mb-8">
               <div className="chatbox gray">
               <img  style={{position:'relative', textAlign:'center',marginLeft:250,marginTop:30}} width="250" height="230"src={noChatImage} alt="" /> 
-              <p style={{color:"#E100FF",textAlign:"center",marginLeft:"50%",marginTop:10}}><h2>No Chat</h2>It's nice to chat with Someone </p>
+              <p style={{color:"#E100FF",textAlign:"center",marginLeft:"49%",marginTop:10}}><h2>No Record Found</h2>It's nice to chat with Someone </p>
               
               </div>
             </div>

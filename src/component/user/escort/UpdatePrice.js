@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import kookyLogo from "../../../images/logo.png";
 import { postData, getData } from "../../FetchNodeServices";
 import noOutCallImage from "../../../images/Group 4112@2x.png";
@@ -206,41 +202,7 @@ export default class UpdatePrice extends Component {
     return (
       <>
         <div className="edit-profilebox" style={{ minHeight: 295 }}>
-          <Dialog
-            open={this.state.open}
-            // TransitionComponent={Transition}
-            keepMounted
-            maxWidth="md"
-            onClose={() => this.handleClose()}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle
-              id="alert-dialog-slide-title"
-              style={{ textAlign: "center" }}
-            >
-              <img src={kookyLogo} alt="" />
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText
-                id="alert-dialog-slide-description"
-                style={{
-                  position: "relative",
-                  textAlign: "center",
-                  minWidth: 620,
-                  minHeight: 50,
-                  marginTop: 20,
-                }}
-              >
-                <h4> {this.state.result} </h4>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => this.handleClose()} color="primary">
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
+     
           <ul className="calltabs mb-4 mt-3">
             <li>
               <NavLink
@@ -294,18 +256,29 @@ export default class UpdatePrice extends Component {
                           ></span>
                         </li>
                       </ul>
+
                     ))}
+                    <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:30}} onClose={()=>this.handleClose()}>
+        <MuiAlert onClose={()=>this.handleClose()} severity="success">
+          {this.state.result}
+        </MuiAlert>
+</Snackbar>
                   </>
                 ) : (
+                  <div>
                   <img
-                    src={noOutCallImage}
+                    src={noInCallImage}
                     alt="no memeber Yet"
                     style={{
                       marginLeft: "40%",
                       marginTop: 40,
-                      marginBottom: 40,
+                      marginBottom: 0,
                     }}
                   />
+                                  <p style={{color:"#E100FF",textAlign:"center",fontSize:22,marginTop:10, fontWeight:"bold"}}><a onClick={() => this.adduser()} style={{cursor: "pointer",color:"blue"}}><u>Click Here</u></a> to Update Rates And Start Accepting Bookings
+                                  </p>
+
+                  </div>
                 )
               ) : this.state.inCallRate.length ? (
                 <>
@@ -329,6 +302,11 @@ export default class UpdatePrice extends Component {
                       </li>
                     </ul>
                   ))}
+                  <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:30}} onClose={()=>this.handleClose()}>
+        <MuiAlert onClose={()=>this.handleClose()} severity="success">
+          {this.state.result}
+        </MuiAlert>
+</Snackbar>
                 </>
               ) : (
                 <div>
@@ -341,7 +319,7 @@ export default class UpdatePrice extends Component {
                    
                     }}
                   />
-                  <p style={{color:"#E100FF",textAlign:"center",fontSize:22,marginTop:10, fontWeight:"bold"}}>No InCall</p>
+                  <p style={{color:"#E100FF",textAlign:"center",fontSize:22,marginTop:10, fontWeight:"bold"}}><a onClick={() => this.adduser()} style={{cursor: "pointer",color:"blue"}}><u>Click here</u></a> to Update Rates And Start Accepting Bookings</p>
                   </div>
               )}
             </div>
@@ -420,7 +398,9 @@ export default class UpdatePrice extends Component {
                     </label>
                   </Form.Group>
                 </Form>
+                
               </div>
+
             ) : null}
           </div>
         </div>

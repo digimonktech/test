@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Multiselect } from "multiselect-react-dropdown";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { postData, getData } from "../../FetchNodeServices";
 
 import kookyLogo from "../../../images/logo.png";
@@ -44,7 +40,7 @@ export default class PersonalInfo extends Component {
       escortId: "",
       wordCount: 0,
       open: false,
-      result: "Profile Update Successfully",
+      result: "Profile Updated Successfully",
       allLanguage: ["English", "Hindi", "Japanese", "French"],
       allServices: [],
       serviceObject: [],
@@ -282,42 +278,8 @@ export default class PersonalInfo extends Component {
     return (
       <>
         <div className="edit-profilebox">
-          <Dialog
-            open={this.state.open}
-            // TransitionComponent={Transition}
-            keepMounted
-            maxWidth="md"
-            onClose={() => this.handleClose()}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle
-              id="alert-dialog-slide-title"
-              style={{ textAlign: "center" }}
-            >
-              <img src={kookyLogo} alt="" />
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText
-                id="alert-dialog-slide-description"
-                style={{
-                  position: "relative",
-                  textAlign: "center",
-                  minWidth: 620,
-                  minHeight: 50,
-                  marginTop: 20,
-                }}
-              >
-                <h4> {this.state.result} </h4>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => this.handleClose()} color="primary">
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <Form>
+        
+                <Form>
             <Form.Group>
               <Form.Label htmlFor="name">Name</Form.Label>
               <Form.Control
@@ -637,6 +599,13 @@ export default class PersonalInfo extends Component {
                 {this.state.wordCount}
               </Form.Text>
             </Form.Group>
+
+            <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:40}} onClose={()=>this.handleClose()}>
+        <MuiAlert onClose={()=>this.handleClose()} severity="success">
+          {this.state.result}
+        </MuiAlert>
+</Snackbar>
+
             <Form.Group className="text-right">
               <Button
                 type="submit"

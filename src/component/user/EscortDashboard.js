@@ -36,7 +36,7 @@ export default class EscortDashboard extends Component {
       reviews: [],
       booking: [],
       isUpdated: false,
-      isOnline: false,
+      isOnline: true,
     };
   }
 
@@ -151,7 +151,13 @@ export default class EscortDashboard extends Component {
                 </a>
               </li>
 
-              <Dropdown as="li">
+              <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chats <span>(0)</span>
                 </Dropdown.Toggle>
@@ -174,7 +180,7 @@ export default class EscortDashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </ul>
           </div>
         );
@@ -281,7 +287,12 @@ export default class EscortDashboard extends Component {
                   </a>
                 </li>
 
-                <Dropdown as="li">
+                <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+                {/* <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     Chats <span>(0)</span>
                   </Dropdown.Toggle>
@@ -304,7 +315,7 @@ export default class EscortDashboard extends Component {
                       </NavLink>
                     </li>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </ul>
             </div>
           </>
@@ -411,7 +422,12 @@ export default class EscortDashboard extends Component {
                   </a>
                 </li>
 
-                <Dropdown as="li">
+                <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+                {/* <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     Chats <span>(0)</span>
                   </Dropdown.Toggle>
@@ -434,7 +450,7 @@ export default class EscortDashboard extends Component {
                       </NavLink>
                     </li>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </ul>
             </div>
           </>
@@ -540,7 +556,13 @@ export default class EscortDashboard extends Component {
                   </a>
                 </li>
 
-                <Dropdown as="li">
+                
+                <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+              {/* <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     Chats <span>(0)</span>
                   </Dropdown.Toggle>
@@ -563,7 +585,7 @@ export default class EscortDashboard extends Component {
                       </NavLink>
                     </li>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </ul>
             </div>
           </>
@@ -676,7 +698,13 @@ export default class EscortDashboard extends Component {
                   </a>
                 </li>
 
-                <Dropdown as="li">
+                <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+
+                {/* <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     Chats <span>(0)</span>
                   </Dropdown.Toggle>
@@ -699,7 +727,7 @@ export default class EscortDashboard extends Component {
                       </NavLink>
                     </li>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </ul>
             </div>
           </>
@@ -803,8 +831,12 @@ export default class EscortDashboard extends Component {
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
-
-              <Dropdown as="li">
+              <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chats <span>(0)</span>
                 </Dropdown.Toggle>
@@ -827,7 +859,7 @@ export default class EscortDashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </ul>
           </div>
         );
@@ -929,8 +961,12 @@ export default class EscortDashboard extends Component {
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
-
-              <Dropdown as="li">
+              <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chats <span>(0)</span>
                 </Dropdown.Toggle>
@@ -953,7 +989,7 @@ export default class EscortDashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </ul>
           </div>
         );
@@ -1055,8 +1091,12 @@ export default class EscortDashboard extends Component {
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
-
-              <Dropdown as="li">
+              <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chats <span>(0)</span>
                 </Dropdown.Toggle>
@@ -1079,7 +1119,7 @@ export default class EscortDashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </ul>
           </div>
         );
@@ -1181,8 +1221,12 @@ export default class EscortDashboard extends Component {
                   My Reviews <span>({this.state.reviews.length})</span>
                 </a>
               </li>
-
-              <Dropdown as="li">
+              <li>
+                <a onClick={() => this.ChangeTab("chat")}>
+                Chat <span>(0)</span>
+                </a>
+              </li>
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chats <span>(0)</span>
                 </Dropdown.Toggle>
@@ -1205,7 +1249,7 @@ export default class EscortDashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </ul>
           </div>
         );
@@ -1358,8 +1402,8 @@ export default class EscortDashboard extends Component {
                         checked={this.state.isOnline}
                         onChange={this.onOnlineModeChange}
                       />
-
-                      <Tooltip
+{
+                            this.state.escortDetails.outCallRate !=0 || this.state.escortDetails.inCallRate !=0 ? <Tooltip
                         title={
                           this.state.escortDetails.outCallRate.length
                             ? ""
@@ -1383,7 +1427,10 @@ export default class EscortDashboard extends Component {
                               : true
                           }
                         />
-                      </Tooltip>
+                      </Tooltip>:""  
+
+}
+                     
                     </span>
                   </h2>
 
@@ -1539,6 +1586,7 @@ export default class EscortDashboard extends Component {
                   ) : (
                     ""
                   )}
+            
                   {this.state.type === "chat" ? <Chat /> : ""}
                 </div>
               </Col>

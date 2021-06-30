@@ -213,7 +213,7 @@ export default class Dashboard extends Component {
                 </a>
               </li>
 
-              <Dropdown as="li">
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chat <span>(0)</span>
                 </Dropdown.Toggle>
@@ -236,7 +236,12 @@ export default class Dashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
+              <li>
+                  <a onClick={() => this.ChangeTab("chat")}>
+                  Chat <span>(0)</span>
+                  </a>
+                </li>
             </ul>
           </div>
         );
@@ -325,7 +330,12 @@ export default class Dashboard extends Component {
                   </a>
                 </li>
 
-                <Dropdown as="li">
+                <li>
+                  <a onClick={() => this.ChangeTab("chat")}>
+                  Chat <span>(0)</span>
+                  </a>
+                </li>
+                {/* <Dropdown as="li">
                   <Dropdown.Toggle as="a" variant="false">
                     Chat <span>(0)</span>
                   </Dropdown.Toggle>
@@ -348,7 +358,7 @@ export default class Dashboard extends Component {
                       </NavLink>
                     </li>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </ul>
             </div>
           </>
@@ -437,7 +447,7 @@ export default class Dashboard extends Component {
                 </a>
               </li>
 
-              <Dropdown as="li">
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chat <span>(0)</span>
                 </Dropdown.Toggle>
@@ -460,7 +470,12 @@ export default class Dashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
+              <li>
+                  <a onClick={() => this.ChangeTab("chat")}>
+                  Chat <span>(0)</span>
+                  </a>
+                </li>
             </ul>
           </div>
         );
@@ -548,7 +563,7 @@ export default class Dashboard extends Component {
                 </a>
               </li>
 
-              <Dropdown as="li">
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chat <span>(0)</span>
                 </Dropdown.Toggle>
@@ -571,7 +586,12 @@ export default class Dashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
+              <li>
+                  <a onClick={() => this.ChangeTab("chat")}>
+                  Chat <span>(0)</span>
+                  </a>
+                </li>
             </ul>
           </div>
         );
@@ -659,7 +679,7 @@ export default class Dashboard extends Component {
                 </a>
               </li>
 
-              <Dropdown as="li">
+              {/* <Dropdown as="li">
                 <Dropdown.Toggle as="a" variant="false">
                   Chat <span>(0)</span>
                 </Dropdown.Toggle>
@@ -682,7 +702,12 @@ export default class Dashboard extends Component {
                     </NavLink>
                   </li>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
+              <li>
+                  <a onClick={() => this.ChangeTab("chat")}>
+                  Chat <span>(0)</span>
+                  </a>
+                </li>
             </ul>
           </div>
         );

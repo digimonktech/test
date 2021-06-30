@@ -166,12 +166,12 @@ export default class MyReview extends Component {
                               </>
                             ) : (
                               <>
-                                <Button
+                                {/* <Button
                                   className="btn btn-danger mr-2"
                                   onClick={() => this.handleDelete(u, index)}
                                 >
                                   <i className="flaticon-trash"></i> Delete
-                                </Button>
+                                </Button> */}
                                 {/* <Button
                                   variant="success"
                                   className="btn btn-success"

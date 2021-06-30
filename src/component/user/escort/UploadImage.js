@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { postData ,getData} from "../../FetchNodeServices";
 import kookyLogo from "../../../images/logo.png";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';import CircularProgress from "@material-ui/core/CircularProgress";
 import Slide from "@material-ui/core/Slide";
 
 export default class UploadImage extends Component {
@@ -16,7 +12,7 @@ export default class UploadImage extends Component {
     this.state = {
       file: [],
       open: false,
-      result: "Photo Upload Successfully",
+      result: "Photo Uploaded Successfully",
       lstyle: { display: "none" },
       button: "Browse Photos",
       numOfImagesByEscort:"",
@@ -128,41 +124,7 @@ export default class UploadImage extends Component {
     return (
       <>
         <div className="edit-profilebox">
-          <Dialog
-            open={this.state.open}
-            // TransitionComponent={Transition}
-            keepMounted
-            onClose={() => this.handleClose()}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle
-              id="alert-dialog-slide-title"
-              style={{ textAlign: "center" }}
-            >
-              <img src={kookyLogo} alt="" />
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText
-                id="alert-dialog-slide-description"
-                style={{
-                  position: "relative",
-                  textAlign: "center",
-                  minWidth: 570,
-                  minHeight: 50,
-                  marginTop: 20,
-                }}
-              >
-                <h4> {this.state.result} </h4>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => this.handleClose()} color="primary">
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <form>
+           <form>
             <div className="uploadimgae-title">
               <h3>
                 Upload upto {this.state.numOfImagesByEscort} Photos{" "}
@@ -182,6 +144,12 @@ export default class UploadImage extends Component {
               ))}
               
             </div>
+            <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:30}} onClose={()=>this.handleClose()}>
+        <MuiAlert onClose={()=>this.handleClose()} severity="success">
+          {this.state.result}
+        </MuiAlert>
+</Snackbar>
+
             {this.state.file.length < this.state.numOfImagesByEscort ? (
               <div className="form-group">
                 <Form.Label>Upload Photos</Form.Label>

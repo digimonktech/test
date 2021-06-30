@@ -103,15 +103,15 @@ export default class EscortCard extends Component {
                       <span style={{ marginRight: "3vw" }}>
                         <i className="fas fa-share-alt"></i>
                       </span>
-                      <span className="heart-user">
+                      {/* <span className="heart-user">
                         <i className="far fa-heart"></i>
-                      </span>
+                      </span> */}
                     </span>
                   </h3>
                 </Col>
                 <Col>
-                  <p className="newb">
-                    New{" "}
+                  <p className="newb" style={{color:"#E100FF",fontSize:20}}>
+                    {/* New{" "} */}
                     {escort.city
                       ? escort.city
                           .replace("_", " ")

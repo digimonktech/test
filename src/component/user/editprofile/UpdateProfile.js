@@ -3,11 +3,8 @@ import { Button } from "react-bootstrap";
 import { Form, Row, Col } from "react-bootstrap";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { postData } from "../../FetchNodeServices";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import Slide from "@material-ui/core/Slide";
 import kookyLogo from "../../../images/logo.png";
 
@@ -128,6 +125,11 @@ export default class UpdateProfile extends Component {
               </Form.Group>
             </Col>
           </Row>
+          <Snackbar open={this.state.open} style={{position: 'relative',width:350,marginTop:30}} onClose={()=>this.handleClose()}>
+        <MuiAlert onClose={()=>this.handleClose()} severity="success">
+          Profile Updated Successfully
+        </MuiAlert>
+</Snackbar>
           <Form.Group className="text-right text-uppercase">
             <Button
               type="submit"
@@ -146,31 +148,7 @@ export default class UpdateProfile extends Component {
               {this.state.getMsg}
             </label>
           </Form.Group>
-          <Dialog
-            open={this.state.open}
-            // TransitionComponent={Transition}
-          maxWidth="md"
-
-            keepMounted
-            onClose={() => this.handleClose()}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle id="alert-dialog-slide-title" style={{textAlign: "center"}}>
-            <img src={kookyLogo} alt="" />
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description" style={{position:"relative", textAlign:"center", minWidth:620,minHeight:50,marginTop:20}}>
-            <h4>    {this.state.result} </h4>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => this.handleClose()} color="primary">
-                Done
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </div>
+                 </div>
       </>
     );
   }

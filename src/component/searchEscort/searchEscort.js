@@ -172,9 +172,22 @@ export default class SearchEscort extends Component {
   cancelFilter = async () => {
     this.setState({ tab: "online" });
   };
+
+  componentWillMount = async () => {
+    if(this.props.location.state){
+      // console.log("render filter", filter);
+    }
+    else
+    {
+      this.props.history.push(`/booking`);
+    }
+  }
+  
   render() {
     const { filter } = this.props.location.state;
-    console.log("render filter", filter);
+
+    
+   
 
     return (
       <>

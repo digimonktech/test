@@ -464,7 +464,9 @@ export default class ViewEscortDetails extends Component {
                     </li>
                     <li>
                       Ratings
-                      <span>  {escort.recivedStarts / escort.numOfUserRated} <i className="fas fa-star" style={{color: "#E100FF" }}></i>
+                      <span>  
+                        
+                        {escort.recivedStarts / escort.numOfUserRated ?<div> escort.recivedStarts / escort.numOfUserRated  <i className="fas fa-star" style={{color: "#E100FF" }}></i></div>: "No Reviews"} 
                         {/* <StarRatingComponent
                           name="rate1"
                           starCount={5}
@@ -482,7 +484,7 @@ export default class ViewEscortDetails extends Component {
                     <li>
                       Measurements{" "}
                       <span>
-                        {escort.measurement
+                        {escort.measurement===0
                           ? `${escort.measurement.bust} ${escort.measurement.hips} ${escort.measurement.waist}`
                           : "N/A"}
                       </span>
