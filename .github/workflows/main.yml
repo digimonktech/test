@@ -35,8 +35,8 @@ jobs:
       - name: Sync files to hosting
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with: 
-          server:  203.190.153.19
-          username: user
-          password: relaxadmin@123
-          port: 22
-          path: /var/www/html/test
+          server: 
+          username: 
+          password: 
+          port: 
+          path: 
